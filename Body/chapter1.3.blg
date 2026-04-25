@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[1] Config.pm:310> INFO - Logfile is 'Body/chapter1.3.blg'
+[141] biber:340> INFO - === Sun Oct 26, 2025, 16:38:09
+[167] Biber.pm:419> INFO - Reading 'Body/chapter1.3.bcf'
+[262] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
+[280] bbl.pm:660> INFO - Writing 'Body/chapter1.3.bbl' with encoding 'UTF-8'
+[281] bbl.pm:763> INFO - Output to Body/chapter1.3.bbl
+[281] Biber.pm:131> WARN - The file 'Body/chapter1.3.bcf' does not contain any citations!
+[281] Biber.pm:133> INFO - WARNINGS: 1

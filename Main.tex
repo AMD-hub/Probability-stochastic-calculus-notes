@@ -1,0 +1,112 @@
+\PassOptionsToPackage{draft}{microtype}
+\documentclass[french, a4paper, 12pt, twoside]{insea}
+\usepackage{subfiles}
+
+% =====================================
+%  GENERAL SETTING : 
+% ====================================
+\title{ STOCHASTIC CALCULUS AND DERIVATIVE PRICING }
+\author{ \and
+    \begin{tabular}{lll}
+      EL YOUSEFI  & Ahmed & AF \\
+      NACIR  & Ilyas & AF 
+    \end{tabular} }
+
+
+    
+\graphicspath{{Images/}{../Images/}}
+\setkeys{Gin}{width=0.85\textwidth}
+
+
+
+% THE REFERENCES
+\addbibresource{References.bib}
+
+% =====================================
+% Special for this project
+% ====================================
+\input{theorems.tex}
+
+\newcommand{\hatt}[1]{\widehat{#1}}
+\newcommand{\barr}[1]{\overline{#1}}
+\newcommand{\vide}{\O}
+\newcommand{\goto}[1]{#1 \to \infty}
+% \newcommand{\conv}[1]{\xrightarrow{\goto{#1}}}
+\newcommand{\conv}[2][]{%
+  \xrightarrow[#1]{\goto{#2}}%
+}
+
+\newcommand{\conj}[1]{\langle #1 \rangle_c}
+
+
+\newcommand{\measspace}[1][]{%
+\Omega_{#1}, \A_{#1}%
+}
+\newcommand{\probspace}[1][]{%
+\Omega_{#1}, \A_{#1}, \PP_{#1}%
+}
+
+\newcommand{\sfield}{$\sigma$-field }
+\newcommand{\sfields}{$\sigma$-fields }
+\usepackage{tikz-cd}
+
+
+
+
+
+\begin{document}
+
+% ----------------------------------------------------
+% -----           Guarde Page                   -----
+% ----------------------------------------------------
+\TitleInput{page.pdf}
+
+
+
+
+% ----------------------------------------------------
+% -----      Abstract / Preface / synthesis      -----
+% ----------------------------------------------------
+\chapter*{Preface}
+\lipsum
+
+
+% ----------------------------------------------------
+% -----       Dedicace and acknowledegemt        -----
+% ----------------------------------------------------
+
+
+% ----------------------------------------------------
+% ----- Tables of contents/figs/tabs and ancro   -----
+% ----------------------------------------------------
+\tableofcontents
+% \listoffigures
+% \listoftables
+
+
+% ------------------ss----------------------------------
+% -----           BODY of the Document           -----
+% ----------------------------------------------------
+\subfile{Body/chapter1v2.tex}
+
+\subfile{Body/chapter2.tex}
+
+
+% -----------------------------------------------------
+% -----                 Conclusion               ------
+% -----------------------------------------------------
+
+
+
+
+% ----------------------------------------------------
+% -----      bib+annexe of the Document          -----
+% ----------------------------------------------------
+\printbibliography
+% \subfile{Body/Supplements.tex}
+
+
+
+
+
+\end{document}
