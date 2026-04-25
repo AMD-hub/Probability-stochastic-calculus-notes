@@ -200,4 +200,23 @@ Let $S$ and $T$ be two stopping times
 }
 If $T$ is a stopping time, then, for every $n \in \mathbb{N}$ (resp. $t \geq 0$), $n \wedge T$ (resp. $t \wedge T$) is also a stopping time (Proposition \ref{prop:two_stopping_times}) and it follows from the preceding theorem that $Y_{n \wedge T}$ (resp. $Y_{t \wedge T}$) is $\mathcal{F}_{n \wedge T}$-measurable (resp. $\mathcal{F}_{t \wedge T}$-measurable), hence also $\mathcal{F}_n$-measurable (resp. $\mathcal{F}_t$-measurable) by Proposition \ref{prop:two_stopping_times}.
 
+\proppr{sequence_stopping_time}{
+    If $(S_n)$ is a sequence of stopping times then :
+    \begin{itemize}
+        \item if $(S_n)$ is monotone increasing, then $S=\lim \uparrow S_n$ is a stopping time. 
+        \item If $(S_n)$ is monotone decreasing, then $S=\lim \downarrow S_n$ is a stopping time and
+            \[\mathscr{F}_{S+}=\bigcap_n \mathscr{F}_{S_n+} \]
+    \end{itemize}
+}{
+    to be proven.
+}
+
+\proppr{majorant_is_stoping_time}{
+    Let $T$ be a stopping time and let $S$ be an $\mathscr{F}_T$-measurable random variable with values in $[0, \infty]$, such that $S \geq T$. 
+    Then $S$ is also a stopping time. In particular, if $T$ is a stopping time,
+    \[    T_n=\sum_{k=0}^{\infty} \frac{k+1}{2^n} \mathbf{1}_{\left\{k 2^{-n}<T \leq(k+1) 2^{-n}\right\}}+\infty \cdot \mathbf{1}_{\{T=\infty\}}, \quad n=0,1,2, \ldots \]
+    defines a sequence of stopping times that decreases to $T$.
+}{
+    to be proven.
+}
 \end{document}
