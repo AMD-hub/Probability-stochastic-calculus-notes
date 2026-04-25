@@ -48,5 +48,5 @@
 \contentsline {subsection}{\numberline {2.1.2}Adapted processes}{82}{subsection.2.1.2}%
 \contentsline {section}{\numberline {2.2}Martingales}{84}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Stopping times}{86}{section.2.3}%
-\contentsline {chapter}{Bibliographie}{88}{chapter*.18}%
+\contentsline {chapter}{Bibliographie}{89}{chapter*.18}%
 \contentsfinish 

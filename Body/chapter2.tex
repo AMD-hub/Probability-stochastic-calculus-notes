@@ -205,14 +205,14 @@ If $T$ is a stopping time, then, for every $n \in \mathbb{N}$ (resp. $t \geq 0$)
     \begin{itemize}
         \item if $(S_n)$ is monotone increasing, then $S=\lim \uparrow S_n$ is a stopping time. 
         \item If $(S_n)$ is monotone decreasing, then $S=\lim \downarrow S_n$ is a stopping time and
-            \[\mathscr{F}_{S+}=\bigcap_n \mathscr{F}_{S_n+} \]
+            \[\mathcal{F}_{S+}=\bigcap_n \mathcal{F}_{S_n+} \]
     \end{itemize}
 }{
     to be proven.
 }
 
 \proppr{majorant_is_stoping_time}{
-    Let $T$ be a stopping time and let $S$ be an $\mathscr{F}_T$-measurable random variable with values in $[0, \infty]$, such that $S \geq T$. 
+    Let $T$ be a stopping time and let $S$ be an $\mathcal{F}_T$-measurable random variable with values in $[0, \infty]$, such that $S \geq T$. 
     Then $S$ is also a stopping time. In particular, if $T$ is a stopping time,
     \[    T_n=\sum_{k=0}^{\infty} \frac{k+1}{2^n} \mathbf{1}_{\left\{k 2^{-n}<T \leq(k+1) 2^{-n}\right\}}+\infty \cdot \mathbf{1}_{\{T=\infty\}}, \quad n=0,1,2, \ldots \]
     defines a sequence of stopping times that decreases to $T$.

@@ -1,14 +1,14 @@
 # Fdb version 4
-["biber Main"] 1776889963.88266 "Main.bcf" "Main.bbl" "Main" 1776890269.67421 0
-  "Main.bcf" 1776890269.23629 108163 a5b760b30908b529224b5a4b75b6cd9b "pdflatex"
+["biber Main"] 1777126931.14992 "Main.bcf" "Main.bbl" "Main" 1777127059.34071 0
+  "Main.bcf" 1777127058.55641 108163 a5b760b30908b529224b5a4b75b6cd9b "pdflatex"
   "References.bib" 1773918293.84188 2004 edc955c75f73ca9fe5a139d70daf9cab ""
   (generated)
   "Main.bbl"
   "Main.blg"
   (rewritten before read)
-["pdflatex"] 1776890256.35513 "/home/amd_raizen/latex_projects/Projects/Books/Quant_AMD/Main.tex" "Main.pdf" "Main" 1776890269.67489 0
+["pdflatex"] 1777127036.06615 "/home/amd_raizen/latex_projects/Projects/Books/Quant_AMD/Main.tex" "Main.pdf" "Main" 1777127059.34127 0
   "/etc/texmf/web2c/texmf.cnf" 1761072308.36899 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/amd_raizen/latex_projects/Projects/Books/Quant_AMD/Main.tex" 1776890238.93596 2587 84d648368c97ad53f1620c46770f91e2 ""
+  "/home/amd_raizen/latex_projects/Projects/Books/Quant_AMD/Main.tex" 1777126930.41427 2587 84d648368c97ad53f1620c46770f91e2 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -413,13 +413,13 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1761072396.30244 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1761072684 8215051 6e052a92f9a55de4a246e417d57a3d64 ""
   "Body/chapter1v2.tex" 1776799810.10805 152417 d7aa3d2e2c8056ab2fdd8614146e5327 ""
-  "Body/chapter2.tex" 1776890239.16476 15863 ad52156ab005d213d164c4019794ab98 ""
-  "Main.aux" 1776890269.20989 18006 ed8e7afd0208df3e7d60476a1b6c6453 "pdflatex"
-  "Main.bbl" 1776889969.37757 2845 c7bbe2750a41ceec74b5d62d92444a16 "biber Main"
-  "Main.out" 1776890269.22309 9079 932c2c9e18098564019583bd6152c7a3 "pdflatex"
-  "Main.run.xml" 1776890269.23629 2304 ec3121c761683131b5369253b3262583 "pdflatex"
-  "Main.tex" 1776890238.93596 2587 84d648368c97ad53f1620c46770f91e2 ""
-  "Main.toc" 1776890269.23629 4512 dc9118b8182b88f178808f3ff769904e "pdflatex"
+  "Body/chapter2.tex" 1777126930.56497 16791 a3a1fe95f9e7dbc96334bea596501346 ""
+  "Main.aux" 1777127058.52841 18176 6bf07f8626df3b07679a096b98a43c27 "pdflatex"
+  "Main.bbl" 1777126935.7557 2845 c7bbe2750a41ceec74b5d62d92444a16 "biber Main"
+  "Main.out" 1777127058.54441 9079 932c2c9e18098564019583bd6152c7a3 "pdflatex"
+  "Main.run.xml" 1777127058.56041 2304 ec3121c761683131b5369253b3262583 "pdflatex"
+  "Main.tex" 1777126930.41427 2587 84d648368c97ad53f1620c46770f91e2 ""
+  "Main.toc" 1777127058.56041 4512 d31067d20b25f66e24ffbc1285c9a2b6 "pdflatex"
   "img/tikz.tex" 1773850319.66985 920 7d49ec8172ba3ea51b6ee6d9c0bdf7a8 ""
   "insea.cls" 1762118890.94245 17077 4f96c0ebfe9a7e335aab22709f3f6367 ""
   "page.pdf" 1762006858.1348 46760 8415f282ed09a53c456d441ca4020224 ""
