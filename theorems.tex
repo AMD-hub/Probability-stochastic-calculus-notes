@@ -236,6 +236,12 @@
     \endtcolorbox
 }
 
+\NewDocumentCommand{\lemr}{m+m+m}{
+    \begin{mylemma}{#1}{#2}
+        #3
+    \end{mylemma}
+}
+
 \NewDocumentCommand{\lemp}{m+m+m}{
     \begin{mylemma}{#1}{}
         #2

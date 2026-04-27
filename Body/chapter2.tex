@@ -4,12 +4,12 @@
 \begin{document}
 
 
-\chapter{Martingale Theory}
+\chapter{Martingale and Continuous Semimartingales Theory}
 
-\section{Preliminaries}
 
-\subsection{Filtrations and information flow}
+\section{Filtrations and information flow}
 
+\subsection{Filtration}
 \defnr{Filtration}{filtration}{A filtration on $(\Omega, \mathcal{A}, \mathbb{P})$ is an increasing family of sub-$\sigma$-fields of $\mathcal{A}$. The family in the most applications of this book is indexed by time, which is either discrete ($\mathbb{N}$) or continuous ($\mathbb{R}_+$). 
 \begin{itemize}
     \item \textbf{The discrete-time case:} A discrete-time filtration is a family $(\mathcal{F}_n)_{n \in \mathbb{N}}$ of $\sigma$-fields such that :
@@ -56,7 +56,7 @@ If $(\mathcal{F}_t)$ is not complete, it can be completed by setting $\mathcal{F
 \subsection{Adapted processes}
 For the discrete-time case, we have only one definition for measurablity with respect to a filtration, but for the continuous-time case, we have 3 types/definitions of measurability. We start with the discrete-time case.
 \defnr{Adapted Process [discrete]}{adapted-discrete}{
-    A random process $(X_n)_{n \in \mathbb{Z}_+}$ is said to be adapted to the filtration $(\mathcal{F}_n)_{n \in \mathbb{Z}_+}$ if, for every $n \in \mathbb{Z}_+$, $X_n$ is $\mathcal{F}_n$-measurable.
+    A random process $(X_n)_{n \in \mathbb{N}}$ is said to be adapted to the filtration $(\mathcal{F}_n)_{n \in \mathbb{N}}$ if, for every $n \in \mathbb{N}$, $X_n$ is $\mathcal{F}_n$-measurable.
 }
 In the continuous-time case, we have the following definitions.
 \defnr{Measurable Process [continuous]}{measurable-continuous}{
@@ -83,11 +83,19 @@ and $X^n_t = X_t$. The right-continuity of sample paths ensures that, for every 
 
 On the other hand, for every Borel subset $A$ of $E$,
 
-\[ \{(\omega, s) \in \Omega \times [0, t] : X^n_s(\omega) \in A\} = (\{X_t \in A\} \times \{t\}) \cup \left( \bigcup_{k=1}^n \left( \{X_{kt/n} \in A\} \times \left[ \frac{(k - 1)t}{n}, \frac{kt}{n} \right) \right) \right)\]
+\[
+\begin{aligned}
+\{(\omega, s) \in \Omega \times [0, t] : X^n_s(\omega) \in A\}
+&= (\{X_t \in A\} \times \{t\}) \\
+&\quad \cup \left( \bigcup_{k=1}^n \left( \{X_{kt/n} \in A\} \times \left[ \frac{(k - 1)t}{n}, \frac{kt}{n} \right) \right) \right)
+\end{aligned}
+\]
 
 which belongs to the $\sigma$-field $\mathcal{F}_t \otimes \mathcal{B}([0, t])$. Hence, for every $n \ge 1$, the mapping $(\omega, s) \mapsto X^n_s(\omega)$, defined on $\Omega \times [0, t]$, is measurable for $\mathcal{F}_t \otimes \mathcal{B}([0, t])$. Since a pointwise limit of measurable functions is also measurable, the same measurability property holds for the mapping $(\omega, s) \mapsto X_s(\omega)$ defined on $\Omega \times [0, t]$. It follows that the process $X$ is progressive. 
 }
-\section{Martingales} 
+
+\section{Martingales and stopping times}
+\subsection{Martingales} 
 
 \defnr{Martingale }{Martingales}{
 An adapted real-valued process $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \ge 0}$) such that $X_n \in L^1$ for every $n\in\NN$ (resp. $X_t \in L^1$ for every $t \ge 0$) is called
@@ -116,17 +124,17 @@ If $(X_n)_{n \in \NN}$ (resp.  $(X_t)_{t \ge 0}$) is a submartingale, $(-X_n)_{n
 \propr{convexity_martingal}{
 Let $\varphi : \mathbb{R} \longrightarrow \mathbb{R}_+$ be a convex function, and let $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \ge 0}$) be an adapted process, such that $\mathbb{E}[\varphi(X_n)] < \infty$ for every $n \in \mathbb{N}$ (resp. $\mathbb{E}[\varphi(X_t)] < \infty$ for every $t \ge 0$).
 \begin{itemize}
-\item  If $(X_n)_{n \in \mathbb{Z}_+}$ (resp. $(X_t)_{t \ge 0}$) is a martingale, then $(\varphi(X_n))_{n \in \mathbb{Z}_+}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
-\item  If $(X_n)_{n \in \mathbb{Z}_+}$ (resp. $(X_t)_{t \ge 0}$) is a submartingale, and if we assume in addition that $\varphi$ is increasing, $(\varphi(X_n))_{n \in \mathbb{Z}_+}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
+\item  If $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \ge 0}$) is a martingale, then $(\varphi(X_n))_{n \in \mathbb{N}}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
+\item  If $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \ge 0}$) is a submartingale, and if we assume in addition that $\varphi$ is increasing, $(\varphi(X_n))_{n \in \mathbb{N}}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
 \end{itemize}
 }
 
 In particular, if $X_n$ (resp. $X_t$) is a martingale, $|X_n|$ (resp. $|X_t|$) is a submartingale (and so is $X_n^2$, provided that $\mathbb{E}[X_n^2] < \infty$ for every $n$) and, if $X_n$ (resp. $X_t$) is a submartingale, $(X_n)^+$ (resp. $(X_t)^+$) is also a submartingale.
 
-\propr{sup_martingale_finite}{
-    Let $(X_t)_{t \geq 0}$ be a submartingale or a supermartingale. Then, for every $t > 0$, 
-    \[ \sup_{0 \leq s \leq t} E[|X_s|] < \infty. \]
-}
+% \propr{sup_martingale_finite}{
+%     Let $(X_t)_{t \geq 0}$ be a submartingale or a supermartingale. Then, for every $t > 0$, 
+%     \[ \sup_{0 \leq s \leq t} E[|X_s|] < \infty. \]
+% }
 
 \propr{finite_quad_var}{
     Let $(M_n)_{n\in \NN}$ (resp.  $(M_t)_{t \geq 0}$) be a square integrable martingale ($\in L^2$). Then :
@@ -145,14 +153,14 @@ For the discrete-time martingale we can define the following operation with pred
 \defnr{Predictable Process}{predictable_process}{A sequence $(H_n)_{n \in \mathbb{N}}$ of real random variables is called predictable if $H_n$ is bounded and $\mathcal{F}_{n-1}$-measurable, for every $n \in \mathbb{N}$.}
 
 
-\proppr{predictable_martingale}{Let $(X_n)_{n \in \mathbb{Z}_+}$ be an adapted process, and let $(H_n)_{n \in \mathbb{N}}$ be a predictable sequence. We set $(H \bullet X)_0 = 0$ and, for every integer $n \ge 1$:
+\proppr{predictable_martingale}{Let $(X_n)_{n \in \mathbb{N}}$ be an adapted process, and let $(H_n)_{n \in \mathbb{N}}$ be a predictable sequence. We set $(H \bullet X)_0 = 0$ and, for every integer $n \ge 1$:
 \[(H \bullet X)_n = H_1(X_1 - X_0) + H_2(X_2 - X_1) + \cdots + H_n(X_n - X_{n-1})\]
 Then,
 \begin{itemize}
-    \item  If $(X_n)_{n \in \mathbb{Z}_+}$ is a martingale, $((H \bullet X)_n)_{n \in \mathbb{Z}_+}$ is also a martingale.
-    \item If $(X_n)_{n \in \mathbb{Z}_+}$ is a supermartingale (resp. a submartingale), and $H_n \ge 0$ for every $n \in \mathbb{N}$, then $((H \bullet X)_n)_{n \in \mathbb{Z}_+}$ is a supermartingale (resp. a submartingale).
+    \item  If $(X_n)_{n \in \mathbb{N}}$ is a martingale, $((H \bullet X)_n)_{n \in \mathbb{N}}$ is also a martingale.
+    \item If $(X_n)_{n \in \mathbb{N}}$ is a supermartingale (resp. a submartingale), and $H_n \ge 0$ for every $n \in \mathbb{N}$, then $((H \bullet X)_n)_{n \in \mathbb{N}}$ is a supermartingale (resp. a submartingale).
 \end{itemize}}{
-Let us prove first assertion. Since the random variables $H_n$ are bounded, one immediately checks that the random variables $(H \bullet X)_n$ are integrable. It is also straightforward to verify that the process $((H \bullet X)_n)_{n \in \mathbb{Z}_+}$ is adapted (all random variables entering the definition of $(H \bullet X)_n$ are $\mathcal{F}_n$-measurable). Then it suffices to verify that, for every $n \in \mathbb{Z}_+$,
+Let us prove first assertion. Since the random variables $H_n$ are bounded, one immediately checks that the random variables $(H \bullet X)_n$ are integrable. It is also straightforward to verify that the process $((H \bullet X)_n)_{n \in \mathbb{N}}$ is adapted (all random variables entering the definition of $(H \bullet X)_n$ are $\mathcal{F}_n$-measurable). Then it suffices to verify that, for every $n \in \mathbb{N}$,
 
 \[ \mathbb{E}[(H \bullet X)_{n+1} - (H \bullet X)_n \mid \mathcal{F}_n] = 0.\]
 
@@ -167,7 +175,7 @@ However, $(H \bullet X)_{n+1} - (H \bullet X)_n = H_{n+1}(X_{n+1} - X_n)$ and si
 The proof of the second assertion is similar. 
 }
 
-\section{Stopping times}
+\subsection{Stopping times}
 \defnr{Stopping time}{stopping_time}{
 A random variable $T : \Omega \longrightarrow [0, \infty]$ is a \textbf{stopping time} of the filtration  $(\mathcal{F}_n)$ (resp. $(\mathcal{F}_t)$) if $\{T \leq n\} \in \mathcal{F}_n \quad \forall n \in\NN$ (resp. $\{T \leq t\} \in \mathcal{F}_t \quad \forall t \geq 0$)  The $\sigma$-field of the past before $T$ is then defined by
 
@@ -219,4 +227,197 @@ If $T$ is a stopping time, then, for every $n \in \mathbb{N}$ (resp. $t \geq 0$)
 }{
     to be proven.
 }
+
+Finally lets defining hitting time. 
+\defnr{Hitting time}{hitting_time}{
+    Let $(X_t)_{t \geq 0}$ be an adapted process with values in a metric space $(E, d)$. 
+    \begin{enumerate}
+        \item Assume that the sample paths of $X$ are right-continuous, and let $O$ be an open subset of $E$. Then 
+        \[ T_O = \inf\{t \geq 0 : X_t \in O\} \] 
+        is a stopping time of the filtration $(\mathcal{F}_{t})$.
+        \item Assume that the sample paths of $X$ are continuous, and let $F$ be a closed subset of $E$. Then
+        \[ T_F = \inf\{t \geq 0 : X_t \in F\} \] 
+        is a stopping time (of the filtration $(\mathcal{F}_t)$).
+    \end{enumerate}
+}
+In fact the stopping time property can be proven by considering the two sets :
+\[ 
+\begin{cases}
+    \{T_O < t\} &= \displaystyle \bigcup_{s \in [0, t) \cap \mathbb{Q}} \{X_s \in O\} \in \mathcal{F}_t, \\
+    \{T_F \leq t\} &= \displaystyle \left\{ \inf_{0 \leq s \leq t} d(X_s, F) = 0 \right\} = \left\{ \inf_{s \in [0, t] \cap \mathbb{Q}} d(X_s, F) = 0 \right\} \in \mathcal{F}_t.
+\end{cases}
+\]
+
+\section{Martingale convergence theory}
+
+\subsection{Upcrossing numbers}
+\subsubsection{Discret time}
+Consider first a deterministic real sequence $y = (y_n)_{n \in \mathbb{N}}$, and $a < b$, the \textbf{upcrossing number} of this sequence along $[a, b]$ before time $n$, denoted by $M_{ab}^y(n)$, is the largest integer $k$ such that there exists a strictly increasing finite sequence
+    \[ m_1 < n_1 < m_2 < n_2 < \dots < m_k < n_k \]
+of nonnegative integers smaller than or equal to $n$ with the properties $y_{m_i} \le a$ and $y_{n_i} \ge b$, for every $i \in \{1, \dots, k\}$. In what follows we consider a sequence $Y = (Y_n)_{n \in \mathbb{N}}$ of real random variables, and the associated upcrossing number $M_{ab}^Y(n)$ is then an integer-valued random variable. where $M_{ab}^y(0) = 0$ if such a sequence does not exist.
+We will use the following simple analytic lemma, whose proof is left to the reader.
+
+
+\lemr{haha}{convergence_and_upcrossing_number_discrete}{ 
+    The sequence $(y_n)_{n \in \mathbb{N}}$ converges in $\overline{\mathbb{R}}$ if and only if, for every choice of the rationals $a$ and $b$ with $a < b$, we have $M_{ab}^y(n) < \infty$.
+    }
+\lemr{Doob's Upcrossing Inequality}{Doob_upcrossing_inequality_discrete}{ 
+    Let $X = (X_n)_{n \in \mathbb{N}}$ be a supermartingale. Then, for every reals $a < b$ and every $n \in \mathbb{N}$,
+    $$E[M_{ab}^Y(n)] \leq \frac{1}{b-a}E[(Y_n-a)^-]$$
+    }
+
+\subsubsection{Continuous time}
+Let $f : I \longrightarrow \mathbb{R}$ be a function defined on a subset $I$ of $\mathbb{R}_+$. If $a < b$, the upcrossing number of $f$ along $[a, b]$, denoted by $M_{ab}^f(I)$, is the maximal integer $k \geq 1$ such that there exists a finite increasing sequence $s_1 < t_1 < \dots < s_k < t_k$ of elements of $I$ such that $f(s_i) \leq a$ and $f(t_i) \geq b$ for every $i \in \{1, \dots, k\}$ (if, even for $k = 1$, there is no such subsequence, we take $M_{ab}^f(I) = 0$, and if such a subsequence exists for every $k \geq 1$, we take $M_{ab}^f(I) = \infty$). Upcrossing numbers are a convenient tool to study the regularity of functions.
+
+In the next lemma, the notation
+
+$$\lim_{s \downarrow \downarrow t} f(s) \quad (\text{resp. } \lim_{s \uparrow \uparrow t} f(s) )$$
+means
+$$\lim_{s \downarrow t, s > t} f(s) \quad (\text{resp. } \lim_{s \uparrow t, s < t} f(s) ).$$
+
+We say that $g : \mathbb{R}_+ \to \mathbb{R}$ is **càdlàg** (for the French "continue à droite avec des limites à gauche") if $g$ is right-continuous and has left-limits at every $t > 0$.
+
+\lemr{}{limits_and_upcrossing_number_continuous}{ 
+    Let $D$ be a countable dense subset of $\mathbb{R}_+$ and let $f$ be a real function defined on $D$. We assume that, for every $T \in D$,
+\begin{itemize}
+    \item  the function $f$ is bounded on $D \cap [0, T]$;
+    \item  for all rationals $a$ and $b$ such that $a < b$, 
+        $$M_{ab}^f(D \cap [0, T]) < \infty.$$
+\end{itemize}
+    Then, the right-limit
+    $$f(t+) := \lim_{s \downarrow \downarrow t, s \in D} f(s)$$
+    exists for every real $t \geq 0$, and similarly the left-limit
+    $$f(t-) := \lim_{s \uparrow \uparrow t, s \in D} f(s)$$
+    exists for every real $t > 0$. Furthermore, the function $g : \mathbb{R}_+ \to \mathbb{R}$ defined by $g(t) = f(t+)$ is càdlàg.
+}
+We omit the proof of this analytic lemma. It is important to note that the right and left-limits $f(t+)$ and $f(t-)$ are defined for every $t \geq 0$ ($t > 0$ in the case of $f(t-)$) and not only for $t \in D$.
+
+\lemr{Doob's Upcrossing Inequality}{Doob_upcrossing_inequality_continuous}{ 
+    Let $D$ be a countable dense subset of $\mathbb{R}_+$  and let $X = (X_t)_{t \geq 0}$ be a supermartingale. Then, for every reals $a < b$ and every $t \geq 0$,
+    $$E[M_{ab}^X(D \cap [0, T])] \leq \frac{1}{b - a} E[(X_T - a)^-]$$
+}{
+    Can be obtained by monotone convergence applied on the discret version Lemma \ref{lem:Doob_upcrossing_inequality_discrete} by considering a sequence of finite subsets of $D$.
+}
+
+\subsection{Almost sure convergence}
+\thmpr{Almost convergence of supermartingales}{as_conv_martingale}{
+    Let $X$ be a supermartingale with right-continuous sample paths. Assume that the collection $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) is bounded in $L^1$. Then, it converge almost surely to a random variable $X_\infty\in L^1$.
+}{
+    to be proven.
+}
+\cor{Let $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \geq 0}$) be a nonnegative supermartingale. Then, $X_n$ (resp. $X_t$) converges a.s. as $n \to \infty$ (resp. $t \to \infty$). Its limit $X_\infty$ is in $L^1$ and we have $X_n \geq \mathbb{E}[X_\infty \mid \mathcal{F}_n]$ for every $n \in \mathbb{N}$. (resp. $X_t \geq \mathbb{E}[X_\infty \mid \mathcal{F}_t]$ for every $t \geq 0$).
+}
+
+\subsection{Martingale Closure}
+\defnr{Closed Martingale}{closed_martingale}{A martingale $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$ ) is said to be \textit{closed} if there exists a random variable $Z \in L^1$ such that, for every $n\in\NN$ (resp. $t \geq 0$),
+\[ \begin{cases}
+    X_n = E[Z \mid \mathcal{F}_n] & \text{For the discrete time} \\ 
+    X_t = E[Z \mid \mathcal{F}_t] & \text{For the continuous time} \\\\
+\end{cases} \]
+
+}
+\defnr{Uniform integrability}{uniform_integrability}{A collection $(X_i)_{i \in I}$ of random variables in $L^1(\Omega, \mathcal{A}, \mathbb{P})$ is said to be \textit{uniformly integrable} (u.i. in short) if
+\[ \lim_{a \to +\infty} \left( \sup_{i \in I} E[|X_i| \mathbf{1}_{\{|X_i| > a\}}] \right) = 0. \]
+}
+A uniformly integrable collection $(X_i)_{i \in I}$ is bounded in $L^1$. To verify this, take $a$ large enough so that
+\[ \sup_{i \in I} E[|X_i| \mathbf{1}_{\{|X_i| > a\}}] \leq 1 \]
+and write $E[|X_i|] \leq E[|X_i| \mathbf{1}_{\{|X_i| \leq a\}}] + E[|X_i| \mathbf{1}_{\{|X_i| > a\}}] \leq a + 1$. The converse is false: a collection $(X_i)_{i \in I}$ which is bounded in $L^1$ may not be uniformly integrable.
+
+
+\proppr{characterstic_UI}{Let $(X_i)_{i \in I}$ be a bounded subset of $L^1$. The following two conditions are equivalent:
+\begin{enumerate}
+    \item The collection $(X_i)_{i \in I}$ is u.i.
+    \item For every $\varepsilon > 0$, one can find $\delta > 0$ such that, for every event $A \in \mathcal{A}$ of probability $\mathbb{P}(A) < \delta$, one has
+    \[ \forall i \in I, \quad \mathbb{E}[|X_i|\mathbf{1}_A] < \varepsilon. \]
+\end{enumerate}
+}{
+    To be proven.
+}
+
+\thmpr{Doob's Uniform Integrability convergence theorem}{Doob_UI_convergence}{
+Let $X$ be a martingale (with right-continuous sample paths if time is continuous). Then the following properties are equivalent:
+\begin{enumerate}
+    \item $X$ is closed;
+    \item the collection $(X_n)_{n\in\NN}$ ($(X_t)_{t \geq 0}$ if time is continuous) is uniformly integrable;
+    \item $X_n$ (resp. $X_t$) converges a.s. and in $L^1$ as $n \to \infty$ (resp. $t \to \infty$).
+\end{enumerate}
+Moreover, if these properties hold, we have  $X_n = E[X_\infty \mid \mathcal{F}_n]$ (resp. $X_t = E[X_\infty \mid \mathcal{F}_t]$) for every $n \in \mathbb{N}$ (resp. $t \geq 0$), where $X_\infty \in L^1$ is the a.s. limit of $X_n$ (resp. $X_t$) as $n \to \infty$ (resp. $t \to \infty$).
+}{
+    to be proven.
+}
+
+\cor{Let $Z \in L^1(\Omega, \mathcal{A}, \mathbb{P})$. The martingale $X_n = E[Z \mid \mathcal{F}_n]$ (resp. $X_t = E[Z \mid \mathcal{F}_t]$) converges a.s. and in $L^1$ to $X_\infty = E[Z \mid \mathcal{F}_\infty]$.}
+
+
+\subsection{Lp Convergence and Doob's inequalities}
+\lempr{}{idk}{
+    Let $(X_n)_{n \in \mathbb{N}}$ be a submartingale, and let $S$ and $T$ be two bounded stopping times such that $S \le T$. Then
+\[
+\mathbb{E}[X_S] \le \mathbb{E}[X_T].
+\]
+}{
+    to be proven.
+}
+
+\thmpr{Doob's martingale inequalities}{doob_martingale_inequalities}{
+\begin{enumerate}
+    \item (Maximal inequality) Let $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a supermartingale (with right-continuous sample paths in the continuous case). Then, for every $n\in\NN$ (resp. $t > 0$) and every $\lambda > 0$,
+        \[
+        \begin{cases}
+            \lambda P\left( \sup_{0 \leq m \leq n} |X_m| > \lambda \right) \leq E[|X_0|] + 2E[|X_n|] & \text{For the discrete case} \\
+            \lambda P\left( \sup_{0 \leq s \leq t} |X_s| > \lambda \right) \leq E[|X_0|] + 2E[|X_t|] & \text{For the continuous case} \\
+        \end{cases}
+        \]
+
+    \item (Doob's inequality in $L^p$) Let  $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a martingale (with right-continuous sample paths in the continuous case). Then, for every $n\in\NN$ (resp. $t > 0$) and every $p > 1$,
+    \[
+    \begin{cases}
+        E\left[ \sup_{0 \leq m \leq n} |X_m|^p \right] \leq \left( \frac{p}{p - 1} \right)^p E[|X_n|^p] & \text{For the discrete case} \\
+         E\left[ \sup_{0 \leq s \leq t} |X_s|^p \right] \leq \left( \frac{p}{p - 1} \right)^p E[|X_t|^p] & \text{For the continuous case} \\
+    \end{cases}
+    \]
+\end{enumerate}
+Note that part (2) of the inequality is useful only if $E[|X_n|^p] < \infty$(resp. $E[|X_t|^p] < \infty$).
+}{
+    to be proven.
+}
+
+\corp{Doob's Lp inequality for the maximal process}{Let $p \in (1, \infty)$ and let $(X_n)_{n \in \mathbb{N}}$ be a nonnegative submartingale. For every $n \in \mathbb{N}$, set
+\[ \widetilde{X}_n = \sup_{0 \leq k \leq n} X_k. \]
+
+Then,
+\[ \mathbb{E}[(\widetilde{X}_n)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[(X_n)^p]. \]
+
+Consequently, if $(Y_n)_{n \in \mathbb{N}}$ is a martingale, and
+\[ Y_n^* = \sup_{0 \leq k \leq n} |Y_k| \]
+we have, for every $n \in \mathbb{N}$,
+\[ \mathbb{E}[(Y_n^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|Y_n|^p]. \]
+}{
+    to be proven.
+}
+
+\thmpr{Doob's Lp convergence theorem}{Doob_Lp_convergence}{
+    Let $(X_n)_{n \in \mathbb{N}}$ be a martingale and $p \in (1, \infty)$. Suppose that
+    \[ \sup_{n \in \mathbb{N}} \mathbb{E}[|X_n|^p] < \infty, \]
+    Then, $X_n$ converges a.s. and in $L^p$ to a random variable $X_\infty$ such that
+    \[ \mathbb{E}[|X_\infty|^p] = \sup_{n \in \mathbb{N}} \mathbb{E}[|X_n|^p] \]
+    and we have
+    \[ \mathbb{E}[(X_\infty^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|X_\infty|^p]. \]
+}{
+    to be proven.
+}
+
+\thmpr{Kolmogorov's criterion for almost sure convergence}{Kolmogorov_criterion}{
+    Let $(X_n)_{n \in \mathbb{N}}$ be a sequence of independent real random variables in $L^2$. Assume that $\mathbb{E}[X_n] = 0$ for every $n \in \mathbb{N}$. Then the following two conditions are equivalent:
+    \begin{enumerate}
+        \item $\displaystyle \sum_{n=0}^{\infty} \mathbb{E}[(X_n)^2] < \infty$.
+        \item  The series $\displaystyle \sum_{n=0}^{\infty} X_n$ converges a.s. and in $L^2$.
+    \end{enumerate}
+}{
+    to be proven.
+}
+
+\section{Optional stopping theorems}
+
+
 \end{document}
