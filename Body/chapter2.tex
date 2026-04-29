@@ -352,9 +352,9 @@ Moreover, if these properties hold, we have  $X_n = E[X_\infty \mid \mathcal{F}_
 \subsection{Lp Convergence and Doob's inequalities}
 \lempr{}{idk}{
     Let $(X_n)_{n \in \mathbb{N}}$ be a submartingale, and let $S$ and $T$ be two bounded stopping times such that $S \le T$. Then
-\[
-\mathbb{E}[X_S] \le \mathbb{E}[X_T].
-\]
+    \[
+    \mathbb{E}[X_S] \le \mathbb{E}[X_T].
+    \]
 }{
     to be proven.
 }
@@ -382,16 +382,27 @@ Note that part (2) of the inequality is useful only if $E[|X_n|^p] < \infty$(res
     to be proven.
 }
 
-\corp{Doob's Lp inequality for the maximal process}{Let $p \in (1, \infty)$ and let $(X_n)_{n \in \mathbb{N}}$ be a nonnegative submartingale. For every $n \in \mathbb{N}$, set
-\[ \widetilde{X}_n = \sup_{0 \leq k \leq n} X_k. \]
-
-Then,
-\[ \mathbb{E}[(\widetilde{X}_n)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[(X_n)^p]. \]
-
-Consequently, if $(Y_n)_{n \in \mathbb{N}}$ is a martingale, and
-\[ Y_n^* = \sup_{0 \leq k \leq n} |Y_k| \]
-we have, for every $n \in \mathbb{N}$,
-\[ \mathbb{E}[(Y_n^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|Y_n|^p]. \]
+\corp{Doob's Lp inequality for the maximal process}{
+    Let $p \in (1, \infty)$ and let $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t\geq 0}$) be a nonnegative submartingale. For every $n \in \mathbb{N}$ (resp. $t\geq 0$), set
+    \[ \begin{cases}
+        \widetilde{X}_n = \sup_{0 \leq k \leq n} X_k & \text{For discret time} \\
+        \widetilde{X}_t = \sup_{0 \leq s \leq t} X_s & \text{For continuous time}
+    \end{cases} \]
+    Then,
+    \[ \begin{cases}
+        \mathbb{E}[(\widetilde{X}_n)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[(X_n)^p] & \text{For discret time} \\
+        \mathbb{E}[(\widetilde{X}_t)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[(X_t)^p] & \text{For continuous time}
+    \end{cases} \]
+    Consequently, if $(Y_n)_{n \in \mathbb{N}}$ ( resp. $(Y_t)_{t\geq 0}$ ) is a martingale, and
+    \[ \begin{cases}
+        Y_n^* = \sup_{0 \leq k \leq n} |Y_k| & \text{For discret time} \\
+        Y_t^* = \sup_{0 \leq s \leq t} |Y_s| & \text{For continuous time}
+    \end{cases} \]
+    we have, for every $n \in \mathbb{N}$ (resp. $t\geq 0$),
+    \[ \begin{cases}
+        \mathbb{E}[(Y_n^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|Y_n|^p]. & \text{For discret time} \\
+        \mathbb{E}[(Y_t^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|Y_t|^p]. & \text{For continuous time}
+    \end{cases} \]
 }{
     to be proven.
 }
@@ -419,5 +430,28 @@ we have, for every $n \in \mathbb{N}$,
 
 \section{Optional stopping theorems}
 
+\thmpr{Convergence of supermartingales}{conv_supmartingale}{
+    Let $X$ be a supermartingale with right-continuous sample paths. Assume that the collection $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) is bounded in $L^1$. 
+    Then there exists a random variable $X_\infty \in L^1$ such that
+    \[ \begin{cases}
+        \lim_{n \to \infty} X_n = X_\infty, \quad \text{a.s.} & \text{For discret time} \\
+        \lim_{t \to \infty} X_t = X_\infty, \quad \text{a.s.} & \text{For continuous time}
+    \end{cases} \]
+}{
+    to be proven.
+}
 
+
+\thmpr{Optional stopping theorem for martingales}{optional_stopping_martingale}{
+    Let $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a uniformly integrable martingale (with right-continuous sample paths if time is continnuous). 
+    Let $S$ and $T$ be two stopping times with $S \leq T$. Then $X_S$ and $X_T$ are in $L^1$ and
+    \[     X_S = \mathbb{E}[X_T \mid \mathcal{F}_S]. \]
+}{
+    to be proven.
+}
+
+In particular, for every stopping time $S$, we have
+\[     X_S = \mathbb{E}[X_\infty \mid \mathcal{F}_S],\]
+and
+\[\mathbb{E}[X_S] = \mathbb{E}[X_\infty] = \mathbb{E}[X_0]. \]
 \end{document}
