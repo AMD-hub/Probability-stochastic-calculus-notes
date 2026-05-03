@@ -10,44 +10,44 @@
 \section{Filtrations and information flow}
 
 \subsection{Filtration}
-\defnr{Filtration}{filtration}{A filtration on $(\Omega, \mathcal{A}, \mathbb{P})$ is an increasing family of sub-$\sigma$-fields of $\mathcal{A}$. The family in the most applications of this book is indexed by time, which is either discrete ($\mathbb{N}$) or continuous ($\mathbb{R}_+$). 
+\defnr{Filtration}{filtration}{A filtration on $(\Omega, \A, \PP)$ is an increasing family of sub-$\sigma$-fields of $\A$. The family in the most applications of this book is indexed by time, which is either discrete ($\NN$) or continuous ($\RR_+$). 
 \begin{itemize}
-    \item \textbf{The discrete-time case:} A discrete-time filtration is a family $(\mathcal{F}_n)_{n \in \mathbb{N}}$ of $\sigma$-fields such that :
-    \[ \mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2 \subset \cdots \subset \mathcal{A} \]
-    \item \textbf{The continuous-time case:} A continuous-time filtration is a family $(\mathcal{F}_t)_{t \in \mathbb{R}_+}$ of $\sigma$-fields such that :
-    \[ \mathcal{F}_0 \subset \mathcal{F}_s \subset \mathcal{F}_t \subset \mathcal{F} \]
+    \item \textbf{The discrete-time case:} A discrete-time filtration is a family $(\F_n)_{n \in \NN}$ of $\sigma$-fields such that :
+    \[ \F_0 \subset \F_1 \subset \F_2 \subset \cdots \subset \A \]
+    \item \textbf{The continuous-time case:} A continuous-time filtration is a family $(\F_t)_{t \in \RR_+}$ of $\sigma$-fields such that :
+    \[ \F_0 \subset \F_s \subset \F_t \subset \F \]
 \end{itemize}
 
-We also say that $(\Omega, \mathcal{A}, (\mathcal{F}_n)_{n \in \mathbb{N}}, \mathbb{P})$ and   $(\Omega, \mathcal{A}, (\mathcal{F}_t)_{t\geq 0}, \mathbb{P})$  are filtered probability spaces.}
+We also say that $(\Omega, \A, (\F_n)_{n \in \NN}, \PP)$ and   $(\Omega, \A, (\F_t)_{t\geq 0}, \PP)$  are filtered probability spaces.}
 
-The $\sigma$-field $\mathcal{F}_n$ (resp. $\mathcal{F}_t$) gathers the information available at time $n$ (resp. $t$), events that are $\mathcal{F}_n$-measurable (resp. $\mathcal{F}_t$-measurable) are interpreted as those that depend only on what has happened up to time $n$ (resp. $t$). We will write : 
-\[\mathcal{F}_\infty = 
+The $\sigma$-field $\F_n$ (resp. $\F_t$) gathers the information available at time $n$ (resp. $t$), events that are $\F_n$-measurable (resp. $\F_t$-measurable) are interpreted as those that depend only on what has happened up to time $n$ (resp. $t$). We will write : 
+\[\F_\infty = 
 \begin{cases}
-\bigvee_{n \in \mathbb{N}} \mathcal{F}_n := \sigma \left( \bigcup_{n \in \mathbb{N}} \mathcal{F}_n \right) & \text{in the discrete-time case} \\
-\bigvee_{t \geq 0} \mathcal{F}_t := \sigma \left( \bigcup_{t \geq 0} \mathcal{F}_t \right) & \text{in the continuous-time case}
+\bigvee_{n \in \NN} \F_n := \sigma \left( \bigcup_{n \in \NN} \F_n \right) & \text{in the discrete-time case} \\
+\bigvee_{t \geq 0} \F_t := \sigma \left( \bigcup_{t \geq 0} \F_t \right) & \text{in the continuous-time case}
 \end{cases}\]
 
-If $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \geq 0}$) is a random process, then, for every $n \in \mathbb{N}$ (resp. $t \geq 0$), we may define $\mathcal{F}_n^X$ (resp. $\mathcal{F}_t^X$) as the smallest $\sigma$-field on $\Omega$ for which $X_0, X_1, \ldots, X_n$ (resp. $X_s \quad s\leq t$) are measurables. In other words, we have :
+If $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \geq 0}$) is a random process, then, for every $n \in \NN$ (resp. $t \geq 0$), we may define $\F_n^X$ (resp. $\F_t^X$) as the smallest $\sigma$-field on $\Omega$ for which $X_0, X_1, \ldots, X_n$ (resp. $X_s \quad s\leq t$) are measurables. In other words, we have :
 \[
 \begin{cases}
-    \mathcal{F}_n^X = \sigma(X_0, X_1, \ldots, X_n) & \text{in the discrete-time case} \\
-    \mathcal{F}_t^X = \sigma(X_s : s \leq t) & \text{in the continuous-time case}
+    \F_n^X = \sigma(X_0, X_1, \ldots, X_n) & \text{in the discrete-time case} \\
+    \F_t^X = \sigma(X_s : s \leq t) & \text{in the continuous-time case}
 \end{cases}
 \]
-Then $(\mathcal{F}_n^X)_{n \in \mathbb{N}}$ (resp. $(\mathcal{F}_t^X)_{t \geq 0}$) is a filtration called \textit{the canonical filtration} of $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \geq 0}$).
+Then $(\F_n^X)_{n \in \NN}$ (resp. $(\F_t^X)_{t \geq 0}$) is a filtration called \textit{the canonical filtration} of $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \geq 0}$).
 
 \textbf{Remark:}
-Let $(\mathcal{F}_t)_{0 \le t \le \infty}$ be a filtration on $(\Omega, \mathcal{F}, P)$. We set, for every $t \ge 0$
+Let $(\F_t)_{0 \le t \le \infty}$ be a filtration on $(\Omega, \F, P)$. We set, for every $t \ge 0$
 
-$$\mathcal{F}_{t+} = \bigcap_{s > t} \mathcal{F}_s,$$
+$$\F_{t+} = \bigcap_{s > t} \F_s,$$
 
-and $\mathcal{F}_{\infty+} = \mathcal{F}_\infty$. Note that $\mathcal{F}_t \subset \mathcal{F}_{t+}$ for every $t \in [0, \infty]$. The collection $(\mathcal{F}_{t+})_{0 \le t \le \infty}$ is also a filtration. We say that the filtration $(\mathcal{F}_t)$ is right-continuous if
+and $\F_{\infty+} = \F_\infty$. Note that $\F_t \subset \F_{t+}$ for every $t \in [0, \infty]$. The collection $(\F_{t+})_{0 \le t \le \infty}$ is also a filtration. We say that the filtration $(\F_t)$ is right-continuous if
 
-$$\mathcal{F}_{t+} = \mathcal{F}_t, \qquad \forall t \ge 0.$$
+$$\F_{t+} = \F_t, \qquad \forall t \ge 0.$$
 
-Let $(\mathcal{F}_t)$ be a filtration and let $\mathcal{N}$ be the class of all $(\mathcal{F}_\infty, P)$-negligible sets (i.e. $A \in \mathcal{N}$ if there exists an $A' \in \mathcal{F}_\infty$ such $A \subset A'$ and $P(A') = 0$). The filtration is said to be complete if $\mathcal{N} \subset \mathcal{F}_0$ (and thus $\mathcal{N} \subset \mathcal{F}_t$ for every $t$).
+Let $(\F_t)$ be a filtration and let $\N$ be the class of all $(\F_\infty, P)$-negligible sets (i.e. $A \in \N$ if there exists an $A' \in \F_\infty$ such $A \subset A'$ and $P(A') = 0$). The filtration is said to be complete if $\N \subset \F_0$ (and thus $\N \subset \F_t$ for every $t$).
 
-If $(\mathcal{F}_t)$ is not complete, it can be completed by setting $\mathcal{F}'_t = \mathcal{F}_t \vee \sigma(\mathcal{N})$, for every $t \in [0, \infty]$, using the notation $\mathcal{F}_t \vee \sigma(\mathcal{N})$ for the smallest $\sigma$-field that contains both $\mathcal{F}_t$ and $\sigma(\mathcal{N})$ (recall that $\sigma(\mathcal{N})$ is the $\sigma$-field generated by $\mathcal{N}$). We will often apply this completion procedure to the canonical filtration of a random process $(X_t)_{t \ge 0}$, and call the resulting filtration the \textit{completed canonical filtration} of $X$.
+If $(\F_t)$ is not complete, it can be completed by setting $\F'_t = \F_t \vee \sigma(\N)$, for every $t \in [0, \infty]$, using the notation $\F_t \vee \sigma(\N)$ for the smallest $\sigma$-field that contains both $\F_t$ and $\sigma(\N)$ (recall that $\sigma(\N)$ is the $\sigma$-field generated by $\N$). We will often apply this completion procedure to the canonical filtration of a random process $(X_t)_{t \ge 0}$, and call the resulting filtration the \textit{completed canonical filtration} of $X$.
 
 \textbf{Assumption:}
 \textit{In this book we will consider only filtrations that are right-continuous and complete.}
@@ -56,18 +56,18 @@ If $(\mathcal{F}_t)$ is not complete, it can be completed by setting $\mathcal{F
 \subsection{Adapted processes}
 For the discrete-time case, we have only one definition for measurablity with respect to a filtration, but for the continuous-time case, we have 3 types/definitions of measurability. We start with the discrete-time case.
 \defnr{Adapted Process [discrete]}{adapted-discrete}{
-    A random process $(X_n)_{n \in \mathbb{N}}$ is said to be adapted to the filtration $(\mathcal{F}_n)_{n \in \mathbb{N}}$ if, for every $n \in \mathbb{N}$, $X_n$ is $\mathcal{F}_n$-measurable.
+    A random process $(X_n)_{n \in \NN}$ is said to be adapted to the filtration $(\F_n)_{n \in \NN}$ if, for every $n \in \NN$, $X_n$ is $\F_n$-measurable.
 }
 In the continuous-time case, we have the following definitions.
 \defnr{Measurable Process [continuous]}{measurable-continuous}{
-    A process $X = (X_t)_{t \ge 0}$ with values in a measurable space $(E, \mathcal{E})$ is said to be measurable if the mapping $$(\omega, t) \mapsto X_t(\omega)$$ defined on $\Omega \times \mathbb{R}_+$ equipped with the product $\sigma$-field $\mathcal{F} \otimes \mathcal{B}(\mathbb{R}_+)$ is measurable. (We recall that $\mathcal{B}(\mathbb{R}_+)$ stands for the Borel $\sigma$-field of $\mathbb{R}$.)
+    A process $X = (X_t)_{t \ge 0}$ with values in a measurable space $(E, \E)$ is said to be measurable if the mapping $$(\omega, t) \mapsto X_t(\omega)$$ defined on $\Omega \times \RR_+$ equipped with the product $\sigma$-field $\F \otimes \B(\RR_+)$ is measurable. (We recall that $\B(\RR_+)$ stands for the Borel $\sigma$-field of $\RR$.)
 }
-This is stronger than saying that, for every $t \ge 0$, $X_t$ is $\mathcal{F}$-measurable. On the other hand, considering for instance the case where $E = \mathbb{R}$, it is easy to see that if the sample paths of $X$ are continuous, or only right-continuous, the fact that $X_t$ is $\mathcal{F}$-measurable for every $t$ implies that the process is measurable in the previous sense -- see the argument in the proof of Proposition xxx below.
+This is stronger than saying that, for every $t \ge 0$, $X_t$ is $\F$-measurable. On the other hand, considering for instance the case where $E = \RR$, it is easy to see that if the sample paths of $X$ are continuous, or only right-continuous, the fact that $X_t$ is $\F$-measurable for every $t$ implies that the process is measurable in the previous sense -- see the argument in the proof of Proposition xxx below.
 
 \defnr{Adapted and Progressive Process}{adapted-continuous}{
-A random process $(X_t)_{t \ge 0}$ with values in a measurable space $(E, \mathcal{E})$ is called \textbf{adapted} if, for every $t \ge 0$, $X_t$ is $\mathcal{F}_t$-measurable. This process is said to be \textbf{progressive} if, for every $t \ge 0$, the mapping
+A random process $(X_t)_{t \ge 0}$ with values in a measurable space $(E, \E)$ is called \textbf{adapted} if, for every $t \ge 0$, $X_t$ is $\F_t$-measurable. This process is said to be \textbf{progressive} if, for every $t \ge 0$, the mapping
 $$(\omega, s) \mapsto X_s(\omega)$$
-defined on $\Omega \times [0, t]$ is measurable for the $\sigma$-field $\mathcal{F}_t \otimes \mathcal{B}([0, t])$.
+defined on $\Omega \times [0, t]$ is measurable for the $\sigma$-field $\F_t \otimes \B([0, t])$.
 }
 
 \proppr{adapted-progressive-right-continuous}{
@@ -91,7 +91,7 @@ On the other hand, for every Borel subset $A$ of $E$,
 \end{aligned}
 \]
 
-which belongs to the $\sigma$-field $\mathcal{F}_t \otimes \mathcal{B}([0, t])$. Hence, for every $n \ge 1$, the mapping $(\omega, s) \mapsto X^n_s(\omega)$, defined on $\Omega \times [0, t]$, is measurable for $\mathcal{F}_t \otimes \mathcal{B}([0, t])$. Since a pointwise limit of measurable functions is also measurable, the same measurability property holds for the mapping $(\omega, s) \mapsto X_s(\omega)$ defined on $\Omega \times [0, t]$. It follows that the process $X$ is progressive. 
+which belongs to the $\sigma$-field $\F_t \otimes \B([0, t])$. Hence, for every $n \ge 1$, the mapping $(\omega, s) \mapsto X^n_s(\omega)$, defined on $\Omega \times [0, t]$, is measurable for $\F_t \otimes \B([0, t])$. Since a pointwise limit of measurable functions is also measurable, the same measurability property holds for the mapping $(\omega, s) \mapsto X_s(\omega)$ defined on $\Omega \times [0, t]$. It follows that the process $X$ is progressive. 
 }
 
 \section{Martingales and stopping times}
@@ -122,14 +122,14 @@ An adapted real-valued process $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \ge 0}$) suc
 If $(X_n)_{n \in \NN}$ (resp.  $(X_t)_{t \ge 0}$) is a submartingale, $(-X_n)_{n \in \NN}$ (resp. $(-X_t)_{t \ge 0}$) is a supermartingale. For this reason, some of the results below are stated for supermartingales only, but the analogous results for submartingales immediately follow.
 
 \propr{convexity_martingal}{
-Let $\varphi : \mathbb{R} \longrightarrow \mathbb{R}_+$ be a convex function, and let $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \ge 0}$) be an adapted process, such that $\mathbb{E}[\varphi(X_n)] < \infty$ for every $n \in \mathbb{N}$ (resp. $\mathbb{E}[\varphi(X_t)] < \infty$ for every $t \ge 0$).
+Let $\varphi : \RR \longrightarrow \RR_+$ be a convex function, and let $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \ge 0}$) be an adapted process, such that $\EE[\varphi(X_n)] < \infty$ for every $n \in \NN$ (resp. $\EE[\varphi(X_t)] < \infty$ for every $t \ge 0$).
 \begin{itemize}
-\item  If $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \ge 0}$) is a martingale, then $(\varphi(X_n))_{n \in \mathbb{N}}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
-\item  If $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \ge 0}$) is a submartingale, and if we assume in addition that $\varphi$ is increasing, $(\varphi(X_n))_{n \in \mathbb{N}}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
+\item  If $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \ge 0}$) is a martingale, then $(\varphi(X_n))_{n \in \NN}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
+\item  If $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \ge 0}$) is a submartingale, and if we assume in addition that $\varphi$ is increasing, $(\varphi(X_n))_{n \in \NN}$ (resp. $(\varphi(X_t))_{t \ge 0}$) is a submartingale.
 \end{itemize}
 }
 
-In particular, if $X_n$ (resp. $X_t$) is a martingale, $|X_n|$ (resp. $|X_t|$) is a submartingale (and so is $X_n^2$, provided that $\mathbb{E}[X_n^2] < \infty$ for every $n$) and, if $X_n$ (resp. $X_t$) is a submartingale, $(X_n)^+$ (resp. $(X_t)^+$) is also a submartingale.
+In particular, if $X_n$ (resp. $X_t$) is a martingale, $|X_n|$ (resp. $|X_t|$) is a submartingale (and so is $X_n^2$, provided that $\EE[X_n^2] < \infty$ for every $n$) and, if $X_n$ (resp. $X_t$) is a submartingale, $(X_n)^+$ (resp. $(X_t)^+$) is also a submartingale.
 
 % \propr{sup_martingale_finite}{
 %     Let $(X_t)_{t \geq 0}$ be a submartingale or a supermartingale. Then, for every $t > 0$, 
@@ -140,36 +140,36 @@ In particular, if $X_n$ (resp. $X_t$) is a martingale, $|X_n|$ (resp. $|X_t|$) i
     Let $(M_n)_{n\in \NN}$ (resp.  $(M_t)_{t \geq 0}$) be a square integrable martingale ($\in L^2$). Then :
     \begin{itemize}
         \item \textbf{Discrete-time case:} If $n \geq m \geq 1$. Then,
-        \[E\left[ \sum_{k=m}^{n-1} (M_{k+1} - M_{k})^2 \mid \mathcal{F}_m \right] = E[M_n^2 - M_m^2 \mid \mathcal{F}_m] = E[(M_n - M_m)^2 \mid \mathcal{F}_m].\]
+        \[\EE\left[ \sum_{k=m}^{n-1} (M_{k+1} - M_{k})^2 \mid \F_m \right] = \EE[M_n^2 - M_m^2 \mid \F_m] = \EE[(M_n - M_m)^2 \mid \F_m].\]
         In particular, 
-        \[ E\left[ \sum_{i=m}^{n-1} (M_{k+1} - M_{t_{k}})^2 \right] = E[M_n^2 - M_m^2] = E[(M_n - M_m)^2]. \]
+        \[ \EE\left[ \sum_{i=m}^{n-1} (M_{k+1} - M_{t_{k}})^2 \right] = \EE[M_n^2 - M_m^2] = \EE[(M_n - M_m)^2]. \]
         \item \textbf{Continuous-time case:} If $0 \leq s < t$ and let $s = t_0 < t_1 < \dots < t_p = t$ be a subdivision of the interval $[s, t]$. Then,  
-        \[ E\left[ \sum_{i=1}^{p} (M_{t_i} - M_{t_{i-1}})^2 \mid \mathcal{F}_s \right] = E[M_t^2 - M_s^2 \mid \mathcal{F}_s] = E[(M_t - M_s)^2 \mid \mathcal{F}_s]. \]
-        In particular, \[ E\left[ \sum_{i=1}^{p} (M_{t_i} - M_{t_{i-1}})^2 \right] = E[M_t^2 - M_s^2] = E[(M_t - M_s)^2].\]
+        \[ \EE\left[ \sum_{i=1}^{p} (M_{t_i} - M_{t_{i-1}})^2 \mid \F_s \right] = \EE[M_t^2 - M_s^2 \mid \F_s] = \EE[(M_t - M_s)^2 \mid \F_s]. \]
+        In particular, \[ \EE\left[ \sum_{i=1}^{p} (M_{t_i} - M_{t_{i-1}})^2 \right] = \EE[M_t^2 - M_s^2] = \EE[(M_t - M_s)^2].\]
     \end{itemize}
 }
 For the discrete-time martingale we can define the following operation with predictable processes that conserve martingality. 
 
-\defnr{Predictable Process}{predictable_process}{A sequence $(H_n)_{n \in \mathbb{N}}$ of real random variables is called predictable if $H_n$ is bounded and $\mathcal{F}_{n-1}$-measurable, for every $n \in \mathbb{N}$.}
+\defnr{Predictable Process}{predictable_process}{A sequence $(H_n)_{n \in \NN}$ of real random variables is called predictable if $H_n$ is bounded and $\F_{n-1}$-measurable, for every $n \in \NN$.}
 
 
-\proppr{predictable_martingale}{Let $(X_n)_{n \in \mathbb{N}}$ be an adapted process, and let $(H_n)_{n \in \mathbb{N}}$ be a predictable sequence. We set $(H \bullet X)_0 = 0$ and, for every integer $n \ge 1$:
+\proppr{predictable_martingale}{Let $(X_n)_{n \in \NN}$ be an adapted process, and let $(H_n)_{n \in \NN}$ be a predictable sequence. We set $(H \bullet X)_0 = 0$ and, for every integer $n \ge 1$:
 \[(H \bullet X)_n = H_1(X_1 - X_0) + H_2(X_2 - X_1) + \cdots + H_n(X_n - X_{n-1})\]
 Then,
 \begin{itemize}
-    \item  If $(X_n)_{n \in \mathbb{N}}$ is a martingale, $((H \bullet X)_n)_{n \in \mathbb{N}}$ is also a martingale.
-    \item If $(X_n)_{n \in \mathbb{N}}$ is a supermartingale (resp. a submartingale), and $H_n \ge 0$ for every $n \in \mathbb{N}$, then $((H \bullet X)_n)_{n \in \mathbb{N}}$ is a supermartingale (resp. a submartingale).
+    \item  If $(X_n)_{n \in \NN}$ is a martingale, $((H \bullet X)_n)_{n \in \NN}$ is also a martingale.
+    \item If $(X_n)_{n \in \NN}$ is a supermartingale (resp. a submartingale), and $H_n \ge 0$ for every $n \in \NN$, then $((H \bullet X)_n)_{n \in \NN}$ is a supermartingale (resp. a submartingale).
 \end{itemize}}{
-Let us prove first assertion. Since the random variables $H_n$ are bounded, one immediately checks that the random variables $(H \bullet X)_n$ are integrable. It is also straightforward to verify that the process $((H \bullet X)_n)_{n \in \mathbb{N}}$ is adapted (all random variables entering the definition of $(H \bullet X)_n$ are $\mathcal{F}_n$-measurable). Then it suffices to verify that, for every $n \in \mathbb{N}$,
+Let us prove first assertion. Since the random variables $H_n$ are bounded, one immediately checks that the random variables $(H \bullet X)_n$ are integrable. It is also straightforward to verify that the process $((H \bullet X)_n)_{n \in \NN}$ is adapted (all random variables entering the definition of $(H \bullet X)_n$ are $\F_n$-measurable). Then it suffices to verify that, for every $n \in \NN$,
 
-\[ \mathbb{E}[(H \bullet X)_{n+1} - (H \bullet X)_n \mid \mathcal{F}_n] = 0.\]
+\[ \EE[(H \bullet X)_{n+1} - (H \bullet X)_n \mid \F_n] = 0.\]
 
-However, $(H \bullet X)_{n+1} - (H \bullet X)_n = H_{n+1}(X_{n+1} - X_n)$ and since $H_{n+1}$ is $\mathcal{F}_n$-measurable, We can pull the measurable term out of the expectation, that
+However, $(H \bullet X)_{n+1} - (H \bullet X)_n = H_{n+1}(X_{n+1} - X_n)$ and since $H_{n+1}$ is $\F_n$-measurable, We can pull the measurable term out of the expectation, that
 
 \[\begin{aligned} 
-    \mathbb{E}[H_{n+1}(X_{n+1} - X_n) \mid \mathcal{F}_n] 
-        &= H_{n+1} \mathbb{E}[X_{n+1} - X_n \mid \mathcal{F}_n] \\ 
-        &= H_{n+1}(\mathbb{E}[X_{n+1} \mid \mathcal{F}_n] - X_n) = 0. 
+    \EE[H_{n+1}(X_{n+1} - X_n) \mid \F_n] 
+        &= H_{n+1} \EE[X_{n+1} - X_n \mid \F_n] \\ 
+        &= H_{n+1}(\EE[X_{n+1} \mid \F_n] - X_n) = 0. 
 \end{aligned}\]
 
 The proof of the second assertion is similar. 
@@ -177,55 +177,98 @@ The proof of the second assertion is similar.
 
 \subsection{Stopping times}
 \defnr{Stopping time}{stopping_time}{
-A random variable $T : \Omega \longrightarrow [0, \infty]$ is a \textbf{stopping time} of the filtration  $(\mathcal{F}_n)$ (resp. $(\mathcal{F}_t)$) if $\{T \leq n\} \in \mathcal{F}_n \quad \forall n \in\NN$ (resp. $\{T \leq t\} \in \mathcal{F}_t \quad \forall t \geq 0$)  The $\sigma$-field of the past before $T$ is then defined by
+A random variable $T : \Omega \longrightarrow \NN \cup \{+\infty\}$ (resp. $T : \Omega \longrightarrow [0, \infty]$) is a \textbf{stopping time} of the filtration  $(\F_n)$ (resp. $(\F_t)$) if $\{T \leq n\} \in \F_n \quad \forall n \in\NN$ (resp. $\{T \leq t\} \in \F_t \quad \forall t \geq 0$)  The $\sigma$-field of the past before $T$ is then defined by
 
 \[ 
 \begin{cases}
-    \mathcal{F}_T = \{A \in \mathcal{F}_{\infty} : \forall n \in \NN, A \cap \{T \leq n\} \in \mathcal{F}_n\}.    & \text{For the discrete time} \\
-    \mathcal{F}_T = \{A \in \mathcal{F}_{\infty} : \forall t \geq 0, A \cap \{T \leq t\} \in \mathcal{F}_t\}.    & \text{For the continuous time} \\
+    \F_T = \{A \in \F_{\infty} : \forall n \in \NN, A \cap \{T \leq n\} \in \F_n\}.    & \text{For the discrete time} \\
+    \F_T = \{A \in \F_{\infty} : \forall t \geq 0, A \cap \{T \leq t\} \in \F_t\}.    & \text{For the continuous time} \\
 \end{cases}\]
 
-The reader will verify that $\mathcal{F}_T$ is indeed a $\sigma$-field.}
+The reader will verify that $\F_T$ is indeed a $\sigma$-field.}
 
-In what follows, discrete (resp. continuous) "stopping time" will mean stopping time of the filtration $(\mathcal{F}_n)$ (resp. $(\mathcal{F}_t)$) unless otherwise specified. If $T$ is a continuous stopping time, we also have $\{T < t\} \in \mathcal{F}_t$ for every $t > 0$, by considering $\{T < t\} = \bigcup_{n=1}^{\infty} \left\{ T \leq t - \frac{1}{n} \right\}$ , and moreover
+In what follows, discrete (resp. continuous) "stopping time" will mean stopping time of the filtration $(\F_n)$ (resp. $(\F_t)$) unless otherwise specified. If $T$ is a continuous stopping time, we also have $\{T < t\} \in \F_t$ for every $t > 0$, by considering $\{T < t\} = \bigcup_{n=1}^{\infty} \left\{ T \leq t - \frac{1}{n} \right\}$ , and moreover
 
-\[ \{T = \infty\} = \left( \bigcup_{n=1}^{\infty} \{T \leq n\} \right)^c \in \mathcal{F}_{\infty}. \]
+\[ \{T = \infty\} = \left( \bigcup_{n=1}^{\infty} \{T \leq n\} \right)^c \in \F_{\infty}. \]
+
+A good advantage of assuming the right continuity of the filtration is that, in this case, the definition of stopping times in the continuous time  case can be equivalently stated by replacing $\{T \leq t\} \in \F_t$ by $\{T < t\} \in \F_t$ for every $t \geq 0$. In fact : 
+\[ \{T \leq t\} = \bigcap_{n=1}^{\infty} \{T < t + \frac{1}{n}\}. \in \F_{t+} = \F_t \]
 
 \proppr{two_stopping_times}{
 Let $S$ and $T$ be two stopping times
 \begin{itemize} 
-    \item If $S \leq T$. Then, $\mathcal{F}_S \subset \mathcal{F}_T$.
-    \item We have in general, $S \wedge T$ and $S \vee T$ are also stopping times. Moreover $\mathcal{F}_{S \wedge T} = \mathcal{F}_S \cap \mathcal{F}_T$.
+    \item If $S \leq T$. Then, $\F_S \subset \F_T$.
+    \item We have in general, $S \wedge T$ and $S \vee T$ are also stopping times. Moreover $\F_{S \wedge T} = \F_S \cap \F_T$.
 \end{itemize}
 }{
-    To be proven. 
+    Can be easily proven by using the definition of stopping times and \sfield of stopping times and manipulation of sets.
+}
+
+\lempr{Measurability w.r.t. stopped filtration }{measurability_wrt_stopped_filtration}{
+    Let $T$ be a stopping time. A function $\omega \mapsto Y(\omega)$ defined on the set $\{T < \infty\}$ and taking values in the measurable set $(E, \E)$ is $\F_T$-measurable if and only if, for every $n\in\NN$ (resp. $t \geq 0$), the restriction of $Y$ to the set $\{T = n\}$ is $\F_n$ measurable (resp. $\{T \leq t\}$ $\F_t$-measurable).
+}{
+For the discrete-time case, first assume that, for every $n \in\NN$, the restriction of $Y$ to $\{T =n \}$ is $\F_n$-measurable.
+Then, for every measurable subset $A$ of $E$,
+\[ \{Y \in A\} \cap \{T \leq  n \} = \bigcup_{k=0}^n \left( \{Y \in A\} \cap \{T = k\} \right) \in \F_n. \]
+Letting $n \to \infty$, we first obtain that $\{Y \in A\} \in \F_\infty$, and then we deduce from the previous display that $\{Y \in A\} \in \F_T$.
+Conversely, if $Y$ is $\F_T$-measurable, $\{Y \in A\} \in \F_T$ and thus $\{Y \in A\} \cap \{T = n\} =  \{Y \in A\} \cap \{T \leq n\} \setminus   \{Y \in A\} \cap \{T \leq n-1\} \in \F_n$, giving the desired result.
+
+For the continuous-time case, first assume that, for every $t \ge 0$, the restriction of $Y$ to $\{T \le t\}$ is $\F_t$-measurable. Then, for every measurable subset $A$ of $E$,
+\[ \{Y \in A\} \cap \{T \le t\} \in \F_t. \]
+Letting $t \to \infty$, we first obtain that $\{Y \in A\} \in \F_\infty$, and then we deduce from the previous display that $\{Y \in A\} \in \F_T$.
+
+Conversely, if $Y$ is $\F_T$-measurable, $\{Y \in A\} \in \F_T$ and thus $\{Y \in A\} \cap \{T \le t\} \in \F_t$, giving the desired result. 
 }
 
 \thmpr{Stopped process Measurability}{stopped_process_measurability}{
-    Let $(Y_n)_{n \in \mathbb{N}}$  (resp. $(Y_t)_{t \geq 0}$) be an adapted (resp. a progressive) process, and let $T$ be a stopping time. Then the random variable $Y_T$, which is defined on the event $\{T < \infty\}$ by $Y_T(\omega) = Y_{T(\omega)}(\omega)$, is $\mathcal{F}_T$-measurable.
+    Let $(Y_n)_{n \in \NN}$  (resp. $(Y_t)_{t \geq 0}$) be an adapted (resp. a progressive) process, and let $T$ be a stopping time. Then the random variable $Y_T$, which is defined on the event $\{T < \infty\}$ by $Y_T(\omega) = Y_{T(\omega)}(\omega)$, is $\F_T$-measurable.
 }{
-    To be proven.   
+    Let $B$ be a Borel subset of $\RR$. Let's begin with the dicrete-time case, consider the restriction of $Y_T$ to the set $\{T = n\}$, which is given by $Y_n$ on this set. Since $Y_n$ is $\F_n$-measurable, the restriction of $Y_T$ to $\{T = n\}$ is also $\F_n$-measurable. Hence, by Lemma \ref{lem:measurability_wrt_stopped_filtration}, $Y_T$ is $\F_T$-measurable.
+    For the continuous-time case. Let $t \ge 0$. The restriction to $\{T \le t\}$ of the function $\omega \mapsto X_T(\omega)$ is the composition of the two mappings
+    \[
+    \begin{aligned}
+    \{T \le t\} \ni \omega &\mapsto (\omega, T(\omega) \wedge t) \\
+    \F_t &\quad \F_t \otimes \B([0, t])
+    \end{aligned}
+    \]
+    and
+    \[
+    \begin{aligned}
+    \Omega \times [0, t] \ni (\omega, s) &\mapsto X_s(\omega) \\
+    \F_t \otimes \B([0, t]) &\quad \E
+    \end{aligned}
+    \]
+    which are both measurable (the first one since $T \wedge t$ is $\F_t$-measurable, by Proposition \ref{prop:two_stopping_times}, and the second one by the definition of a progressive process). It follows that the restriction to $\{T \le t\}$ of the function $\omega \mapsto X_T(\omega)$ is $\F_t$-measurable, which gives the desired result by the lemma \ref{lem:measurability_wrt_stopped_filtration}. 
 }
-If $T$ is a stopping time, then, for every $n \in \mathbb{N}$ (resp. $t \geq 0$), $n \wedge T$ (resp. $t \wedge T$) is also a stopping time (Proposition \ref{prop:two_stopping_times}) and it follows from the preceding theorem that $Y_{n \wedge T}$ (resp. $Y_{t \wedge T}$) is $\mathcal{F}_{n \wedge T}$-measurable (resp. $\mathcal{F}_{t \wedge T}$-measurable), hence also $\mathcal{F}_n$-measurable (resp. $\mathcal{F}_t$-measurable) by Proposition \ref{prop:two_stopping_times}.
+If $T$ is a stopping time, then, for every $n \in \NN$ (resp. $t \geq 0$), $n \wedge T$ (resp. $t \wedge T$) is also a stopping time (Proposition \ref{prop:two_stopping_times}) and it follows from the preceding theorem that $Y_{n \wedge T}$ (resp. $Y_{t \wedge T}$) is $\F_{n \wedge T}$-measurable (resp. $\F_{t \wedge T}$-measurable), hence also $\F_n$-measurable (resp. $\F_t$-measurable) by Proposition \ref{prop:two_stopping_times}.
 
 \proppr{sequence_stopping_time}{
     If $(S_n)$ is a sequence of stopping times then :
     \begin{itemize}
         \item if $(S_n)$ is monotone increasing, then $S=\lim \uparrow S_n$ is a stopping time. 
         \item If $(S_n)$ is monotone decreasing, then $S=\lim \downarrow S_n$ is a stopping time and
-            \[\mathcal{F}_{S+}=\bigcap_n \mathcal{F}_{S_n+} \]
+            \[\F_{S}=\bigcap_n \F_{S_n} \]
     \end{itemize}
 }{
-    to be proven.
+    \begin{itemize}
+        \item If $(S_n)$ is monotone increasing, then for every $t \geq 0$, $\{S \leq t\} = \bigcap_{n=1}^{\infty} \{S_n \leq t\}$, which belongs to the \sfield $\F_t$ since $S_n$ is a stopping time for every $n$. Hence, $S$ is a stopping time. same argument for the discrete time case.
+        \item  If $(S_n)$ is monotone decreasing, then for every $t \geq 0$, $\{S < t\} = \bigcup_{n=1}^{\infty} \{S_n < t\}$, which belongs to the \sfield $\F_t$ since $S_n$ is a stopping time for every $n$. Hence, $S$ is a stopping time by the fact that $\F_t$ is right-continuous [check remarks after the definition \ref{defn:stopping_time}]. 
+        \item For the last assertion we first verify that $\F_S \subset \bigcap_n \F_{S_n}$ thanks to last proposition \ref{prop:two_stopping_times}. Conversely, if $A \in \bigcap_n \F_{S_n}$, then 
+        \[ A \cap \{S < t\} = \bigcup_{n=1}^{\infty} A \cap \{S_n < t\} \in \F_t, \]
+        which gives $A \in \F_S$ again this is allowed thanks to the right-continuity of the filtration.
+    \end{itemize}
 }
 
 \proppr{majorant_is_stoping_time}{
-    Let $T$ be a stopping time and let $S$ be an $\mathcal{F}_T$-measurable random variable with values in $[0, \infty]$, such that $S \geq T$. 
-    Then $S$ is also a stopping time. In particular, if $T$ is a stopping time,
-    \[    T_n=\sum_{k=0}^{\infty} \frac{k+1}{2^n} \mathbf{1}_{\left\{k 2^{-n}<T \leq(k+1) 2^{-n}\right\}}+\infty \cdot \mathbf{1}_{\{T=\infty\}}, \quad n=0,1,2, \ldots \]
+    Let $T$ be a stopping time and let $S$ be an $\F_T$-measurable random variable with values in $[0, \infty]$, such that $S \geq T$. 
+    Then $S$ is also a stopping time. In particular, if $T$ is a continuous stopping time,
+    \[    T_n=  \frac{\lceil 2^n T \rceil}{2^n}\cdot \1_{\{T<\infty\}}+\infty \cdot \1_{\{T=\infty\}}, \quad n=0,1,2, \ldots \]
     defines a sequence of stopping times that decreases to $T$.
 }{
-    to be proven.
+    For the first assertion, we write, for every $n \in \NN$,
+    \[ \{S \leq n\} = \{S \leq n\} \cap \{T \leq n \} \in \F_n \]
+    since $\{S \leq n\}$ is $\F_T$-measurable. And similar argument holds for the continuous time case.  Further more, the second assertion follows since $T_n \ge T$, and $T_n$ is a function of $T$, hence $\F_T$-measurable, and $T_n \downarrow T$ as $n \uparrow \infty$ by construction.
+    
 }
 
 Finally lets defining hitting time. 
@@ -234,17 +277,17 @@ Finally lets defining hitting time.
     \begin{enumerate}
         \item Assume that the sample paths of $X$ are right-continuous, and let $O$ be an open subset of $E$. Then 
         \[ T_O = \inf\{t \geq 0 : X_t \in O\} \] 
-        is a stopping time of the filtration $(\mathcal{F}_{t})$.
+        is a stopping time of the filtration $(\F_{t})$.
         \item Assume that the sample paths of $X$ are continuous, and let $F$ be a closed subset of $E$. Then
         \[ T_F = \inf\{t \geq 0 : X_t \in F\} \] 
-        is a stopping time (of the filtration $(\mathcal{F}_t)$).
+        is a stopping time (of the filtration $(\F_t)$).
     \end{enumerate}
 }
 In fact the stopping time property can be proven by considering the two sets :
 \[ 
 \begin{cases}
-    \{T_O < t\} &= \displaystyle \bigcup_{s \in [0, t) \cap \mathbb{Q}} \{X_s \in O\} \in \mathcal{F}_t, \\
-    \{T_F \leq t\} &= \displaystyle \left\{ \inf_{0 \leq s \leq t} d(X_s, F) = 0 \right\} = \left\{ \inf_{s \in [0, t] \cap \mathbb{Q}} d(X_s, F) = 0 \right\} \in \mathcal{F}_t.
+    \{T_O < t\} &= \displaystyle \bigcup_{s \in [0, t) \cap \QQ} \{X_s \in O\} \in \F_t, \\
+    \{T_F \leq t\} &= \displaystyle \left\{ \inf_{0 \leq s \leq t} d(X_s, F) = 0 \right\} = \left\{ \inf_{s \in [0, t] \cap \QQ} d(X_s, F) = 0 \right\} \in \F_t.
 \end{cases}
 \]
 
@@ -252,22 +295,22 @@ In fact the stopping time property can be proven by considering the two sets :
 
 \subsection{Upcrossing numbers}
 \subsubsection{Discret time}
-Consider first a deterministic real sequence $y = (y_n)_{n \in \mathbb{N}}$, and $a < b$, the \textbf{upcrossing number} of this sequence along $[a, b]$ before time $n$, denoted by $M_{ab}^y(n)$, is the largest integer $k$ such that there exists a strictly increasing finite sequence
+Consider first a deterministic real sequence $y = (y_n)_{n \in \NN}$, and $a < b$, the \textbf{upcrossing number} of this sequence along $[a, b]$ before time $n$, denoted by $M_{ab}^y(n)$, is the largest integer $k$ such that there exists a strictly increasing finite sequence
     \[ m_1 < n_1 < m_2 < n_2 < \dots < m_k < n_k \]
-of nonnegative integers smaller than or equal to $n$ with the properties $y_{m_i} \le a$ and $y_{n_i} \ge b$, for every $i \in \{1, \dots, k\}$. In what follows we consider a sequence $Y = (Y_n)_{n \in \mathbb{N}}$ of real random variables, and the associated upcrossing number $M_{ab}^Y(n)$ is then an integer-valued random variable. where $M_{ab}^y(0) = 0$ if such a sequence does not exist.
+of nonnegative integers smaller than or equal to $n$ with the properties $y_{m_i} \le a$ and $y_{n_i} \ge b$, for every $i \in \{1, \dots, k\}$. In what follows we consider a sequence $Y = (Y_n)_{n \in \NN}$ of real random variables, and the associated upcrossing number $M_{ab}^Y(n)$ is then an integer-valued random variable. where $M_{ab}^y(0) = 0$ if such a sequence does not exist.
 We will use the following simple analytic lemma, whose proof is left to the reader.
 
 
-\lemr{haha}{convergence_and_upcrossing_number_discrete}{ 
-    The sequence $(y_n)_{n \in \mathbb{N}}$ converges in $\overline{\mathbb{R}}$ if and only if, for every choice of the rationals $a$ and $b$ with $a < b$, we have $M_{ab}^y(n) < \infty$.
+\lemr{}{convergence_and_upcrossing_number_discrete}{ 
+    The sequence $(y_n)_{n \in \NN}$ converges in $\overline{\RR}$ if and only if, for every choice of the rationals $a$ and $b$ with $a < b$, we have $M_{ab}^y(n) < \infty$.
     }
 \lemr{Doob's Upcrossing Inequality}{Doob_upcrossing_inequality_discrete}{ 
-    Let $X = (X_n)_{n \in \mathbb{N}}$ be a supermartingale. Then, for every reals $a < b$ and every $n \in \mathbb{N}$,
+    Let $X = (X_n)_{n \in \NN}$ be a supermartingale. Then, for every reals $a < b$ and every $n \in \NN$,
     $$E[M_{ab}^Y(n)] \leq \frac{1}{b-a}E[(Y_n-a)^-]$$
     }
 
 \subsubsection{Continuous time}
-Let $f : I \longrightarrow \mathbb{R}$ be a function defined on a subset $I$ of $\mathbb{R}_+$. If $a < b$, the upcrossing number of $f$ along $[a, b]$, denoted by $M_{ab}^f(I)$, is the maximal integer $k \geq 1$ such that there exists a finite increasing sequence $s_1 < t_1 < \dots < s_k < t_k$ of elements of $I$ such that $f(s_i) \leq a$ and $f(t_i) \geq b$ for every $i \in \{1, \dots, k\}$ (if, even for $k = 1$, there is no such subsequence, we take $M_{ab}^f(I) = 0$, and if such a subsequence exists for every $k \geq 1$, we take $M_{ab}^f(I) = \infty$). Upcrossing numbers are a convenient tool to study the regularity of functions.
+Let $f : I \longrightarrow \RR$ be a function defined on a subset $I$ of $\RR_+$. If $a < b$, the upcrossing number of $f$ along $[a, b]$, denoted by $M_{ab}^f(I)$, is the maximal integer $k \geq 1$ such that there exists a finite increasing sequence $s_1 < t_1 < \dots < s_k < t_k$ of elements of $I$ such that $f(s_i) \leq a$ and $f(t_i) \geq b$ for every $i \in \{1, \dots, k\}$ (if, even for $k = 1$, there is no such subsequence, we take $M_{ab}^f(I) = 0$, and if such a subsequence exists for every $k \geq 1$, we take $M_{ab}^f(I) = \infty$). Upcrossing numbers are a convenient tool to study the regularity of functions.
 
 In the next lemma, the notation
 
@@ -275,10 +318,10 @@ $$\lim_{s \downarrow \downarrow t} f(s) \quad (\text{resp. } \lim_{s \uparrow \u
 means
 $$\lim_{s \downarrow t, s > t} f(s) \quad (\text{resp. } \lim_{s \uparrow t, s < t} f(s) ).$$
 
-We say that $g : \mathbb{R}_+ \to \mathbb{R}$ is **càdlàg** (for the French "continue à droite avec des limites à gauche") if $g$ is right-continuous and has left-limits at every $t > 0$.
+We say that $g : \RR_+ \to \RR$ is \textbf{càdlàg} (for the French "continue à droite avec des limites à gauche") if $g$ is right-continuous and has left-limits at every $t > 0$.
 
 \lemr{}{limits_and_upcrossing_number_continuous}{ 
-    Let $D$ be a countable dense subset of $\mathbb{R}_+$ and let $f$ be a real function defined on $D$. We assume that, for every $T \in D$,
+    Let $D$ be a countable dense subset of $\RR_+$ and let $f$ be a real function defined on $D$. We assume that, for every $T \in D$,
 \begin{itemize}
     \item  the function $f$ is bounded on $D \cap [0, T]$;
     \item  for all rationals $a$ and $b$ such that $a < b$, 
@@ -288,52 +331,210 @@ We say that $g : \mathbb{R}_+ \to \mathbb{R}$ is **càdlàg** (for the French "c
     $$f(t+) := \lim_{s \downarrow \downarrow t, s \in D} f(s)$$
     exists for every real $t \geq 0$, and similarly the left-limit
     $$f(t-) := \lim_{s \uparrow \uparrow t, s \in D} f(s)$$
-    exists for every real $t > 0$. Furthermore, the function $g : \mathbb{R}_+ \to \mathbb{R}$ defined by $g(t) = f(t+)$ is càdlàg.
+    exists for every real $t > 0$. Furthermore, the function $g : \RR_+ \to \RR$ defined by $g(t) = f(t+)$ is càdlàg.
 }
 We omit the proof of this analytic lemma. It is important to note that the right and left-limits $f(t+)$ and $f(t-)$ are defined for every $t \geq 0$ ($t > 0$ in the case of $f(t-)$) and not only for $t \in D$.
 
 \lemr{Doob's Upcrossing Inequality}{Doob_upcrossing_inequality_continuous}{ 
-    Let $D$ be a countable dense subset of $\mathbb{R}_+$  and let $X = (X_t)_{t \geq 0}$ be a supermartingale. Then, for every reals $a < b$ and every $t \geq 0$,
+    Let $D$ be a countable dense subset of $\RR_+$  and let $X = (X_t)_{t \geq 0}$ be a supermartingale. Then, for every reals $a < b$ and every $t \geq 0$,
     $$E[M_{ab}^X(D \cap [0, T])] \leq \frac{1}{b - a} E[(X_T - a)^-]$$
 }{
     Can be obtained by monotone convergence applied on the discret version Lemma \ref{lem:Doob_upcrossing_inequality_discrete} by considering a sequence of finite subsets of $D$.
 }
 
-\subsection{Almost sure convergence}
-\thmpr{Almost convergence of supermartingales}{as_conv_martingale}{
-    Let $X$ be a supermartingale (with right-continuous sample paths if time is continuous). Assume that the collection $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) is bounded in $L^1$. Then, it converge almost surely to a random variable $X_\infty\in L^1$.
+
+\subsection{Lp Convergence and Doob's inequalities}
+\lempr{}{increasing_stopping_time_submartingale}{
+    Let $(X_n)_{n \in \NN}$ be a submartingale, and let $S$ and $T$ be two bounded stopping times such that $S \le T$. Then
+    \[
+    \EE[X_S] \le \EE[X_T].
+    \]
 }{
     to be proven.
 }
-\cor{Let $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t \geq 0}$) be a nonnegative supermartingale. Then, $X_n$ (resp. $X_t$) converges a.s. as $n \to \infty$ (resp. $t \to \infty$). Its limit $X_\infty$ is in $L^1$ and we have $X_n \geq \mathbb{E}[X_\infty \mid \mathcal{F}_n]$ for every $n \in \mathbb{N}$. (resp. $X_t \geq \mathbb{E}[X_\infty \mid \mathcal{F}_t]$ for every $t \geq 0$).
+
+\thmpr{Doob's supermartingale inequalities}{doob_supermartingale_inequalities}{
+\begin{enumerate}
+    \item (Maximal inequality) Let $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a supermartingale (with right-continuous sample paths in the continuous case). Then, for every $n\in\NN$ (resp. $t > 0$) and every $\lambda > 0$,
+        \[
+        \begin{cases}
+            \lambda \PP\left( \sup_{0 \leq m \leq n} |X_m| > \lambda \right) \leq \EE[|X_0|] + 2\EE[|X_n|] & \text{For the discrete case} \\
+            \lambda \PP\left( \sup_{0 \leq s \leq t} |X_s| > \lambda \right) \leq \EE[|X_0|] + 2\EE[|X_t|] & \text{For the continuous case} \\
+        \end{cases}
+        \]
+
+    \item (Doob's inequality in $L^p$) Let  $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a martingale (with right-continuous sample paths in the continuous case). Then, for every $n\in\NN$ (resp. $t > 0$) and every $p > 1$,
+    \[
+    \begin{cases}
+        \EE\left[ \sup_{0 \leq m \leq n} |X_m|^p \right] \leq \left( \frac{p}{p - 1} \right)^p \EE[|X_n|^p] & \text{For the discrete case} \\
+         \EE\left[ \sup_{0 \leq s \leq t} |X_s|^p \right] \leq \left( \frac{p}{p - 1} \right)^p \EE[|X_t|^p] & \text{For the continuous case} \\
+    \end{cases}
+    \]
+\end{enumerate}
+Note that part (2) of the inequality is useful only if $\EE[|X_n|^p] < \infty$(resp. $\EE[|X_t|^p] < \infty$).
+}{
+    to be proven.
 }
 
-\subsection{Martingale Closure}
+\corp{
+    Let $p \in (1, \infty)$ and let $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t\geq 0}$) be a nonnegative submartingale. For every $n \in \NN$ (resp. $t\geq 0$), set
+    \[ \begin{cases}
+        \widetilde{X}_n = \sup_{0 \leq k \leq n} X_k & \text{For discret time} \\
+        \widetilde{X}_t = \sup_{0 \leq s \leq t} X_s & \text{For continuous time}
+    \end{cases} \]
+    Then,
+    \[ \begin{cases}
+        \EE[(\widetilde{X}_n)^p] \leq \left( \frac{p}{p-1} \right)^p \EE[(X_n)^p] & \text{For discret time} \\
+        \EE[(\widetilde{X}_t)^p] \leq \left( \frac{p}{p-1} \right)^p \EE[(X_t)^p] & \text{For continuous time}
+    \end{cases} \]
+    Consequently, if $(Y_n)_{n \in \NN}$ ( resp. $(Y_t)_{t\geq 0}$ ) is a martingale, and
+    \[ \begin{cases}
+        Y_n^* = \sup_{0 \leq k \leq n} |Y_k| & \text{For discret time} \\
+        Y_t^* = \sup_{0 \leq s \leq t} |Y_s| & \text{For continuous time}
+    \end{cases} \]
+    we have, for every $n \in \NN$ (resp. $t\geq 0$),
+    \[ \begin{cases}
+        \EE[(Y_n^*)^p] \leq \left( \frac{p}{p-1} \right)^p \EE[|Y_n|^p]. & \text{For discret time} \\
+        \EE[(Y_t^*)^p] \leq \left( \frac{p}{p-1} \right)^p \EE[|Y_t|^p]. & \text{For continuous time}
+    \end{cases} \]
+}{
+    to be proven.
+}
+
+In what follows, you will find that most of the results stated in the continuous time case requiring the right-continuity of the sample paths of the process, which is not that hard to verify in most of the cases thanks to the following theorem, which gives a sufficient condition to find a modification with the desired regularity of the sample paths.
+
+\thmpr{Sufficient condition for càdlàg modification}{}{
+    Assume that the filtration $(\F_t)$ is right-continuous and complete. Let $X=(X_t)_{t \geq 0}$ be a supermartingale, such that the function  $t \mapsto \EE[X_t]$ is right-continuous. Then $X$ has a modification with càdlàg\footnote{refers to the french sentence "continue à droite et limite à gauche" which means "right-continuous and have left-limits"} sample paths, which is also an $(\F_t)$-supermartingale.
+}{
+    The proof of this theorem could be found in \parencite[thm.~3.18]{Stochastic}
+}
+
+\thmpr{Doob's Lp convergence theorem}{Doob_Lp_convergence}{
+    Let $(X_n)_{n \in \NN}$ be a martingale and $p \in (1, \infty)$. Suppose that
+    \[ \sup_{n \in \NN} \EE[|X_n|^p] < \infty, \]
+    Then, $X_n$ converges a.s. and in $L^p$ to a random variable $X_\infty$ such that
+    \[ \EE[|X_\infty|^p] = \sup_{n \in \NN} \EE[|X_n|^p] \]
+    and we have
+    \[ \EE[(X_\infty^*)^p] \leq \left( \frac{p}{p-1} \right)^p \EE[|X_\infty|^p]. \]
+}{
+    to be proven.
+}
+
+\thmpr{Kolmogorov's criterion for a.s. convergence}{Kolmogorov_criterion}{
+    Let $(X_n)_{n \in \NN}$ be a sequence of independent real random variables in $L^2$. Assume that $\EE[X_n] = 0$ for every $n \in \NN$. Then the following two conditions are equivalent:
+    \begin{enumerate}
+        \item $\displaystyle \sum_{n=0}^{\infty} \EE[(X_n)^2] < \infty$.
+        \item  The series $\displaystyle \sum_{n=0}^{\infty} X_n$ converges a.s. and in $L^2$.
+    \end{enumerate}
+}{
+    to be proven.
+}
+
+\subsection{Almost sure convergence}
+\thmpr{Almost convergence of supermartingales}{as_conv_supermartingale}{
+    Let $X$ be a supermartingale (with right-continuous sample paths if time is continuous). Assume that the collection $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) is bounded in $L^1$. Then, it converge almost surely to a random variable $X_\infty\in L^1$.
+}{
+    We will prove it in the continuous time case, the discrete time case can be proven by similar arguments and it is left exercice for the reader. Let $D$ be a countable dense subset of $\RR_+$. Using lemma \ref{lem:Doob_upcrossing_inequality_continuous}, we have, for every $a < b$ and every $T\in D$, 
+    \[ \EE\left[ M_{ab}^X(D \cap [0, T]) \right] \leq \frac{1}{b - a} \EE\left[ (X_T - a)^- \right] \]
+    By Monotone convergence theorem, we get, for every $a<b$,
+    \[ \EE\left[ M_{ab}^X(D) \right]  \leq \frac{1}{b - a} \sup_{t \geq 0} \EE\left[ (X_t - a)^- \right] < +\infty. \]
+    Since the collection $(X_t)_{t \geq 0}$ is bounded in $L^1$, the right-hand side of the previous display is finite. Hence, a.s. for all rationals $a < b$, we have $M_{ab}^X(D) < \infty$. It follows from Lemma \ref{lem:limits_and_upcrossing_number_continuous} that the limit 
+    \[ X_\infty := \lim_{D \ni t \to \infty} X_t \]
+    exists a.s. in $[-\infty, +\infty]$. We can in fact exclude the values $-\infty$ and $+\infty$ since, by Fatou's lemma, 
+    \[\EE[|X_\infty|] \leq \liminf_{D \ni t \to \infty} \EE[|X_t|] < +\infty\]
+    and we get that $X_\infty \in L^1$. The right-continuity of $X$ samples (which we have not used yet) allows us to remove the restriction to $D$  in the limit.
+}
+\cor{Let $(X_n)_{n \in \NN}$ (resp. $(X_t)_{t \geq 0}$) be a nonnegative supermartingale. Then, $X_n$ (resp. $X_t$) converges a.s. as $n \to \infty$ (resp. $t \to \infty$). Its limit $X_\infty$ is in $L^1$ and we have $X_n \geq \EE[X_\infty \mid \F_n]$ for every $n \in \NN$. (resp. $X_t \geq \EE[X_\infty \mid \F_t]$ for every $t \geq 0$).
+}
+\paragraph{Backward supermartingales}
+A useful variant of the previous theorem is the following one, which is stated in a backward form in discrete time setup, we will not prove it however proof could be found in \parencite[thm.~12.30]{Stochastic}. Since it will be used only in a proof step of supermartingale optional theorem in the continuous time case. 
+
+A backward filtration is a sequence $(\F_n)_{n \in \ZZ_-}$ of sub-$\sigma$-fields of $\A$, which is indexed by the set $\ZZ_- = \{0, -1, -2, \dots\}$ of all nonpositive integers, and is such that $\F_n \subset \F_m$ whenever $n, m \in \ZZ_-$ and $n \leq m$. We then set
+
+$$\F_{-\infty} = \bigcap_{n \in \ZZ_-} \F_n$$
+
+which is also a sub-$\sigma$-field of $\A$. It is important to observe that, in contrast with the "forward case" studied in the previous sections, the $\sigma$-field $\F_n$ becomes smaller and smaller when $n \downarrow -\infty$ (the larger $|n|$ is, the smaller the $\sigma$-field $\F_n$).
+
+In what follows, we fix a backward filtration $(\F_n)_{n \in \ZZ_-}$. Let $X = (X_n)_{n \in \ZZ_-}$ be a sequence of real random variables indexed by $\ZZ_-$. We say that $X$ is a backward martingale (resp. a backward supermartingale, a backward submartingale) if $X_n$ is $\F_n$-measurable and $\EE[|X_n|] < \infty$ for every $n \in \ZZ_-$, and if, for every $m, n \in \ZZ_-$ such that $n \leq m$,
+
+$$X_n = \EE[X_m | \F_n] \quad (\text{resp. } X_n \geq \EE[X_m | \F_n], X_n \leq \EE[X_m | \F_n]).$$
+
+\thmr{Backward supermartingale convergence}{backward_supermartingale_convergence}{
+    Let $(X_n)_{n \in \ZZ_-}$ be a backward supermartingale. Suppose that
+    $$\sup_{n \in \ZZ_-} \EE[|X_n|] < \infty. $$
+    Then the sequence $(X_n)_{n \in \ZZ_-}$ is uniformly integrable and converges a.s. and in $L^1$ to a random variable $X_\infty$ as $n \to -\infty$. Moreover for every $n \in \ZZ_-$,
+    $$\EE[X_n | \F_{-\infty}] \leq X_\infty,$$
+    and equality holds in the last display if $(X_n)_{n \in \ZZ_-}$ is a backward martingale.
+}
+
+
+\subsection{Martingale Closure} \label{sec:uniform_integrability}
 \defnr{Closed Martingale}{closed_martingale}{A martingale $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$ ) is said to be \textit{closed} if there exists a random variable $Z \in L^1$ such that, for every $n\in\NN$ (resp. $t \geq 0$),
 \[ \begin{cases}
-    X_n = E[Z \mid \mathcal{F}_n] & \text{For the discrete time} \\ 
-    X_t = E[Z \mid \mathcal{F}_t] & \text{For the continuous time} 
+    X_n = E[Z \mid \F_n] & \text{For the discrete time} \\ 
+    X_t = E[Z \mid \F_t] & \text{For the continuous time} 
 \end{cases} \]
 
 }
-\defnr{Uniform integrability}{uniform_integrability}{A collection $(X_i)_{i \in I}$ of random variables in $L^1(\Omega, \mathcal{A}, \mathbb{P})$ is said to be \textit{uniformly integrable} (u.i. in short) if
-\[ \lim_{a \to +\infty} \left( \sup_{i \in I} E[|X_i| \mathbf{1}_{\{|X_i| > a\}}] \right) = 0. \]
+\defnr{Uniform integrability}{uniform_integrability}{A collection $(X_i)_{i \in I}$ of random variables in $L^1(\Omega, \A, \PP)$ is said to be \textit{uniformly integrable} (u.i. in short) if
+\[ \lim_{a \to +\infty} \left( \sup_{i \in I} E[|X_i| \1_{\{|X_i| > a\}}] \right) = 0. \]
 }
 A uniformly integrable collection $(X_i)_{i \in I}$ is bounded in $L^1$. To verify this, take $a$ large enough so that
-\[ \sup_{i \in I} E[|X_i| \mathbf{1}_{\{|X_i| > a\}}] \leq 1 \]
-and write $E[|X_i|] \leq E[|X_i| \mathbf{1}_{\{|X_i| \leq a\}}] + E[|X_i| \mathbf{1}_{\{|X_i| > a\}}] \leq a + 1$. The converse is false: a collection $(X_i)_{i \in I}$ which is bounded in $L^1$ may not be uniformly integrable.
+\[ \sup_{i \in I} E[|X_i| \1_{\{|X_i| > a\}}] \leq 1 \]
+and write $E[|X_i|] \leq E[|X_i| \1_{\{|X_i| \leq a\}}] + E[|X_i| \1_{\{|X_i| > a\}}] \leq a + 1$. The converse is false: a collection $(X_i)_{i \in I}$ which is bounded in $L^1$ may not be uniformly integrable.
 
 
 \proppr{characterstic_UI}{Let $(X_i)_{i \in I}$ be a bounded subset of $L^1$. The following two conditions are equivalent:
 \begin{enumerate}
     \item The collection $(X_i)_{i \in I}$ is u.i.
-    \item For every $\varepsilon > 0$, one can find $\delta > 0$ such that, for every event $A \in \mathcal{A}$ of probability $\mathbb{P}(A) < \delta$, one has
-    \[ \forall i \in I, \quad \mathbb{E}[|X_i|\mathbf{1}_A] < \varepsilon. \]
+    \item For every $\varepsilon > 0$, one can find $\delta > 0$ such that, for every event $A \in \A$ of probability $\PP(A) < \delta$, one has
+    \[ \forall i \in I, \quad \EE[|X_i|\1_A] < \varepsilon. \]
 \end{enumerate}
 }{
-    To be proven.
-}
+    (1)$\Rightarrow$(2) Let $\varepsilon > 0$. We can first fix $a > 0$ such that
+    \[  \sup_{i \in I} \EE[|X_i| \1_{\{|X_i|>a\}}] < \frac{\varepsilon}{2}.     \]
+    If we set $\delta = \varepsilon / (2a)$, then the condition $\PP(A) < \delta$ implies, that, for every $i \in I$,
+    \[
+    \EE[|X_i| \1_A] \leq \EE[|X_i| \1_{A \cap \{|X_i| \leq a\}}] + \EE[|X_i| \1_{\{|X_i| > a\}}] \leq a \PP(A) + \frac{\varepsilon}{2} < \varepsilon.
+    \]
+    \noindent (2)$\Rightarrow$(1) Set $C = \sup_{i \in I} \EE[|X_i|]$. By the Markov inequality, we have for every $a > 0$,
+    \[ \forall i \in I, \quad \PP(|X_i| > a) \leq \frac{C}{a}. \]
+    Let $\varepsilon > 0$ and choose $\delta > 0$ so that the property stated in (2) holds. Then, if $a$ is large enough so that $C/a < \delta$, we have $\PP(|X_i| > a) < \delta$ for every $i \in I$, and thus, by (2),
+    \[ \forall i \in I, \quad \EE[|X_i| \1_{\{|X_i| > a\}}] < \varepsilon. \]
+    We conclude that the collection $(X_i)_{i \in I}$ is u.i.}
 
+
+\thmpr{Vitali convergence theorem}{Vitali_convergence_theorem}{
+    \textit{Let $(X_n)_{n \in \NN}$ be a sequence of random variables in $L^1$ that converges to $X_\infty$ in probability. The following two conditions are equivalent:}
+    \begin{enumerate}
+        \item \textit{The sequence $(X_n)_{n \in \NN}$ converges to $X_\infty$ in $L^1$.}
+        \item \textit{The sequence $(X_n)_{n \in \NN}$ is uniformly integrable.}
+    \end{enumerate}
+}{
+\begin{itemize}
+    \item (1)$\Rightarrow$(2) If the sequence $(X_n)_{n \in \NN}$ converges in $L^1$, then it is bounded in $L^1$. Then, let $\varepsilon > 0$. We can choose $N$ large enough so that, for every $n \geq N$,
+    \[ \EE[|X_n - X_N|] < \frac{\varepsilon}{2}. \]
+    Since the finite set $\{X_1, \dots, X_N\}$ is u.i., Proposition \ref{prop:characterstic_UI} allows us to choose $\delta > 0$ such that, for every event $A$ of probability $\PP(A) < \delta$, we have
+    \[\forall n \in \{1, \dots, N\}, \quad \EE[|X_n|\1_A] < \frac{\varepsilon}{2}.\]
+    Then, if $n > N$, we have also
+    \[\EE[|X_n|\1_A] \leq \EE[|X_N|\1_A] + \EE[|X_n - X_N|] < \varepsilon.\]
+    By Proposition \ref{prop:characterstic_UI}, the sequence $(X_n)_{n \in \NN}$ is uniformly integrable.
+    \item (2)$\Rightarrow$(1) Using the characterization of uniform integrability in Proposition \ref{prop:characterstic_UI}(ii), it is straightforward to verify that the collection $(X_n - X_m)_{n,m \in \NN}$ is also u.i. Hence, if $\varepsilon > 0$ is fixed, we can choose $a > 0$ large enough so that, for every $m, n \in \NN$,
+    \[ \EE[|X_n - X_m|\1_{\{|X_n - X_m| > a\}}] < \varepsilon. \]
+    Then, for every $m, n \in \NN$,
+    \begin{align*}
+        \EE[|X_n - X_m|] &\leq \EE[|X_n - X_m|\1_{\{|X_n - X_m| \leq \varepsilon\}}] + \EE[|X_n - X_m|\1_{\{\varepsilon < |X_n - X_m| \leq a\}}] \\
+        &\quad + \EE[|X_n - X_m|\1_{\{|X_n - X_m| > a\}}] \\
+        &\leq 2\varepsilon + a \, \PP(|X_n - X_m| > \varepsilon).
+    \end{align*}
+    The convergence in probability of the sequence $(X_n)_{n \in \NN}$ implies that
+    \[\PP(|X_n - X_m| > \varepsilon) \leq \PP\left(|X_n - X_\infty| > \frac{\varepsilon}{2}\right) + \PP\left(|X_m - X_\infty| > \frac{\varepsilon}{2}\right) \xrightarrow[n,m \to \infty]{} 0. \]
+    It follows that
+    \[ \limsup_{m,n \to \infty} \EE[|X_n - X_m|] \leq 2\varepsilon \]
+    and, since $\varepsilon$ was arbitrary, this shows that the sequence $(X_n)_{n \in \NN}$ is Cauchy in $L^1$, hence converges in $L^1$.
+\end{itemize}
+
+}
 \thmpr{Doob's Uniform Integrability convergence theorem}{Doob_UI_convergence}{
 Let $X$ be a martingale (with right-continuous sample paths if time is continuous). Then the following properties are equivalent:
 \begin{enumerate}
@@ -341,142 +542,207 @@ Let $X$ be a martingale (with right-continuous sample paths if time is continuou
     \item the collection $(X_n)_{n\in\NN}$ ($(X_t)_{t \geq 0}$ if time is continuous) is uniformly integrable;
     \item $X_n$ (resp. $X_t$) converges a.s. and in $L^1$ as $n \to \infty$ (resp. $t \to \infty$).
 \end{enumerate}
-Moreover, if these properties hold, we have  $X_n = E[X_\infty \mid \mathcal{F}_n]$ (resp. $X_t = E[X_\infty \mid \mathcal{F}_t]$) for every $n \in \mathbb{N}$ (resp. $t \geq 0$), where $X_\infty \in L^1$ is the a.s. limit of $X_n$ (resp. $X_t$) as $n \to \infty$ (resp. $t \to \infty$).
+Moreover, if these properties hold, we have  $X_n = \EE[X_\infty \mid \F_n]$ (resp. $X_t = E[X_\infty \mid \F_t]$) for every $n \in \NN$ (resp. $t \geq 0$), where $X_\infty \in L^1$ is the a.s. limit of $X_n$ (resp. $X_t$) as $n \to \infty$ (resp. $t \to \infty$).
 }{
-    to be proven.
+    \begin{itemize}
+        \item (1)$\Rightarrow$(2): if $Z\in L^1$, the collection of all random variable $\EE[Z|\G]$ when $\G$ varies among all sub-$\sigma$-fields of $\F_\infty$ is u.i. 
+        \item (2)$\Rightarrow$(3): If (2) holds, then $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) is bounded in $L^1$, and thus converges a.s. to some random variable $X_\infty$ by Theorem \ref{thm:as_conv_martingale}.  By uniform integrability, the latter convergence also holds in $L^1$.
+        \item (3)$\Rightarrow$(1): If (3) holds, for every $m \in \NN$ (resp. $s \geq 0$), we can pass to the limit $n\to +\infty$ (resp. $t\to +\infty$) in the equality, , $X_m = \EE(X_n \mid \F_m)$ (resp. $X_s = \EE(X_t \mid \F_s)$) and using the theorem \ref{prop:conditional_expectation_limits_properties} we get $X_m = \EE(X_\infty \mid \F_m)$ (resp. $X_s = \EE(X_\infty \mid \F_s)$), which gives the desired result.
+    \end{itemize}
 }
 
-\cor{Let $Z \in L^1(\Omega, \mathcal{A}, \mathbb{P})$. The martingale $X_n = E[Z \mid \mathcal{F}_n]$ (resp. $X_t = E[Z \mid \mathcal{F}_t]$) converges a.s. and in $L^1$ to $X_\infty = E[Z \mid \mathcal{F}_\infty]$.}
+\cor{Let $Z \in L^1(\Omega, \A, \PP)$. The martingale $X_n = \EE[Z \mid \F_n]$ (resp. $X_t = \EE[Z \mid \F_t]$) converges a.s. and in $L^1$ to $X_\infty = \EE[Z \mid \F_\infty]$.}
 
-
-\subsection{Lp Convergence and Doob's inequalities}
-\lempr{}{idk}{
-    Let $(X_n)_{n \in \mathbb{N}}$ be a submartingale, and let $S$ and $T$ be two bounded stopping times such that $S \le T$. Then
-    \[
-    \mathbb{E}[X_S] \le \mathbb{E}[X_T].
-    \]
-}{
-    to be proven.
-}
-
-\thmpr{Doob's martingale inequalities}{doob_martingale_inequalities}{
-\begin{enumerate}
-    \item (Maximal inequality) Let $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a supermartingale (with right-continuous sample paths in the continuous case). Then, for every $n\in\NN$ (resp. $t > 0$) and every $\lambda > 0$,
-        \[
-        \begin{cases}
-            \lambda P\left( \sup_{0 \leq m \leq n} |X_m| > \lambda \right) \leq E[|X_0|] + 2E[|X_n|] & \text{For the discrete case} \\
-            \lambda P\left( \sup_{0 \leq s \leq t} |X_s| > \lambda \right) \leq E[|X_0|] + 2E[|X_t|] & \text{For the continuous case} \\
-        \end{cases}
-        \]
-
-    \item (Doob's inequality in $L^p$) Let  $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a martingale (with right-continuous sample paths in the continuous case). Then, for every $n\in\NN$ (resp. $t > 0$) and every $p > 1$,
-    \[
-    \begin{cases}
-        E\left[ \sup_{0 \leq m \leq n} |X_m|^p \right] \leq \left( \frac{p}{p - 1} \right)^p E[|X_n|^p] & \text{For the discrete case} \\
-         E\left[ \sup_{0 \leq s \leq t} |X_s|^p \right] \leq \left( \frac{p}{p - 1} \right)^p E[|X_t|^p] & \text{For the continuous case} \\
-    \end{cases}
-    \]
-\end{enumerate}
-Note that part (2) of the inequality is useful only if $E[|X_n|^p] < \infty$(resp. $E[|X_t|^p] < \infty$).
-}{
-    to be proven.
-}
-
-\corp{
-    Let $p \in (1, \infty)$ and let $(X_n)_{n \in \mathbb{N}}$ (resp. $(X_t)_{t\geq 0}$) be a nonnegative submartingale. For every $n \in \mathbb{N}$ (resp. $t\geq 0$), set
-    \[ \begin{cases}
-        \widetilde{X}_n = \sup_{0 \leq k \leq n} X_k & \text{For discret time} \\
-        \widetilde{X}_t = \sup_{0 \leq s \leq t} X_s & \text{For continuous time}
-    \end{cases} \]
-    Then,
-    \[ \begin{cases}
-        \mathbb{E}[(\widetilde{X}_n)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[(X_n)^p] & \text{For discret time} \\
-        \mathbb{E}[(\widetilde{X}_t)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[(X_t)^p] & \text{For continuous time}
-    \end{cases} \]
-    Consequently, if $(Y_n)_{n \in \mathbb{N}}$ ( resp. $(Y_t)_{t\geq 0}$ ) is a martingale, and
-    \[ \begin{cases}
-        Y_n^* = \sup_{0 \leq k \leq n} |Y_k| & \text{For discret time} \\
-        Y_t^* = \sup_{0 \leq s \leq t} |Y_s| & \text{For continuous time}
-    \end{cases} \]
-    we have, for every $n \in \mathbb{N}$ (resp. $t\geq 0$),
-    \[ \begin{cases}
-        \mathbb{E}[(Y_n^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|Y_n|^p]. & \text{For discret time} \\
-        \mathbb{E}[(Y_t^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|Y_t|^p]. & \text{For continuous time}
-    \end{cases} \]
-}{
-    to be proven.
-}
-
-\thmpr{Doob's Lp convergence theorem}{Doob_Lp_convergence}{
-    Let $(X_n)_{n \in \mathbb{N}}$ be a martingale and $p \in (1, \infty)$. Suppose that
-    \[ \sup_{n \in \mathbb{N}} \mathbb{E}[|X_n|^p] < \infty, \]
-    Then, $X_n$ converges a.s. and in $L^p$ to a random variable $X_\infty$ such that
-    \[ \mathbb{E}[|X_\infty|^p] = \sup_{n \in \mathbb{N}} \mathbb{E}[|X_n|^p] \]
-    and we have
-    \[ \mathbb{E}[(X_\infty^*)^p] \leq \left( \frac{p}{p-1} \right)^p \mathbb{E}[|X_\infty|^p]. \]
-}{
-    to be proven.
-}
-
-\thmpr{Kolmogorov's criterion for a.s. convergence}{Kolmogorov_criterion}{
-    Let $(X_n)_{n \in \mathbb{N}}$ be a sequence of independent real random variables in $L^2$. Assume that $\mathbb{E}[X_n] = 0$ for every $n \in \mathbb{N}$. Then the following two conditions are equivalent:
-    \begin{enumerate}
-        \item $\displaystyle \sum_{n=0}^{\infty} \mathbb{E}[(X_n)^2] < \infty$.
-        \item  The series $\displaystyle \sum_{n=0}^{\infty} X_n$ converges a.s. and in $L^2$.
-    \end{enumerate}
-}{
-    to be proven.
-}
 
 \section{Optional stopping theorems}
 
 
+\subsection{The theorem for martingales}
 \thmpr{Optional stopping theorem -- martingale}{optional_stopping_martingale}{
     Let $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a uniformly integrable martingale (with right-continuous sample paths if time is continnuous). 
     Let $S$ and $T$ be two stopping times with $S \leq T$. Then $X_S$ and $X_T$ are in $L^1$ and
-    \[     X_S = \mathbb{E}[X_T \mid \mathcal{F}_S]. \]
+    \[     X_S = \EE[X_T \mid \F_S]. \]
 }{
-    to be proven.
+    We begins with the discrete time case. From the preceding section, we know that the martingale $(X_n)_{n \in \NN}$ is closed and $X_n = \EE[X_\infty | \F_n]$ for every $n$. Let us verify that $X_T \in L^1$:
+
+    \begin{align*}
+    \EE[|X_T|] 
+        &= \sum_{n=0}^{\infty} \EE[\1_{\{T=n\}} |X_n|] + \EE[\1_{\{T=\infty\}} |X_\infty|] \\
+        &= \sum_{n=0}^{\infty} \EE[\1_{\{T=n\}} |\EE[X_\infty | \F_n]|] + \EE[\1_{\{T=\infty\}} |X_\infty|] \\
+        &\le \sum_{n=0}^{\infty} \EE[\1_{\{T=n\}} \EE[|X_\infty| | \F_n]] + \EE[\1_{\{T=\infty\}} |X_\infty|] \\
+        &= \sum_{n=0}^{\infty} \EE[\1_{\{T=n\}} |X_\infty|] + \EE[\1_{\{T=\infty\}} |X_\infty|] \\
+        &= \EE[|X_\infty|] < \infty.
+    \end{align*}
+
+    Then, if $A \in \F_T$,
+
+    \begin{align*}
+        \EE[\1_A X_T] &= \sum_{n \in \NN \cup \{\infty\}} \EE[\1_{A \cap \{T=n\}} X_T] \\
+        &= \sum_{n \in \NN \cup \{\infty\}} \EE[\1_{A \cap \{T=n\}} X_n] \\
+        &= \sum_{n \in \NN \cup \{\infty\}} \EE[\1_{A \cap \{T=n\}} X_\infty] \\
+        &= \EE[\1_A X_\infty].
+    \end{align*}
+
+    In the first equality, we use the fact that $X_T \in L^1$ to justify the interchange of sum and expectation via the Fubini theorem. In the third equality, we use the properties $X_n = \EE[X_\infty | \F_n]$ and $A \cap \{T = n\} \in \F_n$ for $A \in \F_T$. Since $X_T$ is $\F_T$-measurable and in $L^1$, the preceding display shows that $X_T$ satisfies the characteristic property of the conditional expectation $\EE[X_\infty | \F_T]$.
+
+    Finally, if $S$ and $T$ are two stopping times such that $S \le T$, the property $\F_S \subset \F_T$ (Proposition \ref{prop:two_stopping_times}) and Theorem of nested \sfields in conditional expectation \ref{thm:conditional_nested_sigma_fields} imply that
+    \[     X_S = \EE[X_\infty | \F_S] = \EE[\EE[X_\infty | \F_T] | \F_S] = \EE[X_T | \F_S].     \]
+    For the continuous time case, Set, for every integer $n \geq 0$,
+    \[   T_n=  \frac{\lceil 2^n T \rceil}{2^n}\cdot \1_{\{T<\infty\}}+\infty \cdot \1_{\{T=\infty\}}, \quad n=0,1,2, \ldots     \]
+    and similarly
+    \[    S_n=  \frac{\lceil 2^n S \rceil}{2^n}\cdot \1_{\{S<\infty\}}+\infty \cdot \1_{\{S=\infty\}}, \quad n=0,1,2, \ldots \]
+    By Proposition \ref{prop:majorant_is_stoping_time}, $(T_n)$ and $(S_n)$ are two sequences of stopping times that decrease respectively to $T$ and to $S$. Moreover, we have $S_n \leq T_n$ for every $n \geq 0$.
+
+    Now observe that, for every fixed $n$, $2^n S_n$ and $2^n T_n$ are stopping times of the discrete filtration $\H_k^{(n)} := \F_{k/2^n}$, and $Y_k^{(n)} := X_{k/2^n}$ is a discrete martingale with respect to this filtration. From the discrete case we proven before, we get that $Y_{2^n S_n}^{(n)}$ and $Y_{2^n T_n}^{(n)}$ are in $L^1$, and
+    \[ X_{S_n} = Y_{2^n S_n}^{(n)} = E[Y_{2^n T_n}^{(n)} \mid \H_{2^n S_n}^{(n)}] = E[X_{T_n} \mid \F_{S_n}] \]
+    (here we need to verify that $\H_{2^n S_n}^{(n)} = \F_{S_n}$, but this is straightforward).
+
+    Let $A \in \F_S$. Since $\F_S \subset \F_{S_n}$, we have $A \in \F_{S_n}$ and thus
+    \[ \EE[\1_A X_{S_n}] = \EE[\1_A X_{T_n}].\]
+    By the right-continuity of sample paths, we get a.s.
+    \[ X_S = \lim_{n \to \infty} X_{S_n}, \quad X_T = \lim_{n \to \infty} X_{T_n}. \]
+    These limits also hold in $L^1$. Indeed, thanks again to the optional stopping theorem for uniformly integrable discrete martingales, we have $X_{S_n} = \EE[X_\infty \mid \F_{S_n}]$ for every $n$, and thus the sequence $(X_{S_n})$ is uniformly integrable (and the same holds for the sequence $(X_{T_n})$).
+
+    The $L^1$-convergence implies that $X_S$ and $X_T$ belong to $L^1$, and also allows us to pass to the limit $n \to \infty$ in the equality $\EE[\1_A X_{S_n}] = \EE[\1_A X_{T_n}]$ in order to get
+    \[
+    \EE[\1_A X_S] = \EE[\1_A X_T].
+    \]
+    Since this holds for every $A \in \F_S$, and since the variable $X_S$ is $\F_S$-measurable (by the remarks before the theorem), we conclude that
+    \[
+    X_S = \EE[X_T \mid \F_S],
+    \]
+    which completes the proof.
 }
 
 In particular, for every stopping time $S$, we have
-\[     X_S = \mathbb{E}[X_\infty \mid \mathcal{F}_S],\]
+\[     X_S = \EE[X_\infty \mid \F_S],\]
 and
-\[\mathbb{E}[X_S] = \mathbb{E}[X_\infty] = \mathbb{E}[X_0]. \]
+\[\EE[X_S] = \EE[X_\infty] = \EE[X_0]. \]
 
 \corp{
-Let $(X_t)_{t \geq 0}$ be a martingale with right-continuous sample paths, and let $T$ be a stopping time.
-\begin{enumerate}
-    \item The process $(X_{t \wedge T})_{t \geq 0}$ is still a martingale.
-    \item Suppose in addition that the martingale $(X_t)_{t \geq 0}$ is uniformly integrable. Then the process $(X_{t \wedge T})_{t \geq 0}$ is also a uniformly integrable martingale, and more precisely we have for every $t \geq 0$,
+    If $T$ and $S$ are stopping time such that $S \leq T$, and both $S$ and $T$ are bounded, then $X_S$ and $X_T$ are in $L^1$ and
     \[
-        X_{t \wedge T} = E[X_T \mid \mathcal{F}_t].
+        X_S = \EE[X_T \mid \F_S].
     \]
-    \item If furthermore $S$ is another stopping time such that $S \leq T$, and both $S$ and $T$ are bounded, then $X_S$ and $X_T$ are in $L^1$ and
+}{
+Let $a \geq 0$ such that $S \leq T \leq a$. We apply Optional Stopping Theorem \ref{thm:optional_stopping_martingale} to the martingale $\{X_{n \wedge a}\}_{n \geq 0}$ (resp. $\{X_{t \wedge a}\}_{t \geq 0}$) which is closed by $X_a$.
+}
+
+\corp{ haha
+Let $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) be a martingale (with right-continuous sample paths if time is continuous), and let $T$ be a stopping time.
+\begin{enumerate}
+    \item The process $(X_{n \wedge T})_{n\in\NN}$  (resp. $(X_{t \wedge T})_{t \geq 0}$) is still a martingale.
+    \item Suppose in addition that the martingale $(X_n)_{n\in\NN}$ (resp. $(X_t)_{t \geq 0}$) is uniformly integrable. Then the process $(X_{n \wedge T})_{n\in\NN}$ (resp. $(X_{t \wedge T})_{t \geq 0}$) is also a uniformly integrable martingale, and more precisely we have,
     \[
-        X_S = E[X_T \mid \mathcal{F}_S].
+    \begin{cases}
+        X_{n \wedge T} = \EE[X_T \mid \F_{n \wedge T}], \quad n \in \NN
+        & \text{for the discrete case}, \\[4pt]
+        X_{t \wedge T} = \EE[X_T \mid \F_{t \wedge T}], \quad t \ge 0
+        & \text{for the continuous case}.
+    \end{cases}
     \]
 \end{enumerate}
 }{
-    to be proven.
+    We will prove it for the continuous time case, the discrete time case can be proven by similar arguments and it is left exercice for the reader. 
+    We start with the proof of (2). Note that $t \wedge T$ is a stopping time by property (f) of stopping times. By Theorem \ref{thm:optional_stopping_martingale}, $X_{t \wedge T}$ and $X_T$ are in $L^1$, and we also know that $X_{t \wedge T}$ is $\F_{t \wedge T}$-measurable, hence $\F_t$-measurable since $\F_{t \wedge T} \subset \F_t$. So in order to get formula in (2), it is enough to prove that, for every $A \in \F_t$,
+
+    $$E[\1_A X_T] = E[\1_A X_{t \wedge T}].$$
+
+    Let us fix $A \in \F_t$. First, we have trivially
+
+    \[ E[\1_{A \cap \{T \leq t\}} X_T] = E[\1_{A \cap \{T \leq t\}} X_{t \wedge T}]. \tag{*} \]
+
+    On the other hand, by Theorem \ref{thm:optional_stopping_martingale}, we have
+
+    $$X_{t \wedge T} = E[X_T \mid \F_{t \wedge T}],$$
+
+    and we notice that we have both $A \cap \{T > t\} \in \F_t$ and $A \cap \{T > t\} \in \F_T$ (the latter as a straightforward consequence of the definition of $\F_T$), so that $A \cap \{T > t\} \in \F_t \cap \F_T = \F_{t \wedge T}$. Using the preceding display, we obtain
+
+    $$E[\1_{A \cap \{T > t\}} X_T] = E[\1_{A \cap \{T > t\}} X_{t \wedge T}].$$
+
+    By adding this equality to (*), we get the desired result.
+
+    To prove (1), we just need to apply (2) to the (uniformly integrable) martingale $(X_{t \wedge a})_{a \geq 0}$, for any choice of $a \geq 0$. 
 }
 
+
+\subsection{The theorem for supermartingales}
 
 \thmpr{Optional stopping theorem - supermartingale}{optional_stopping_supermartingale}{
 Let $(Z_n)_{n\in\NN}$ (resp. $(Z_t)_{t \geq 0}$) be a nonnegative supermartingale (with right-continuous sample paths if time is continnuous). Let $U$ and $V$ be two stopping times such that $U \le V$. Then $Z_U$ and $Z_V$ are in $L^1$, and
-    \[ Z_U \ge \mathbb{E}[Z_V \mid \mathcal{F}_U]. \]
+    \[ Z_U \ge \EE[Z_V \mid \F_U]. \]
 }{
-    to be proven.
+    Let's begin with the discrete time case. We first note that $(X_n)_{n \in \NN}$ is bounded in $L^1$. Theorem \ref{thm:as_conv_supermartingale} then shows that $X_n$ converges a.s. to $X_\infty$, so that the definition of $X_T$ makes sense for any stopping time, even on the event $\{T = \infty\}$. 
+    If $T$ is a bounded stopping time, we know that $\EE[X_T] \leq \EE[X_0]$ (Theorem 12.12). Fatou's lemma then shows that, for any stopping time $T$, 
+    $$\EE[X_T] \leq \liminf_{k \to \infty} \EE[X_{T \wedge k}] \leq \EE[X_0]$$
+    and thus $X_T \in L^1$.
+
+    Then let $S$ and $T$ be two stopping times such that $S \leq T$. Let us first assume that $T \leq N$ for some fixed integer $N$. According to Lemma \ref{lem:increasing_stopping_time_submartingale}, we have then $\EE[X_S] \geq \EE[X_T]$. More generally, let $A \in \F_S$, and set
+
+    $$S^A(\omega) = 
+    \begin{cases} 
+        S(\omega) & \text{if } \omega \in A, \\ 
+        N & \text{if } \omega \notin A. 
+    \end{cases}$$
+
+    It is straightforward to verify that $S^A$ is a stopping time (just note that $\{S^A \leq n\} = \Omega$ if $n \geq N$, and $\{S^A \leq n\} = A \cap \{S \leq n\} \in \F_n$ if $n < N$, using the definition of $\F_S$). We define $T^A$ in a similar manner, and note that $T^A$ is also a stopping time since $A \in \F_S \subset \F_T$. Since $S^A \leq T^A$, we have $\EE[X_{S^A}] \geq \EE[X_{T^A}]$, and it follows that
+
+    $$\EE[X_S \1_A] \geq \EE[X_T \1_A].$$
+
+    Let us come back to the general case where $S$ and $T$ satisfy $S \leq T$ but are no longer assumed to be bounded. Let $A \in \F_S$, and $k \in \NN$. Then $A \cap \{S \leq k\}$ belongs both to $\F_k$ (by the definition of $\F_S$) and to $\F_S$ (recall that $S$ is $\F_S$-measurable). From Proposition \ref{prop:two_stopping_times}, $A \cap \{S \leq k\}$ belongs to $\F_{S \wedge k}$. Hence, by applying the bounded case to the stopping times $S \wedge k$ and $T \wedge k$, we get
+
+    $$\EE[X_S \1_{A \cap \{S \leq k\}}] = \EE[X_{S \wedge k} \1_{A \cap \{S \leq k\}}] \geq \EE[X_{T \wedge k} \1_{A \cap \{S \leq k\}}].$$
+
+    By monotone convergence,
+
+    $$\lim_{k \to \infty} \uparrow \EE[X_S \1_{A \cap \{S \leq k\}}] = \EE[X_S \1_{A \cap \{S < \infty\}}].$$
+
+    On the other hand, Fatou's lemma gives
+
+    $$\liminf_{k \to \infty} \EE[X_{T \wedge k} \1_{A \cap \{S \leq k\}}] \geq \EE[X_T \1_{A \cap \{S < \infty\}}].$$
+
+    So we have obtained that
+
+    $$\EE[X_S \1_{A \cap \{S < \infty\}}] \geq \EE[X_T \1_{A \cap \{S < \infty\}}].$$
+
+    Since $X_S = X_T = X_\infty$ on the event $\{S = \infty\}$, it follows that
+
+    $$\EE[X_S \1_A] \geq \EE[X_T \1_A] = \EE[\EE[X_T \mid \F_S] \1_A].$$
+
+    Since this holds for every $A \in \F_S$, and both $X_S$ and $\EE[X_T \mid \F_S]$ are $\F_S$-measurable, it follows that $X_S \geq \EE[X_T \mid \F_S]$ a.s. (apply the last display with the set $A = \{X_S < \EE[X_T \mid \F_S]\}$). This completes the proof of the theorem in the discrete case.
+
+    Now the continuous time case, Firstly, we make the extra assumption that $U$ and $V$ are bounded and we verify that we then have $E[Z_U] \ge E[Z_V]$. Let $p \ge 1$ be an integer such that $U \le p$ and $V \le p$. For every integer $n \ge 0$, set
+    \[
+    U_n = \sum_{k=0}^{p2^n-1} \frac{k+1}{2^n} \1_{\{k2^{-n} < U \le (k+1)2^{-n}\}}, \quad V_n = \sum_{k=0}^{p2^n-1} \frac{k+1}{2^n} \1_{\{k2^{-n} < V \le (k+1)2^{-n}\}}
+    \]
+    in such a way (by Proposition \ref{prop:majorant_is_stoping_time}) that $(U_n)$ and $(V_n)$ are two sequences of bounded stopping times that decrease respectively to $U$ and $V$, and additionally we have $U_n \le V_n$ for every $n \ge 0$. The right-continuity of sample paths ensures that $Z_{U_n} \to Z_U$ and $Z_{V_n} \to Z_V$ a.s. as $n \to \infty$. Then, by the optional stopping theorem for discrete supermartingales in the case of bounded stopping times (which we just proved), with respect to the filtration $(\F_{k/2^{n+1}})_{k\ge0}$, we have for every $n \ge 0$,
+    \[ Z_{U_{n+1}} \ge E[Z_{U_n} \mid \F_{U_{n+1}}]. \]
+    Setting $Y_n = Z_{U_{-n}}$ and $\H_n = \F_{U_{-n}}$, for every integer $n \le 0$, we get that the sequence $(Y_n)_{n\le0}$ is a backward supermartingale with respect to the filtration $(\H_n)_{n\le0}$. Since, for every $n \ge 0$, $E[Z_{U_n}] \le E[Z_0]$ (by another application of the discrete optional stopping theorem), the sequence $(Y_n)_{n\le0}$ is bounded in $L^1$, and by the convergence theorem for backward supermartingales in Theorem \ref{thm:backward_supermartingale_convergence}, it converges in $L^1$. Hence the convergence of $Z_{U_n}$ to $Z_U$ also holds in $L^1$ and similarly the convergence of $Z_{V_n}$ to $Z_V$ holds in $L^1$. Since $U_n \le V_n$, by yet another application of the discrete optional stopping theorem, we have $E[Z_{U_n}] \ge E[Z_{V_n}]$. Using the $L^1$-convergence of $Z_{U_n}$ and $Z_{V_n}$ we can pass to the limit $n \to \infty$ and obtain that $E[Z_U] \ge E[Z_V]$ as claimed.
+
+    Let us prove the statement of the theorem (no longer assuming that $U$ and $V$ are bounded). By the first step of the proof applied to the stopping times $0$ and $U \wedge p$, we have $E[Z_{U \wedge p}] \le E[Z_0]$ for every $p \ge 1$, and Fatou's lemma gives $E[Z_U] \le E[Z_0] < \infty$ and similarly $E[Z_V] < \infty$. Fix $A \in \F_U \subset \F_V$ and recall our notation $U^A$ for the stopping time defined by $U^A(\omega) = U(\omega)$ if $\omega \in A$ and $U^A(\omega) = \infty$ otherwise (cf. property (d) of stopping times). By the first part of the proof, we have, for every $p \ge 1$,
+    \[ E[Z_{U^A \wedge p}] \ge E[Z_{V^A \wedge p}]. \]
+    By writing each of these two expectations as a sum of expectations over the sets $A^c$, $A \cap \{U \le p\}$ and $A \cap \{U > p\}$, and noting that $U > p$ implies $V > p$, we get
+    \[ E[Z_U \1_{A \cap \{U \le p\}}] \ge E[Z_V \1_{A \cap \{U \le p\}}]. \]
+    Letting $p \to \infty$ then gives
+    \[ E[Z_U \1_{A \cap \{U < \infty\}}] \ge E[Z_V \1_{A \cap \{U < \infty\}}]. \]
+    On the other hand, the equality 
+    \[ E[Z_U \1_{A \cap \{U = \infty\}}] = E[Z_V \1_{A \cap \{U = \infty\}}]\]
+    is trivial and by adding it to the preceding display, we obtain
+    \[ E[Z_U \1_A] \ge E[Z_V \1_A] = E[E[Z_V \mid \F_U] \1_A]. \]
+    Since this holds for every $A \in \F_U$ and $Z_U$ is $\F_U$-measurable, the desired result follows.
 }
 
 \textbf{Remark} \quad
-This implies that $\mathbb{E}[Z_U] \ge \mathbb{E}[Z_V]$, and since $Z_U = Z_V = Z_\infty$ on the event $\{U = \infty\}$, it also follows that
+This implies that $\EE[Z_U] \ge \EE[Z_V]$, and since $Z_U = Z_V = Z_\infty$ on the event $\{U = \infty\}$, it also follows that
 \[
-\mathbb{E}[\mathbf{1}_{\{U < \infty\}} Z_U]
+\EE[\1_{\{U < \infty\}} Z_U]
 \ge
-\mathbb{E}[\mathbf{1}_{\{U < \infty\}} Z_V]
+\EE[\1_{\{U < \infty\}} Z_V]
 \ge
-\mathbb{E}[\mathbf{1}_{\{V < \infty\}} Z_V].
+\EE[\1_{\{V < \infty\}} Z_V].
 \]
+
+\subsection{Some applications of the optional stopping theorem}
+
 
 \end{document}
