@@ -17,4 +17,4 @@
 .vscode/
 
 # Pdf chapters 
-body/*.pdf
+Body/**/*.pdf
