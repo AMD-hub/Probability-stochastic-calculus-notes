@@ -1,0 +1,609 @@
+\documentclass[../Main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{A Few Facts from Functional Analysis}
+\label{apen:Functional_Analysis}
+
+In this appendix, we recall several basic results from functional analysis that are used throughout the text. Proofs may be found in \cite{realanalysis} or in most standard textbooks on functional analysis.
+
+\section{Normed Linear Spaces and Banach Spaces}
+
+Let $E$ be a linear space over the field $\mathbb{R}$. A \emph{norm} on $E$ is a mapping
+\[
+x \mapsto \|x\|
+\]
+from $E$ into $\mathbb{R}_+$ satisfying the following properties:
+
+\begin{itemize}
+    \item For every $x,y \in E$,
+    \[
+    \|x+y\| \leq \|x\|+\|y\|.
+    \]
+    \item For every $x \in E$ and $a \in \mathbb{R}$,
+    \[
+    \|ax\| = |a|\,\|x\|.
+    \]
+    \item For every $x \in E$,
+    \[
+    \|x\|=0 \quad \Longleftrightarrow \quad x=0.
+    \]
+\end{itemize}
+
+The pair $(E,\|\cdot\|)$ is called a \emph{normed linear space}. The norm induces a distance $d$ on $E$ defined by
+\[
+d(x,y)=\|x-y\|.
+\]
+
+A normed linear space $(E,\|\cdot\|)$ is called a \emph{Banach space} if it is complete with respect to the distance induced by the norm. In other words, if $(x_n)_{n\in\mathbb{N}}$ is a Cauchy sequence in $E$, namely
+\[
+\lim_{m,n\to\infty}\|x_m-x_n\|=0,
+\]
+then there exists $x\in E$ such that $x_n \to x$.
+
+A \emph{linear form} on $E$ is a linear mapping from $E$ into $\mathbb{R}$. A linear form $\Phi$ is continuous if and only if
+\[
+\|\Phi\|:=\sup_{\|x\|\leq 1} |\Phi(x)|<\infty.
+\]
+In that case,
+\[
+|\Phi(x)|\leq \|\Phi\|\,\|x\|, \qquad x\in E.
+\]
+
+The space of all continuous linear forms on $E$ is denoted by $E'$. Equipped with the norm $\|\cdot\|$, the space $(E',\|\cdot\|)$ is a normed linear space, called the \emph{topological dual} of $E$.
+
+The dual space $(E',\|\cdot\|)$ is always a Banach space, even when $(E,\|\cdot\|)$ itself is not complete.
+
+The following special case of the Hahn--Banach theorem is used in this book only to construct certain counterexamples.
+
+\thmr{Hahn--Banach Theorem}{Hahn_Banach}{
+Let $(E,\|\cdot\|)$ be a normed linear space, and let $F$ be a linear subspace of $E$. Let $\phi$ be a linear form on $F$ such that
+\[
+|\phi(y)|\leq \|y\|, \qquad y\in F.
+\]
+Then there exists a continuous linear form $\Phi$ on $E$ such that
+\[
+\Phi(y)=\phi(y), \qquad y\in F,
+\]
+and
+\[
+\|\Phi\|\leq 1.
+\]
+}
+
+\section{Hilbert Spaces}
+
+Let $H$ be a linear space over the field $\mathbb{R}$. A \emph{scalar product} on $H$ is a mapping
+\[
+(x,y)\mapsto \langle x,y\rangle
+\]
+from $H\times H$ into $\mathbb{R}$ satisfying the following properties:
+
+\begin{itemize}
+    \item For every $x,y\in H$,
+    \[
+    \langle x,y\rangle = \langle y,x\rangle.
+    \]
+    \item For every $x,y,z\in H$ and $a\in\mathbb{R}$,
+    \[
+    \langle x,y+z\rangle = \langle x,y\rangle+\langle x,z\rangle,
+    \qquad
+    \langle ax,y\rangle = a\langle x,y\rangle.
+    \]
+    \item For every $x\in H$,
+    \[
+    \langle x,x\rangle \geq 0,
+    \qquad
+    \langle x,x\rangle = 0 \Longleftrightarrow x=0.
+    \]
+\end{itemize}
+
+The scalar product induces a norm on $H$ defined by
+\[
+\|x\|:=\sqrt{\langle x,x\rangle}.
+\]
+
+The triangle inequality follows from the \emph{Cauchy--Schwarz inequality}:
+\[
+|\langle x,y\rangle| \leq \|x\|\,\|y\|,
+\qquad x,y\in H.
+\]
+
+If $(H,\|\cdot\|)$ is complete, then $(H,\langle\cdot,\cdot\rangle)$ is called a \emph{Hilbert space}.\\
+An \textbf{Isometry} is a map \(T: H \to H\) such that \(\|T(x) - T(y)\| = \|x - y\|\) for all \(x,y \in H\). \\ 
+An \textbf{Isomorphism} is a bijective linear map \(T: H \to K\) that preserves structure (e.g., inner product or norm), with a linear inverse.
+    
+In the sequel, $(H,\langle\cdot,\cdot\rangle)$ denotes a Hilbert space.
+
+The following theorem, applied with $H=L^2(E,\mathcal{A},\mu)$, plays a key role in the proof of the Radon--Nikodym theorem \ref{thm:RadonNikodym}.
+
+\thmr{Riesz Representation Theorem}{Riesz}{
+For every $y\in H$, define a continuous linear form $\Phi_y$ on $H$ by
+\[
+\Phi_y(x):=\langle x,y\rangle,
+\qquad x\in H.
+\]
+Then the mapping
+\[
+y\mapsto \Phi_y
+\]
+is a linear isometric isomorphism from $H$ onto $H'$. In particular,
+\[
+\|\Phi_y\|=\|y\|,
+\qquad y\in H.
+\]
+}
+
+We now state the orthogonal projection theorem, which is used in Theorem \ref{thn:Orthogonal_projection_property_conditional_expectation} to interpret conditional expectation.
+
+\thmr{Orthogonal Projection Theorem}{orthogonal_projection}{
+Let $F$ be a closed linear subspace of $H$, and let $x\in H$. Then there exists a unique element $p_F(x)\in F$ such that
+\[
+\|x-p_F(x)\|
+=
+\min\{\|x-y\|:y\in F\}.
+\]
+Moreover, $p_F(x)$ is characterized by the properties
+\begin{itemize}
+    \item $p_F(x)\in F$,
+    \item
+    \[
+    \langle x-p_F(x),y\rangle = 0,
+    \qquad y\in F.
+    \]
+\end{itemize}
+The element $p_F(x)$ is called the \emph{orthogonal projection} of $x$ onto $F$.
+}
+
+Two elements $x,y\in H$ are said to be \emph{orthogonal} if
+\[
+\langle x,y\rangle=0.
+\]
+
+\thmr{Density Criterion}{density_criterion}{
+Let $H$ be a Hilbert space and let $E$ be a linear subspace of $H$. Then the following are equivalent:
+\begin{enumerate}
+    \item The linear subspace $E$ is dense in $H$, that is,
+    \[
+    \overline{E}=H.
+    \]
+    \item The only vector orthogonal to every element of $E$ is the zero vector, namely,
+    \[
+    E^\perp
+    :=
+    \{x\in H:\langle x,y\rangle=0,\ \forall\,y\in E\}
+    =
+    \{0\}.
+    \]
+\end{enumerate}
+}
+
+\thmr{Riesz--Fischer Theorem}{Riesz_Fischer}{
+Let $(x_n)_{n\in\mathbb{N}}$ be a sequence of pairwise orthogonal elements of $H$. Then the limit
+\[
+\lim_{k\to\infty}\sum_{n=1}^k x_n
+\]
+exists in $H$ if and only if
+\[
+\sum_{n=1}^\infty \|x_n\|^2 < \infty.
+\]
+In this case, the limit is denoted by
+\[
+\sum_{n=1}^\infty x_n,
+\]
+and satisfies
+\[
+\left\|\sum_{n=1}^\infty x_n\right\|^2
+=
+\sum_{n=1}^\infty \|x_n\|^2.
+\]
+}
+
+We finally record two results used in the construction of Brownian motion in Chapter 14.
+
+A sequence $(e_n)_{n\in\mathbb{N}}$ in $H$ is called an \emph{orthonormal system} if
+
+\begin{itemize}
+    \item
+    \[
+    \langle e_m,e_n\rangle = 0,
+    \qquad m\neq n,
+    \]
+    \item
+    \[
+    \|e_n\|=1,
+    \qquad n\in\mathbb{N}.
+    \]
+\end{itemize}
+
+An orthonormal system $(e_n)_{n\in\mathbb{N}}$ is called an \emph{orthonormal basis} of $H$ if the linear span of $\{e_n:n\in\mathbb{N}\}$ is dense in $H$.
+
+\thmr{Parseval's Identity}{parseval_identity}{
+Let $(e_n)_{n\in\mathbb{N}}$ be an orthonormal basis of $H$. Then, for every $x\in H$,
+\[
+\sum_{n=1}^\infty |\langle x,e_n\rangle|^2
+=
+\|x\|^2,
+\]
+and
+\[
+x
+=
+\sum_{n=1}^\infty \langle x,e_n\rangle e_n.
+\]
+}
+
+The series in the second identity converges in the sense of Theorem \ref{Riesz_Fischer}.
+
+The following result shows that an isometric mapping between Hilbert spaces can be constructed by mapping an orthonormal basis of one space onto an orthonormal system in another.
+
+\propr{isometric_mapping}{
+Let $H$ and $K$ be Hilbert spaces. We use the same notation $\|\cdot\|$ and $\langle\cdot,\cdot\rangle$ for the norm and scalar product on both spaces.
+
+Suppose that $(e_n)_{n\in\mathbb{N}}$ is an orthonormal basis of $H$ and $(f_n)_{n\in\mathbb{N}}$ is an orthonormal system in $K$.
+
+Then there exists a unique linear isometry
+\[
+\Psi:H\to K
+\]
+such that
+\[
+\Psi(e_n)=f_n,
+\qquad n\in\mathbb{N}.
+\]
+
+Moreover, for every $x\in H$,
+\[
+\Psi(x)
+=
+\sum_{n=1}^\infty \langle x,e_n\rangle f_n.
+\]
+}
+
+\chapter{Gaussian Variables and Gaussian Processes}
+Gaussian random processes play an important role both in theoretical probability and in various applied models. This appendix begins by recalling basic facts about Gaussian random variables and Gaussian vectors. We then discuss Gaussian spaces and Gaussian processes, and we establish the fundamental properties concerning independence and conditioning in the Gaussian setting. We ﬁnally introduce the notion of a Gaussian white noise, which will be used to give a simple construction of Brownian motion in the next appendix.\label{sec:gaussian_sec}
+
+
+\section{Gaussian Random Variables}
+
+Throughout this appendix, we deal with random variables defined on a probability space $(\Omega,\mathcal F, \PP)$. For some of the existence statements that follow, this probability space should be chosen in an appropriate way. \\
+A real random variable $X$ is said to be a \emph{standard Gaussian (or normal) variable} if its law has density
+\[ p_X(x) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right) \]
+with respect to Lebesgue measure on $\mathbb R$.
+
+The complex Laplace transform of $X$ is then given by
+\[ \EE[e^{zX}] = e^{z^2/2}, \qquad \forall z\in\mathbb C.\]
+By taking $z=i\lambda$, $\lambda\in\mathbb R$, we get the characteristic function of $X$:
+\[ \EE[e^{i\lambda X}] = e^{-\lambda^2/2}. \]
+From the expansion
+\[ \EE[e^{i\lambda X}] = 1 + i\lambda \EE[X] + \cdots + \frac{(i\lambda)^n}{n!}\EE[X^n] + O(|\lambda|^{n+1}), \]
+as $\lambda\to 0$ (this expansion holds for every $n\geq 1$ when $X$ belongs to all spaces $L^p$, $1\leq p<\infty$, which is the case here), we get
+\[ \EE[X]=0,\qquad \EE[X^2]=1, \]
+and more generally, for every integer $n\geq 0$,
+\[ \EE[X^{2n}] = \frac{(2n)!}{2^n n!}, \qquad \EE[X^{2n+1}]=0. \]
+
+We now extend this definition. Let $\sigma>0$ and $m\in\mathbb R$, we say that a real random variable $Y$ is Gaussian with $\mathcal N(m,\sigma^2)$-distribution if $Y$ satisfies any of the three equivalent properties:
+\begin{enumerate}
+\item $Y = \sigma X + m$, where $X$ is a standard Gaussian variable (i.e.\ $X$ follows the $\mathcal N(0,1)$-distribution);
+\item the law of $Y$ has density
+\[ p_Y(y) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(y-m)^2}{2\sigma^2}\right); \]
+\item the characteristic function of $Y$ is
+\[ \EE[e^{i\lambda Y}] = \exp\left(i\lambda m - \frac{\lambda^2}{2}\sigma^2\right). \]
+\end{enumerate}
+We have then $\EE[Y]=m$, $\mathrm{var}(Y)=\sigma^2$.
+By extension, we say that $Y$ is Gaussian with $\mathcal N(m,0)$-distribution if $Y=m$ a.s.\ (property (3) still holds in that case).
+
+We now interest in the sum and limit of such gaussian variables : 
+\begin{enumerate}
+    \item \textbf{Sum of independent Gaussian variables:} Suppose that $Y$ follows the $\mathcal N(m,\sigma^2)$-distribution, $Y'$ follows the $\mathcal N(m',\sigma'^2)$-distribution, and $Y$ and $Y'$ are independent. Then $Y+Y'$ follows the $\mathcal N(m+m',\sigma^2+\sigma'^2)$-distribution. 
+    \item \textbf{Limit of Gaussian variables sequence:} Let $(X_n)_{n\geq 1}$ be a sequence of real random variables such that, for every $n\geq 1$, $X_n$ follows the $\mathcal N(m_n,\sigma_n^2)$-distribution. Suppose that $X_n$ converges in $L^2$ to $X$. Then:
+    \begin{enumerate}
+        \item The random variable $X$ follows the $\mathcal N(m,\sigma^2)$-distribution, where $m=\lim m_n$ and $\sigma=\lim \sigma_n$.
+        \item The convergence also holds in all $L^p$ spaces, $1\leq p <\infty$.
+    \end{enumerate}
+    \noindent\textit{Remark.} The assumption that $X_n$ converges in $L^2$ to $X$ can be weakened to convergence in probability (and in fact the convergence in distribution of the sequence $(X_n)_{n\geq 1}$ suffices to get part (1)).
+\end{enumerate}
+
+\section{Gaussian Vectors}
+Let $E$ be a $d$-dimensional Euclidean space ($E$ is isomorphic to $\mathbb R^d$ and we may take $E=\mathbb R^d$, with the usual inner product, but it will be more convenient to work with an abstract space). We write $\langle u,v\rangle$ for the inner product in $\E$.\\
+A random variable $\bX$ with values in $E$ is called a \emph{Gaussian vector} if, for every $u\in E$, $\langle u,X\rangle$ is a (real) Gaussian variable. (For instance, if $E=\mathbb R^d$, and if $X_1,\dots,X_d$ are independent Gaussian variables, the property of sums of independent Gaussian variables shows that the random vector $\bX=(X_1,\dots,X_d)$ is a Gaussian vector.)
+\vspace{1cm}
+Let $\bX$ be a Gaussian vector with values in $E$. Then there exist $m_\bX\in E$ and a nonnegative quadratic form $q_\bX$ on $E$ such that, for every $u\in E$,
+\[ \EE[\langle u,\bX\rangle] = \langle u, m_\bX\rangle, \qquad \mathrm{var}(\langle u,\bX\rangle) = q_\bX(u). \]
+
+Indeed, let $(e_1,\dots,e_d)$ be an orthonormal basis on $E$, and write $\bX=\sum_{j=1}^d X_j e_j$ and $u=\sum_{j=1}^d u_j e_j$ in this basis. Then :
+\[
+\begin{array}{ll}
+    m_\bX    &= \sum_{j=1}^d \EE[X_j]e_j \overset{\text{not.}}{=} \EE[\bX] \\
+    q_\bX(u) &= \sum_{j,k=1}^d u_j u_k\,\mathrm{cov}(X_j,X_k).
+\end{array}
+\]
+Since $\langle u,\bX\rangle$ follows the $\mathcal N(\langle u,m_\bX\rangle, q_\bX(u))$-distribution, we get the characteristic function of the random vector $\bX$,
+\begin{equation*}
+\EE[\exp(i\langle u,\bX\rangle)] = \exp\Big(i\langle u,m_\bX\rangle - \frac{1}{2} q_\bX(u)\Big). 
+\end{equation*}
+Furthermore, the random variables $X_1,\dots,X_d$ are independent if and only if the covariance matrix $(\mathrm{cov}(X_j,X_k))_{1\leq j,k\leq d}$ is diagonal, or equivalently if and only if $q_\bX$ is of diagonal form in the basis $(e_1,\dots,e_d)$.\\
+With the quadratic form $q_\bX$, we associate the unique symmetric endomorphism $\gamma_\bX$ of $E$ such that
+\[q_\bX(u) = \langle u, \gamma_\bX(u)\rangle\] 
+(the matrix of $\gamma_\bX$ in the basis $(e_1,\dots,e_d)$ is $(\mathrm{cov}(X_j,X_k))_{1\leq j,k\leq d}$, but of course the definition of $\gamma_\bX$ does not depend on the choice of a basis). Note that $\gamma_\bX$ is nonnegative in the sense that its eigenvalues are all nonnegative.
+From now on, to simplify the statements, we restrict our attention to centered Gaussian vectors, i.e.\ such that $m_\bX=0$, but the following result are easily adapted to the non-centered case.
+\thmr{Existence and diagonalization of Gaussian vectors}{gaussian-vector-decomposition}{
+\begin{enumerate}
+    \item Let $\gamma$ be a nonnegative symmetric endomorphism of $E$. Then there exists a Gaussian vector $\bX$ such that $\gamma_\bX=\gamma$.
+    \item Let $\bX$ be a centered Gaussian vector. Let $(\varepsilon_1,\dots,\varepsilon_d)$ be a basis of $E$ in which $\gamma_\bX$ is diagonal, $\gamma_\bX\varepsilon_j = \lambda_j \varepsilon_j$ for every $1\leq j\leq d$, where
+    \[ \lambda_1\geq \lambda_2\geq \cdots\geq \lambda_r > 0 = \lambda_{r+1}=\cdots=\lambda_d, \]
+    so that $r$ is the rank of $\gamma_\bX$. Then,
+    \[ \bX = \sum_{j=1}^r Y_j \varepsilon_j, \]
+    where $Y_j$, $1\leq j\leq r$, are independent (centered) Gaussian variables and the variance of $Y_j$ is $\lambda_j$. Consequently, if $\PP_\bX$ denotes the distribution of $\bX$, the topological support of $\PP_\bX$ is the vector space spanned by $\varepsilon_1,\dots,\varepsilon_r$. Furthermore, $P_\bX$ is absolutely continuous with respect to Lebesgue measure on $E$ if and only if $r=d$, and in that case the density of $\bX$ is
+    \[ p_\bX(x) = \frac{1}{(2\pi)^{d/2}\sqrt{\det\gamma_\bX}}\exp\left(-\frac12\langle x,\gamma_\bX^{-1}(x)\rangle\right).     \]
+\end{enumerate}}
+
+\section{Gaussian Processes and Gaussian Spaces}
+From now on until the end of this appendix, we consider only centered Gaussian variables, and we frequently omit the word \textit{centered}.\\
+A (centered) \emph{Gaussian space} is a closed linear subspace of $L^2(\Omega,\mathcal F,P)$ which contains only centered Gaussian variables. \\
+A simple example is the vector space spanned by $\{X_1,\dots,X_d\}$ is a Gaussian space, where $X=(X_1,\dots,X_d)$ is a centered Gaussian vector in $\mathbb R^d$. \\
+A (real-valued) random process $(X_t)_{t\geq 0}$\footnote{Here we consider continuous time for simplicity, however the resuts are valable for any indexing set including $\NN$} is called a (centered) \emph{Gaussian process} if any finite linear combination of the variables $X_t$, $t\geq 0$, is centered Gaussian. \\ 
+Furthermore, the closed linear subspace of $L^2$ spanned by the variables $X_t$, $t\geq 0$, is a Gaussian space, which is called the Gaussian space generated by the process $X$.
+\subsection{Independence properties}
+We now turn to independence properties in a Gaussian space. The next theorem shows that, in some sense, independence is equivalent to orthogonality in a Gaussian space. This is a very particular property of the Gaussian distribution.
+\thmr{Independence vs orthogonality in a Gaussian space}{independence-orthogonality}{
+    Let $H$ be a centered Gaussian space and let $(H_i)_{i\in I}$ be a collection of linear subspaces of $H$. Then the subspaces $H_i$, $i\in I$, are (pairwise) orthogonal in $L^2$ if and only if the $\sigma$-fields $\sigma(H_i)$, $i\in I$, are independent.
+}
+As an application of the previous theorem, we now discuss conditional expectations in the Gaussian framework. The fact that these conditional expectations can be computed as orthogonal projections (as shown in the next corollary) is very particular to the Gaussian setting.
+
+\cor{Let $H$ be a (centered) Gaussian space and let $K$ be a closed linear subspace of $H$. Let $p_K$ denote the orthogonal projection onto $K$ in the Hilbert space $L^2$, and let $X\in H$.
+\begin{enumerate}
+    \item We have
+    \[ \EE[X\mid \sigma(K)] = p_K(X). \]
+    \item Let $\sigma^2 = \EE[(X-p_K(X))^2]$. Then, for every Borel subset $A$ of $\mathbb R$, the random variable $\PP[X\in A\mid \sigma(K)]$ is given by
+    \[ \PP[X\in A\mid\sigma(K)](\omega) = \QQ(\omega,A), \]
+    where $\QQ(\omega,\cdot)$ denotes the $\mathcal N(p_K(X)(\omega),\sigma^2)$-distribution:
+    \[ \QQ(\omega,A) = \frac{1}{\sigma\sqrt{2\pi}}\int_A dy\,\exp\left(-\frac{(y-p_K(X)(\omega))^2}{2\sigma^2}\right) \]
+    (and by convention $\QQ(\omega,A) = \mathbf{1}_A(p_K(X))$ if $\sigma=0$).
+\end{enumerate}}
+
+\noindent\textbf{Remarks.}
+\begin{enumerate}
+\item Part (2) of the statement can be interpreted by saying that the conditional distribution of $X$ knowing $\sigma(K)$ is $\mathcal N(p_K(X),\sigma^2)$.
+\item For a general random variable $X$ in $L^2$, one has (see Theorem \ref{thm:Orthogonal_projection_property_conditional_expectation})
+\[\EE[X\mid \sigma(K)] = p_{L^2(\Omega,\sigma(K),P)}(X).\]
+Assertion (1) shows that, in our Gaussian framework, this orthogonal projection coincides with the orthogonal projection onto the space $K$, which is \textit{much smaller} than $L^2(\Omega,\sigma(K),P)$.
+\item Assertion (1) also gives the principle of linear regression. For instance, if $(X_1,X_2,X_3)$ is a (centered) Gaussian vector in $\mathbb R^3$, the best approximation in $L^2$ of $X_3$ as a (not necessarily linear) function of $X_1$ and $X_2$ can be written $\lambda_1 X_1 + \lambda_2 X_2$ where $\lambda_1$ and $\lambda_2$ are computed by saying that $X_3 - (\lambda_1 X_1+\lambda_2 X_2)$ is orthogonal to the vector space spanned by $X_1$ and $X_2$.
+\end{enumerate}
+
+Let $(X_t)_{t\geq 0}$ be a (centered) Gaussian process. The \emph{covariance function} of $X$ is the function $\Gamma : \RR^+\times \RR^+ \to \mathbb R$ defined by $\Gamma(s,t) = \mathrm{cov}(X_s,X_t) = \EE[X_sX_t]$. \\ 
+This function characterizes the collection of \emph{finite-dimensional marginal distributions} of the process $X$, that is, the collection consisting, for every choice of distinct indices $t_1,\dots,t_p$ in $\RR^+$, of the law of the vector $(X_{t_1},\dots,X_{t_p})$. Indeed this vector is a centered Gaussian vector in $\mathbb R^p$ with covariance matrix $(\Gamma(t_i,t_j))_{1\leq i,j\leq p}$. 
+\subsection{Existence of Gaussian Processes}
+Given a function $\Gamma$ on $\RR^+\times \RR^+$, one may ask whether there exists a Gaussian process $X$ whose covariance function is $\Gamma$. The function $\Gamma$ must be symmetric ($\Gamma(s,t)=\Gamma(t,s)$) and \emph{of positive type} in the following sense: if $c$ is a real function on $\RR^+$ with finite support $T$, then
+\[ \sum_{T\times T} c(s)c(t)\Gamma(s,t) \geq 0. \]
+Indeed, if $\Gamma$ is the covariance function of the process $X$, we have immediately
+\[ \sum_{T\times T} c(s)c(t)\Gamma(s,t) = \mathrm{var}\Big(\sum_T c(s)X_s\Big) \geq 0. \]
+The next theorem solves the existence problem in the general case. This theorem is a direct consequence of the \textit{Kolmogorov extension theorem} is not stated yet.
+\thmr{Existence of Gaussian processes with prescribed covariance}{existence-gaussian-process}{Let $\Gamma$ be a symmetric function of positive type on $\RR^+\times \RR^+$. There exists, on an appropriate probability space $(\Omega,\mathcal F,P)$, a centered Gaussian process whose covariance function is $\Gamma$.}
+
+\noindent\textbf{Example.} Let $\mu$ be a finite measure on $\mathbb R$, which is also symmetric (i.e.\ $\mu(-A)=\mu(A)$). Then set, for every $s,t\in\mathbb R$,
+\[ \Gamma(s,t) = \int e^{i\xi(t-s)}\,\mu(d\xi). \]
+It is easy to verify that $\Gamma$ has the required properties. In particular, if $c$ is a real function on $\mathbb R$ with finite support $T$,
+\[ \sum_{T\times T} c(s)c(t)\Gamma(s,t) = \int \Big|\sum_{T} c(s)e^{i\xi s}\Big|^2\,\mu(d\xi) \geq 0. \]
+The function $\Gamma$ enjoys the additional property that $\Gamma(s,t)$ only depends on $t-s$. It immediately follows that any (centered) Gaussian process $(X_t)_{t\geq 0}$ with covariance function $\Gamma$ is stationary (in a strong sense), meaning that
+\[ (X_{t_1+t},X_{t_2+t},\dots,X_{t_n+t}) \overset{(d)}{=} (X_{t_1},X_{t_2},\dots,X_{t_n}) \]
+for any choice of $t_1,\dots,t_n,t\in\mathbb R$. Conversely, any stationary Gaussian process $X$ indexed by $\mathbb R^+$ has a covariance of the preceding type (this is Bochner's theorem, which we will not use in this book), and the measure $\mu$ is called the \emph{spectral measure} of $X$.
+
+\section{Gaussian White Noise}
+Let $(E,\mathcal E)$ be a measurable space, and let $\mu$ be a $\sigma$-finite measure on $(E,\mathcal E)$. A \emph{Gaussian white noise} with intensity $\mu$ is an isometry $G$ from $L^2(E,\mathcal E,\mu)$ into a (centered) Gaussian space.
+
+Hence, if $f\in L^2(E,\mathcal E,\mu)$, $G(f)$ is centered Gaussian with variance
+\[ \EE[G(f)^2] = \|G(f)\|^2_{L^2(\Omega,\mathcal F,P)} = \|f\|^2_{L^2(E,\mathcal E,\mu)} = \int f^2\,d\mu. \]
+If $f,g\in L^2(E,\mathcal E,\mu)$, the covariance of $G(f)$ and $G(g)$ is
+\[ \EE[G(f)G(g)] = \langle f,g\rangle_{L^2(E,\mathcal E,\mu)} = \int fg\,d\mu. \]
+In particular, if $f=\mathbf{1}_A$ with $\mu(A)<\infty$, $G(\mathbf{1}_A)$ is $\mathcal N(0,\mu(A))$-distributed. To simplify notation, we will write $G(A)=G(\mathbf{1}_A)$.
+
+Let $A_1,\dots,A_n\in\mathcal E$ be disjoint and such that $\mu(A_j)<\infty$ for every $j$. Then the vector
+\[ (G(A_1),\dots,G(A_n)) \]
+is a Gaussian vector in $\mathbb R^n$ and its covariance matrix is diagonal since, if $i\neq j$,
+\[ \EE[G(A_i)G(A_j)] = \langle \mathbf{1}_{A_i}, \mathbf{1}_{A_j}\rangle_{L^2(E,\mathcal E,\mu)} = 0. \]
+Then we get that the variables $G(A_1),\dots,G(A_n)$ are independent.
+
+Suppose that $A\in\mathcal E$ is such that $\mu(A)<\infty$ and that $A$ is the disjoint union of a countable collection $A_1,A_2,\dots$ of measurable subsets of $E$. Then, $\mathbf{1}_A = \sum_{j=1}^\infty \mathbf{1}_{A_j}$, where the series converges in $L^2(E,\mathcal E,\mu)$, and by the isometry property this implies that
+\[ G(A) = \sum_{j=1}^\infty G(A_j), \]
+where the series converges in $L^2(\Omega,\mathcal F,P)$ (since the random variables $G(A_j)$ are independent, an easy application of the convergence theorem for discrete martingales also shows that the series converges a.s.).
+
+Properties of the mapping $A\mapsto G(A)$ are therefore very similar to those of a measure depending on the parameter $\omega\in\Omega$. However, one can show that, if $\omega$ is fixed, the mapping $A\mapsto G(A)(\omega)$ does not (in general) define a measure. We will come back to this point later.\\
+Now we discuss the existence of such isometry given a measurable space and a given intensity. 
+\propr{existence-white-noise}{Let $(E,\mathcal E)$ be a measurable space, and let $\mu$ be a $\sigma$-finite measure on $(E,\mathcal E)$. There exists, on an appropriate probability space $(\Omega,\mathcal F,P)$, a Gaussian white noise with intensity $\mu$.}
+
+\noindent\textbf{Remark.} In what follows, we will only consider the case when $L^2(E,\mathcal E,\mu)$ is separable\footnote{A metric space (or Hilbert space) is separable if it contains a countable dense subset.}. For instance, if $(E,\mathcal E) = (\mathbb R_+,\mathcal B(\mathbb R_+))$ and $\mu$ is Lebesgue measure (which would be the case in most of this book), the construction of $G$ only requires a sequence $(\xi_n)_{n\geq 0}$ of independent $\mathcal N(0,1)$ random variables, and the choice of an orthonormal basis $(\varphi_n)_{n\geq 0}$ of $L^2(\mathbb R_+,\mathcal B(\mathbb R_+),dt)$: we get $G$ by setting
+\[ G(f) = \sum_{n\geq 0} \langle f,\varphi_n\rangle\,\xi_n. \]
+
+
+Our last proposition gives a way of recovering the intensity $\mu(A)$ of a measurable set $A$ from the values of $G$ on the atoms of finer and finer partitions of $A$.
+
+\propr{quadratic-variation-white-noise}{Let $G$ be a Gaussian white noise on $(E,\mathcal E)$ with intensity $\mu$. Let $A\in\mathcal E$ be such that $\mu(A)<\infty$. Assume that there exists a sequence of partitions of $A$,
+\[ A = A_1^n \cup \dots \cup A_{k_n}^n, \]
+whose ``mesh'' tends to $0$, in the sense that
+\[ \lim_{n\to\infty}\Big(\sup_{1\leq j\leq k_n} \mu(A_j^n)\Big) = 0. \]
+Then,
+\[ \lim_{n\to\infty} \sum_{j=1}^{k_n} G(A_j^n)^2 = \mu(A) \]
+in $L^2$.}
+
+
+
+\chapter{Brownian Motion} \label{apen:Brownian_Motion}
+ 
+In this appendix, we construct Brownian motion and investigate some of its properties. We start by introducing the ``pre-Brownian motion'' (this is not a canonical terminology), which is easily defined from a Gaussian white noise on $\mathbb R_+$ whose intensity is Lebesgue measure. Going from pre-Brownian motion to Brownian motion requires the additional property of continuity of sample paths, which is derived here via the classical Kolmogorov lemma. The end of the chapter discusses several properties of Brownian sample paths, and establishes the strong Markov property, with its classical application to the reflection principle.
+ 
+\section{Pre-Brownian Motion}
+ 
+Throughout this appendix, we argue on a probability space $(\Omega,\mathcal F,P)$. Most of the time, but not always, random processes will be indexed by $\mathbb R_+$ and take values in $\mathbb R$. \\ 
+Let $G$ be a Gaussian white noise on $\mathbb R_+$ whose intensity is Lebesgue measure. The random process $(B_t)_{t\in\mathbb R_+}$ defined by
+\[ B_t = G(\mathbf 1_{[0,t]})\]
+is called \emph{pre-Brownian motion}. We have : 
+\[ K(s,t) = \min\{s,t\} \overset{\text{not.}}{=} s\wedge t. \]
+ 
+The next proposition gives different ways of characterizing pre-Brownian motion.
+\propr{pre-brownian-characterizations}{Let $(X_t)_{t\geq 0}$ be a (real-valued) random process. The following properties are equivalent:
+\begin{enumerate}
+    \item$(X_t)_{t\geq 0}$ is a pre-Brownian motion;
+    \item $(X_t)_{t\geq 0}$ is a centered Gaussian process with covariance $K(s,t)=s\wedge t$;
+    \item $X_0=0$ a.s., and, for every $0\leq s<t$, the random variable $X_t-X_s$ is independent of $\sigma(X_r, r\leq s)$ and distributed according to $\mathcal N(0,t-s)$;
+    \item $X_0=0$ a.s., and, for every choice of $0=t_0<t_1<\cdots<t_p$, the variables $X_{t_i}-X_{t_{i-1}}$, $1\leq i\leq p$, are independent, and, for every $1\leq i\leq p$, the variable $X_{t_i}-X_{t_{i-1}}$ is distributed according to $\mathcal N(0,t_i-t_{i-1})$.
+\end{enumerate}}
+
+Let $(B_t)_{t\geq 0}$ be a pre-Brownian motion. Then, for every choice of $0=t_0<t_1<\cdots<t_n$, the law of the vector $(B_{t_1},B_{t_2},\dots,B_{t_n})$ has density
+\[ p(x_1,\dots,x_n) = \frac{1}{(2\pi)^{n/2}\sqrt{t_1(t_2-t_1)\cdots(t_n-t_{n-1})}}\exp\left(-\sum_{i=1}^n \frac{(x_i-x_{i-1})^2}{2(t_i-t_{i-1})}\right), \]
+where by convention $x_0=0$. \\
+We have the property of invariance of pre-Brownian motion : 
+\begin{enumerate}
+    \item $-B$ is also a pre-Brownian motion (symmetry property);
+    \item for every $\lambda>0$, the process $B_t^\lambda = \frac{1}{\lambda}B_{\lambda^2 t}$ is also a pre-Brownian motion (invariance under scaling);
+    \item for every $s\geq 0$, the process $B_t^{(s)} = B_{s+t}-B_s$ is a pre-Brownian motion and is independent of $\sigma(B_r, r\leq s)$ (simple Markov property).
+\end{enumerate}
+
+Let $B$ be a pre-Brownian motion and let $G$ be the associated Gaussian white noise. Note that $G$ is determined by $B$: if $f$ is a step function there is an explicit formula for $G(f)$ in terms of $B$, and one then uses a density argument. One often writes for $f\in L^2(\mathbb R_+,\mathcal B(\mathbb R_+),dt)$,
+\[ G(f) = \int_0^\infty f(s)\,dB_s \]
+and similarly
+\[
+G(f\mathbf 1_{[0,t]}) = \int_0^t f(s)\,dB_s\;,\qquad G(f\mathbf 1_{(s,t]}) = \int_s^t f(r)\,dB_r.
+\]
+This notation is justified by the fact that, if $u<v$,
+\[ \int_u^v dB_s = G((u,v]) = G([0,v]) - G([0,u]) = B_v - B_u. \]
+The mapping $f\mapsto \int_0^\infty f(s)\,dB_s$ (that is, the Gaussian white noise $G$) is then called the \emph{Wiener integral} with respect to $B$. Recall that $\int_0^\infty f(s)\,dB_s$ is distributed according to $\mathcal N(0,\int_0^\infty f(s)^2\,ds)$.
+ 
+Since a Gaussian white noise is not a \emph{real} measure depending on $\omega$, $\int_0^\infty f(s)\,dB_s$ is not a \emph{real} integral depending on $\omega$. Much of what follows in this book is devoted to extending the definition of $\int_0^\infty f(s)\,dB_s$ to functions $f$ that may depend on $\omega$.
+ 
+\section{The Continuity of Sample Paths}
+
+A process $(B_t)_{t\geq 0}$ is a \emph{Brownian motion} if:
+\begin{enumerate}
+\item[(i)] $(B_t)_{t\geq 0}$ is a pre-Brownian motion.
+\item[(ii)] All sample paths of $B$ are continuous.
+\end{enumerate}
+This is in fact the definition of a \emph{real} (or \emph{linear}) Brownian motion \emph{started from $0$}. Extensions to arbitrary starting points and to higher dimensions will be discussed later. \\ 
+The existence of Brownian motion in the sense of the preceding definition follows from Theorem~\ref{thm:kolmogorov-lemma}. Indeed, starting from a pre-Brownian motion, this theorem provides a modification with continuous sample paths (and even locally Hôlder continuous with exponent $\frac12-\delta$ for every $\delta\in(0,\tfrac12)$. ), which is still a pre-Brownian motion. In what follows we no longer consider pre-Brownian motion, as we will be interested only in Brownian motion. \\
+It is important to note that the preceding pre-Brownian motion properties hold without change if pre-Brownian motion is replaced everywhere by Brownian motion. \\
+\textbf{The Wiener measure.} Let $C(\mathbb R_+,\mathbb R)$ be the space of all continuous functions from $\mathbb R_+$ into $\mathbb R$. We equip $C(\mathbb R_+,\mathbb R)$ with the $\sigma$-field $\mathcal C$ defined as the smallest $\sigma$-field on $C(\mathbb R_+,\mathbb R)$ for which the coordinate mappings $w\mapsto w(t)$ are measurable for every $t\geq 0$ (alternatively, one checks that $\mathcal C$ coincides with the Borel $\sigma$-field on $C(\mathbb R_+,\mathbb R)$ associated with the topology of uniform convergence on every compact set). Given a Brownian motion $B$, we can consider the mapping
+\[
+\Omega \longrightarrow C(\mathbb R_+,\mathbb R), \qquad \omega \mapsto (t\mapsto B_t(\omega))
+\]
+and one verifies that this mapping is measurable (if we take its composition with a coordinate map $w\mapsto w(t)$ we get the random variable $B_t$, and a simple argument shows that this suffices for the desired measurability).
+ 
+The \emph{Wiener measure} (or law of Brownian motion) is by definition the image of the probability measure $P(d\omega)$ under this mapping. The Wiener measure, which we denote by $W(dw)$, is thus a probability measure on $C(\mathbb R_+,\mathbb R)$, and, for every measurable subset $A$ of $C(\mathbb R_+,\mathbb R)$, we have
+\[
+W(A) = P(B_\cdot \in A),
+\]
+where in the right-hand side $B_\cdot$ stands for the random continuous function $t\mapsto B_t(\omega)$.
+ 
+We can specialize the last equality to a ``cylinder set'' of the form
+\[
+A = \{w\in C(\mathbb R_+,\mathbb R) : w(t_0)\in A_0,\ w(t_1)\in A_1,\dots,w(t_n)\in A_n\},
+\]
+where $0=t_0<t_1<\cdots<t_n$, and $A_0,A_1,\dots,A_n\in\mathcal B(\mathbb R)$ (recall that $\mathcal B(\mathbb R)$ stands for the Borel $\sigma$-field on $\mathbb R$). Corollary~\ref{cor:finite-dim-density} then gives
+\[
+W(\{w; w(t_0)\in A_0, w(t_1)\in A_1,\dots,w(t_n)\in A_n\})
+\]
+\[
+= P(B_{t_0}\in A_0, B_{t_1}\in A_1,\dots,B_{t_n}\in A_n)
+\]
+\[
+= \mathbf 1_{A_0}(0)\int_{A_1\times\cdots\times A_n} \frac{dx_1\cdots dx_n}{(2\pi)^{n/2}\sqrt{t_1(t_2-t_1)\cdots(t_n-t_{n-1})}}\exp\left(-\sum_{i=1}^n \frac{(x_i-x_{i-1})^2}{2(t_i-t_{i-1})}\right),
+\]
+where $x_0=0$ by convention.
+ 
+This formula for the $W$-measure of cylinder sets characterizes the probability measure $W$. Indeed, the class of cylinder sets is stable under finite intersections and generates the $\sigma$-field $\mathcal C$, which by a standard monotone class argument (see Appendix A1) implies that a probability measure on $\mathcal C$ is characterized by its values on this class. A consequence of the preceding formula for the $W$-measure of cylinder sets is the (fortunate) fact that the definition of the Wiener measure does not depend on the choice of the Brownian motion $B$: the law of Brownian motion is uniquely defined!
+ 
+Suppose that $B'$ is another Brownian motion. Then, for every $A\in\mathcal C$,
+\[
+P(B'_\cdot\in A) = W(A) = P(B_\cdot\in A).
+\]
+This means that the probability that a given property (corresponding to a measurable subset $A$ of $C(\mathbb R_+,\mathbb R)$) holds is the same for the sample paths of $B$ and for the sample paths of $B'$. We will use this observation many times in what follows (see in particular the second part of the proof of Proposition~\ref{prop:sample-path-properties} below).
+ 
+Consider now the special choice of a probability space,
+\[
+\Omega = C(\mathbb R_+,\mathbb R), \qquad \mathcal F = \mathcal C, \qquad P(dw) = W(dw).
+\]
+Then on this probability space, the so-called \emph{canonical process}
+\[
+X_t(w) = w(t)
+\]
+is a Brownian motion (the continuity of sample paths is obvious, and the fact that $X$ has the right finite-dimensional marginals follows from the preceding formula for the $W$-measure of cylinder sets). This is the \emph{canonical construction} of Brownian motion.
+ 
+\section{Properties of Brownian Sample Paths}
+In this section, we investigate properties of sample paths of Brownian motion. We fix a Brownian motion $(B_t)_{t\geq 0}$. For every $t\geq 0$, we set
+\[ \mathcal F_t = \sigma(B_s, s\leq t). \]
+Note that $\mathcal F_s\subset\mathcal F_t$ if $s\leq t$. We also set
+\[ \mathcal F_{0+} = \bigcap_{s>0} \mathcal F_s. \]
+We start by stating a useful $0$--$1$ law.
+\thmr{Blumenthal's zero-one law}{thm:blumenthal}{The $\sigma$-field $\mathcal F_{0+}$ is trivial, in the sense that $P(A)=0$ or $1$ for every $A\in\mathcal F_{0+}$.}
+ 
+\propr{sample-path-properties}{
+\begin{enumerate}
+    \item We have, a.s.\ for every $\varepsilon>0$,
+    \[ \sup_{0\leq s\leq \varepsilon} B_s > 0, \qquad \inf_{0\leq s\leq \varepsilon} B_s < 0. \]
+    \item For every $a\in\mathbb R$, let $T_a = \inf\{t\geq 0 : B_t=a\}$ (with the convention $\inf\emptyset=\infty$). Then,
+    \[ \text{a.s.},\quad \forall a\in\mathbb R,\quad T_a<\infty. \]
+    Consequently, we have a.s.
+    \[ \limsup_{t\to\infty} B_t = +\infty, \qquad \liminf_{t\to\infty} B_t = -\infty. \]
+    \item Almost surely, the function $t\mapsto B_t$ is not monotone on any non-trivial interval.
+\end{enumerate}}
+ 
+\noindent\textbf{Remark.} It is not a priori obvious that $\sup_{0\leq s\leq \varepsilon} B_s$ is measurable, since this is an uncountable supremum of random variables. However, we can take advantage of the continuity of sample paths to restrict the supremum to \emph{rational} values of $s\in[0,\varepsilon]$, so that we have a supremum of a countable collection of random variables. We will implicitly use such remarks in what follows.
+ 
+ 
+\propr{quadratic-variation}{
+\begin{itemize}
+    \item Let $0=t_0^n<t_1^n<\cdots<t_{p_n}^n=t$ be a sequence of subdivisions of $[0,t]$ whose mesh tends to $0$ (i.e.\ $\sup_{1\leq i\leq p_n}(t_i^n-t_{i-1}^n)\to 0$ as $n\to\infty$). Then,
+    \[ \lim_{n\to\infty} \sum_{i=1}^{p_n} (B_{t_i^n}-B_{t_{i-1}^n})^2 = t, \]
+    in $L^2$.
+    \item If $a<b$ and $f$ is a real function defined on $[a,b]$, the function $f$ is said to have \emph{infinite variation} if the supremum of the quantities $\sum_{i=1}^p |f(t_i)-f(t_{i-1})|$, over all subdivisions $a=t_0<t_1<\cdots<t_p=b$, is infinite. Almost surely, the function $t\mapsto B_t$ has infinite variation on any non-trivial interval.
+\end{itemize}    
+}
+ 
+The part (2) shows that it is not possible to define the integral $\int_0^t f(s)\,dB_s$ as a special case of the usual (Stieltjes) integral with respect to functions of finite variation (see Section \ref{sec:finite-variation-processes} for a brief presentation of the integral with respect to functions of finite variation, and also the comments on \textit{Weirner measure} in the previous section).
+ 
+\section{The Strong Markov Property of Brownian Motion}
+ 
+Our goal is to extend the simple Markov property to the case where the deterministic time $s$ is replaced by a stopping time $T$ (see Section \ref{sec:martingale_stoppig_time}).  
+As in the previous section, we fix a Brownian motion $(B_t)_{t\geq 0}$. We keep the notation $\mathcal F_t$ introduced before Theorem~\ref{thm:blumenthal} and we also set $\mathcal F_\infty = \sigma(B_s, s\geq 0)$.
+ 
+\thmr{strong Markov property}{thm:strong-markov}{Let $T$ be a stopping time. We assume that $P(T<\infty)>0$ and we set, for every $t\geq 0$,
+\[
+B_t^{(T)} = \mathbf 1_{\{T<\infty\}}(B_{T+t}-B_T).
+\]
+Then under the probability measure $P(\cdot \mid T<\infty)$, the process $(B_t^{(T)})_{t\geq 0}$ is a Brownian motion independent of $\mathcal F_T$.}
+ 
+An important application of the strong Markov property is the ``reflection principle'' that leads to the following theorem.
+ 
+\thmr{reflection principle}{thm:reflection-principle}{For every $t>0$, set $S_t = \sup_{s\leq t} B_s$. Then, if $a\geq 0$ and $b\in(-\infty,a]$, we have
+\[
+P(S_t\geq a,\ B_t\leq b) = P(B_t\geq 2a-b).
+\]
+In particular, $S_t$ has the same distribution as $|B_t|$.}
+ 
+It follows from the previous theorem that the law of the pair $(S_t,B_t)$ has density
+\begin{equation*}
+g(a,b) = \frac{2(2a-b)}{\sqrt{2\pi t^3}}\exp\left(-\frac{(2a-b)^2}{2t}\right)\mathbf 1_{\{a>0,\,b<a\}}. 
+\end{equation*}
+It follows also that : for every $a>0$, $T_a$ has the same distribution as $\dfrac{a^2}{B_1^2}$ and has density
+\[ f(t) = \frac{a}{\sqrt{2\pi t^3}}\exp\left(-\frac{a^2}{2t}\right)\mathbf 1_{\{t>0\}}. \]
+ 
+\noindent\textbf{Remark.} From the form of the density of $T_a$, we immediately get that $\EE[T_a]=\infty$.
+ 
+\section{Extension for Brownian Motion}
+We finally extend the definition of Brownian motion to the case of an arbitrary (possibly random) initial value and to any dimension.
+ 
+\subsection{real Brownian motion started from Z}
+If $Z$ is a real random variable, a process $(X_t)_{t\geq 0}$ is a \emph{real Brownian motion started from $Z$} if we can write $X_t = Z+B_t$ where $B$ is a real Brownian motion started from $0$ and is independent of $Z$.
+
+\subsection{d-dimensional Brownian motion}
+A random process $B_t = (B_t^1,\dots,B_t^d)$ with values in $\mathbb R^d$ is a \emph{$d$-dimensional Brownian motion started from $0$} if its components $B^1,\dots,B^d$ are independent real Brownian motions started from $0$. If $Z$ is a random variable with values in $\mathbb R^d$ and $X_t=(X_t^1,\dots,X_t^d)$ is a process with values in $\mathbb R^d$, we say that $X$ is a \emph{$d$-dimensional Brownian motion started from $Z$} if we can write $X_t = Z+B_t$ where $B$ is a $d$-dimensional Brownian motion started from $0$ and is independent of $Z$.
+
+Note that, if $X$ is a $d$-dimensional Brownian motion and the initial value of $X$ is random, the components of $X$ may not be independent because the initial value may introduce some dependence (this does not occur if the initial value is deterministic).
+ 
+In a way similar to the end of first section, the Wiener measure in dimension $d$ is defined as the probability measure on $C(\mathbb R_+,\mathbb R^d)$ which is the law of a $d$-dimensional Brownian motion started from $0$. The canonical construction of Sect.~2.2 also applies to $d$-dimensional Brownian motion.
+ 
+\subsection{Extended results}
+Many of the preceding results can be extended to $d$-dimensional Brownian motion with an arbitrary starting point. 
+
+Furthermore, the symetry property can be extended as follows. If $X$ is a $d$-dimensional Brownian motion and $\Phi$ is an isometry of $\mathbb R^d$, the process $(\Phi(X_t))_{t\geq 0}$ is still a $d$-dimensional Brownian motion.
+
+\end{document}

@@ -1,0 +1,1050 @@
+\documentclass[../Main.tex]{subfiles}
+
+
+\begin{document}
+
+\chapter{Stochastic Integration}
+This chapter is at the core of the present book. We start by defining the stochastic integral with respect to a square-integrable continuous martingale, considering first the integral of elementary processes (which play a role analogous to step functions in the theory of the Riemann integral) and then using an isometry between Hilbert spaces to deal with the general case.
+
+It is easy to extend the definition of stochastic integrals to continuous local martingales and semimartingales. We then derive the celebrated Itô's formula, which shows that the image of one or several continuous semimartingales under a smooth function is still a continuous semimartingale, whose canonical decomposition is given in terms of stochastic integrals.
+
+Itô's formula is the main technical tool of stochastic calculus, and we discuss several important applications of this formula, including Lévy's theorem characterizing Brownian motion as a continuous local martingale with quadratic variation process equal to t, the Burkholder-Davis-Gundy inequalities, and the representation of martingales as stochastic integrals in a Brownian filtration.
+
+The end of the chapter is devoted to Girsanov's theorem, which deals with the stability of the notions of a martingale and a semimartingale under an absolutely continuous change of probability measure. As an application of Girsanov's theorem, we establish the famous Cameron-Martin formula giving the image of the Wiener measure under a translation by a deterministic function.
+
+\section{The Construction of Stochastic Integrals}
+
+Throughout this chapter, we argue on a filtered probability space
+$(\Omega,\F,(\F_t),\PP)$, and we assume that the filtration $(\F_t)$ is complete. Unless otherwise specified, all processes in this chapter are indexed by $\RR_+$ and take real values. We often say \textit{continuous martingale} instead of \textit{martingale with continuous sample paths}.
+
+We recall that $\HH^2$ denotes the space of continuous martingales
+starting from $0$ and bounded in $L^2$. As established in Proposition
+\ref{prop:hilbert_structure_H2}, endowed with its usual scalar product,
+$\HH^2$ is a Hilbert space. We also denote by $\P$ the
+progressive $\sigma$-field on $\Omega\times\RR_+$; see the end of
+Section~\ref{sec:filtration}.
+
+\subsection{Stochastic Integrals for Martingales Bounded in $L^2$}
+Let $M\in\HH^2$, we let $L^2(M)$ be the set of all progressive processes $H$ such that 
+$$
+\EE\!\left[\int_0^\infty H_s^2\,d\langle M,M\rangle_s\right]<\infty,
+$$
+with the convention that two progressive processes $H$ and $H'$ satisfying
+this integrability condition are identified if $H_s=H'_s$,
+$d\langle M,M\rangle_s$-a.e., a.s. We can view $L^2(M)$ as an ordinary
+$L^2$-space, namely
+$$
+L^2(M)=L^2\bigl(\Omega\times\RR_+,\P,\,d\PP\,d\langle M,M\rangle_s\bigr),
+$$
+where $d\PP\,d\langle M,M\rangle_s$ refers to the finite measure on
+$(\Omega\times\RR_+,\P)$ that assigns the mass
+$$
+\EE\!\left[\int_0^\infty \1_A(\omega,s)\,d\langle M,M\rangle_s\right]
+$$
+to a set $A\in\P$ (the total mass of this measure is
+$\EE[\langle M,M\rangle_\infty]=\|M\|_{\HH^2}^2$). Just like any
+$L^2$-space, the space $L^2(M)$ is a Hilbert space for the scalar product
+$$
+(H,K)_{L^2(M)}
+=\EE\!\left[\int_0^\infty H_sK_s\,d\langle M,M\rangle_s\right],
+$$
+and the associated norm is
+$$
+\|H\|_{L^2(M)}
+=\left(\EE\!\left[\int_0^\infty H_s^2\,d\langle M,M\rangle_s\right]\right)^{1/2}.
+$$
+
+\defn{elementary process}{An \emph{elementary process} is a progressive process of the form
+$$
+H_s(\omega)=\sum_{i=0}^{p-1}H_{(i)}(\omega)\,\1_{(t_i,t_{i+1}]}(s),
+$$
+where $0=t_0<t_1<t_2<\cdots<t_p$ and, for every
+$i\in\{0,1,\ldots,p-1\}$, $H_{(i)}$ is a bounded
+$\F_{t_i}$-measurable random variable.}
+
+The set $\E$ of all elementary processes forms a linear subspace of
+$L^2(M)$. To be precise, we should here say ``equivalence classes of
+elementary processes'' (recall that $H$ and $H'$ are identified in $L^2(M)$
+if $\|H-H'\|_{L^2(M)}=0$).
+
+\proppr{elementary_processes_dense}{For every $M\in\HH^2$, $\E$ is dense in $L^2(M)$.}{
+    By elementary Hilbert space theory [Proposition \ref{prop:density_criterion} in Appendix \ref{apen:Functional_Analysis} ], it is enough to verify that, if \(K \in L^{2}(M)\) is orthogonal to \(\mathcal{E}\), then \(K = 0\). Assume that \(K \in L^{2}(M)\) is orthogonal to \(\mathcal{E}\), and set, for every \(t \ge 0\),
+    \[
+    X_{t}
+    = \int_{0}^{t} K_{u}\,d(M,M)_{u}.
+    \]
+    To see that the integral in the right-hand side makes sense, and defines a finite variation process \((X_{t})_{t \ge 0}\), we use the Cauchy-Schwarz inequality to observe that
+    \[
+    \EE\!\left[\int_{0}^{t} |K_{u}|\,d(M,M)_{u}\right]
+    \le
+    \left(\EE\!\left[\int_{0}^{t} (K_{u})^{2}\,d(M,M)_{u}\right]\right)^{1/2}
+    \times
+    \left(\EE[(M,M)_{\infty}]\right)^{1/2}.
+    \]
+    The right-hand side is finite since \(M \in \H^{2}\) and \(K \in L^{2}(M)\), and thus we have in particular
+    \[
+    \text{a.s.}\qquad \forall t \ge 0,\qquad
+    \int_{0}^{t} |K_{u}|\,d(M,M)_{u} < \infty.
+    \]
+    By Proposition \ref{prop:finite_variation_proc_integral} (and Remark (i) following this proposition), \((X_{t})_{t \ge 0}\) is well defined as a finite variation process. The preceding bound also shows that \(X_{t} \in L^{1}\) for every \(t \ge 0\).
+    Let $0 \leq s < t$, and let $H\in\E$ be an elementary process in the form $H_r(\omega) = F(\omega)\1_{(s,t]}(r)$. Writing the orthogonality $H \perp K$ in $L^2(M)$, we have:
+    $$ 0 = (H, K)_{L^2(M)} = \EE\left[F \int_s^t K_r \, d\langle M, M \rangle_r\right]  $$ 
+    It follows that
+    \[
+    \EE\!\left[F(X_t-X_s)\right]=0
+    \]
+    for every \(s<t\) and every bounded \(\F_s\)-measurable variable \(F\).
+    Since the process \(X\) is adapted and we know that \(X_r\in L^1\) for every
+    \(r\ge0\), this implies that \(X\) is a (continuous) martingale. On the
+    other hand, \(X\) is also a finite variation process and, by Theorem \ref{thm:tot_var_local_martingal},
+    this is only possible if \(X=0\). We have thus proved that
+    \[
+    \int_0^t K_u\,d\langle M,M\rangle_u = 0
+    \qquad \forall t\ge0,\quad \text{a.s.}
+    \]
+    which implies that, a.s., the signed measure having density \(K_u\) with
+    respect to \(d\langle M,M\rangle_u\) is the zero measure, which is only
+    possible if
+    \[
+    K_u = 0,\qquad d\langle M,M\rangle_u\text{-a.e.,}\quad \text{a.s.}
+    \]
+    or equivalently \(K=0\) in \(L^2(M)\).
+}
+
+Recall our notation $X^T$ for the process $X$ stopped at the stopping time $T$: $X_t^T = X_{t \land T}$. If $M \in \HH^2$, the fact that $\langle M^T, M^T \rangle_\infty = \langle M, M \rangle_T$ immediately implies that $M^T$ also belongs to $\HH^2$. Furthermore, if $H \in L^2(M)$, the process $\1_{[0, T]} H$ defined by $(\1_{[0, T]} H)_s(\omega) = \1_{\{0 \le s \le T(\omega)\}} H_s(\omega)$ also belongs to $L^2(M)$ (note that $\1_{[0, T]}$ is progressive since it is adapted with left-continuous sample paths).
+
+\thmpr{Stochastic integral wrt a martingale in $\HH^2$}{stochastic_integral_H2}{
+Let $M\in\HH^2$. For every elementary process
+\[ H_s(\omega)=\sum_{i=0}^{p-1}H_{(i)}(\omega)\,\1_{(t_i,t_{i+1}]}(s), \]
+the formula
+\[ (H\cdot M)_t=\sum_{i=0}^{p-1}H_{(i)} \bigl(M_{t_{i+1}\wedge t}-M_{t_i\wedge t}\bigr) \]
+defines a process $H\cdot M\in\HH^2$. The mapping
+$H\mapsto H\cdot M$ extends uniquely to an isometry from $L^2(M)$ into
+$\HH^2$. Furthermore, $H\cdot M$ is the unique martingale in
+$\HH^2$ such that
+\begin{equation} \label{eq:extension_formula}
+    \langle H\cdot M,N\rangle=H\cdot\langle M,N\rangle,
+    \qquad \forall N\in\HH^2.
+\end{equation}
+If $T$ is a stopping time, then
+\begin{equation} \label{eq:extension_formula_T}
+(\1_{[0,T]}H)\cdot M=(H\cdot M)^T=H\cdot M^T.
+\end{equation}
+We often use the notation
+\[ (H\cdot M)_t=\int_0^t H_s\,dM_s \]
+and call $H\cdot M$ the \emph{stochastic integral} of $H$ with respect to
+$M$. 
+}{
+To be proven. 
+}
+
+\textbf{Remark.}
+The quantity $H \cdot \langle M, N \rangle$ in the right-hand side of (\ref{eq:extension_formula}) is an integral with respect to a finite variation process, as defined in Section \ref{sec:finite-variation-processes} . The fact that we use a similar notation $H \cdot A$ and $H \cdot M$ for the integrals with respect to a finite variation process $A$ and with respect to a martingale $M$ creates no ambiguity since these two classes of processes are essentially disjoint.
+
+\textbf{Remark} We could have used the relation (\ref{eq:extension_formula}) to \textbf{define} the stochastic integral $H \cdot M$, observing that the mapping $N \mapsto \EE[(H \cdot \langle M, N \rangle)_\infty]$ yields a continuous linear form on $\HH^2$, and thus there exists a unique martingale $H \cdot M$ in $\HH^2$ such that
+
+
+$$\EE[(H \cdot \langle M, N \rangle)_\infty] = (H \cdot M, N)_{\HH^2} = E[\langle H \cdot M, N \rangle_\infty].$$
+
+Using the notation introduced at the end of Theorem \ref{thm:stochastic_integral_H2}, we can rewrite (\ref{eq:extension_formula}) in the form
+$$\left\langle \int_0^\cdot H_s \, dM_s, N \right\rangle_t = \int_0^t H_s \, d\langle M, N \rangle_s.$$
+
+We interpret this by saying that the stochastic integral \textit{commutes} with the bracket. Let us immediately mention a very important consequence. If $M \in \HH^2$, and $H \in L^2(M)$, two successive applications of (\ref{eq:extension_formula}) give
+$$\langle H \cdot M, H \cdot M \rangle = H \cdot (H \cdot \langle M, M \rangle) = H^2 \cdot \langle M, M \rangle,$$
+using the \textit{associativity property} (\ref{thm:stochastic_integral_H2}) of integrals with respect to finite variation processes. Put differently, the quadratic variation of the continuous martingale $H \cdot M$ is
+
+$$\left\langle \int_0^\cdot H_s \, dM_s, \int_0^\cdot H_s \, dM_s \right\rangle_t = \int_0^t H_s^2 \, d\langle M, M \rangle_s. $$
+
+More generally, if $N$ is another martingale of $\HH^2$ and $K \in L^2(N)$, the same argument gives
+\begin{equation} \label{eq:associativity2}
+    \left\langle \int_0^\cdot H_s \, dM_s, \int_0^\cdot K_s \, dN_s \right\rangle_t = \int_0^t H_s K_s \, d\langle M, N \rangle_s. 
+\end{equation}
+
+The following \textit{associativity} property of stochastic integrals, which is analogous to property (\ref{thm:stochastic_integral_H2}) for integrals with respect to finite variation processes, is very useful.
+
+\proppr{associativity_stochastic_integrals}{
+Let $H\in L^2(M)$ and let $K$ be a progressive process. Then
+$KH\in L^2(M)$ if and only if $K\in L^2(H\cdot M)$. If these equivalent
+properties hold, then
+\[
+(KH)\cdot M=K\cdot(H\cdot M).
+\]
+}{
+    Using property \eqref{eq:associativity2}, we have
+\[
+\EE\!\left[\int_0^\infty K_s^2 H_s^2\,d\langle M,M\rangle_s\right]
+= \EE\!\left[\int_0^\infty K_s^2\,d\langle H\cdot M, H\cdot M\rangle_s\right],
+\]
+which gives the first assertion.
+
+For the second one, we write for \(N\in\HH^2\),
+\[
+\langle (KH)\cdot M, N\rangle
+= KH\cdot \langle M,N\rangle
+= K\cdot \langle H\cdot M, N\rangle,
+\]
+and by the uniqueness statement in \eqref{eq:extension_formula}, this
+implies that
+\[
+(KH)\cdot M = K\cdot(H\cdot M).
+\]
+}
+
+\textbf{Moments of stochastic integrals.} Let $M,N\in\HH^2$,
+$H\in L^2(M)$, and $K\in L^2(N)$. For every $t\in [0,\infty]$, we have
+\begin{equation}\label{eq:moments_stochastic_integral}
+\begin{aligned}
+\EE\left[\int_0^t H_s\,dM_s\right]
+&=0,\\ 
+\EE\left[ \left(\int_0^t H_s\,dM_s\right) \left(\int_0^t K_s\,dN_s\right) \right]
+&= \EE\left[ \int_0^t H_sK_s\,d\langle M,N\rangle_s \right],\\
+\EE\left[ \left(\int_0^t H_s\,dM_s\right)^2 \right]
+&= \EE\left[ \int_0^t H_s^2\,d\langle M,M\rangle_s \right].
+\end{aligned}
+\end{equation}
+
+using (5) in Proposition \ref{prop:Bracket_properties} and equation \ref{eq:associativity2}. 
+Furthermore, since $H \dot M$ is a (true) martingale, we also have for every $0 \leq s \leq t \leq \infty$,
+\begin{equation} \label{eq:martingal_integral}
+\EE\left[\left.\int_0^t H_r\,dM_r\,\right|\F_s\right] =\int_0^s H_r\,dM_r, 
+\end{equation}
+or, equivalently,
+\[
+\EE\left[\left.\int_s^t H_r\,dM_r\,\right|\F_s\right]=0.
+\]
+with an obvious notation for $\int_s^t H_r \, dM_r$. It is important to observe that these formulas (and particularly (1) and (3) in equation \ref{eq:moments_stochastic_integral}) may no longer hold for the extensions of stochastic integrals that we will now describe.
+
+\subsection{Stochastic Integrals for Local Martingales}
+
+We will now use the identities (\ref{eq:extension_formula_T}) above to extend the definition of $H\cdot M$ to an arbitrary continuous local martingale. If $M$ is a continuous local
+martingale, we write $L^2_{\mathrm{loc}}(M)$ (respectively $L^2(M)$) for the set of all progressive processes $H$ such that
+$$
+\int_0^t H_s^2\,d\langle M,M\rangle_s<\infty,
+\qquad \forall t\ge 0,\quad \text{a.s.} $$
+respectively, such that
+$$
+\EE\!\left[\int_0^\infty H_s^2\,d\langle M,M\rangle_s\right]<\infty.
+$$
+
+For future reference, we note that $L^2(M)$ (with the same identifications
+as in the case where $M\in\HH^2$) can again be viewed as an
+\textit{ordinary} $L^2$-space and thus has a Hilbert space structure.
+
+\thmpr{Stochastic integral wrt a continuous local martingale}{stochastic_integral_local_martingale}{
+Let $M$ be a continuous local martingale. For every $H\in L^2_{\mathrm{loc}}(M)$,
+there exists a unique continuous local martingale, starting from $0$, denoted by
+$H\cdot M$, such that, for every continuous local martingale $N$,
+\begin{equation} \label{eq:extension_formula_loc}
+\langle H\cdot M,N\rangle=H\cdot\langle M,N\rangle.
+\end{equation}
+If $T$ is a stopping time, then
+\begin{equation} \label{eq:extension_formula_T_loc}
+(\1_{[0,T]}H)\cdot M=(H\cdot M)^T=H\cdot M^T.
+\end{equation}
+If $H\in L^2_{loc}(M)$ and  $K$ is a progressive process, then $K\in L^2_{\mathrm{loc}}(H\cdot M)$
+if and only if $HK\in L^2_{\mathrm{loc}}(M)$, and in this case
+\[
+K\cdot(H\cdot M)=HK\cdot M.
+\]
+Finally, if $M\in\HH^2$ and $H\in L^2(M)$, this definition is
+consistent with that of Theorem \ref{thm:stochastic_integral_H2}.
+}{
+We may assume \(M_0=0\) (in general write \(M=M_0+M'\) and set
+\(H\cdot M = H\cdot M'\), noting that
+\(\langle M,N\rangle = \langle M',N\rangle\) for every continuous local
+martingale \(N\)). Also we may assume the property
+\(\int_0^t H_s^2\,d\langle M,M\rangle_s<\infty\) for every \(t\ge0\) for
+every \(\omega\in\Omega\) (on the negligible set where this fails replace
+\(H\) by \(0\)).
+
+For every \(n\ge1\), set
+\[
+T_n = \inf\Bigl\{t\ge0:\int_0^t (1+H_s^2)\,d\langle M,M\rangle_s \ge n\Bigr\},
+\]
+so that \((T_n)\) is an increasing sequence of stopping times with
+\(T_n\uparrow\infty\). Since
+\(\langle M^{T_n},M^{T_n}\rangle = \langle M,M\rangle_{\cdot\wedge T_n}\),
+the stopped martingale \(M^{T_n}\) is in \(\HH^2\) by Theorem
+\ref{thm:quad_var_equivalences}. Moreover,
+\[
+\int_0^\infty H_s^2\,d\langle M^{T_n},M^{T_n}\rangle_s
+= \int_0^{T_n} H_s^2\,d\langle M,M\rangle_s \le n.
+\]
+Hence \(H\in L^2(M^{T_n})\), and the definition of \(H\cdot M^{T_n}\)
+makes sense by Theorem \ref{thm:stochastic_integral_H2}. Moreover, by
+property \eqref{eq:extension_formula_T}, we have, if \(m>n\),
+\[
+H\cdot M^{T_n} = (H\cdot M^{T_m})^{T_n}.
+\]
+It follows that there exists a unique process denoted by \(H\cdot M\) such
+that, for every \(n\),
+\[
+(H\cdot M)^{T_n} = H\cdot M^{T_n}.
+\]
+Clearly \(H\cdot M\) has continuous sample paths and is adapted since
+\((H\cdot M)_t = \lim_n (H\cdot M)^{T_n}_t\). Since the processes
+\((H\cdot M)^{T_n}\) are martingales in \(\HH^2\), we get that
+\(H\cdot M\) is a continuous local martingale.
+
+To verify \eqref{eq:extension_formula_loc}, assume that \(N\) is a
+continuous local martingale with \(N_0=0\). For every \(n\ge1\), set
+\(T'_n = \inf\{t\ge0:|N_t|\ge n\}\) and \(S_n = T_n\wedge T'_n\). Then,
+noting that \(N^{T'_n}\in\HH^2\), we have
+\begin{align*}
+\langle H\cdot M, N\rangle^{S_n}
+&= \langle (H\cdot M)^{T_n}, N^{T'_n}\rangle\\
+&= \langle H\cdot M^{T_n}, N^{T'_n}\rangle\\
+&= H\cdot \langle M^{T_n}, N^{T'_n}\rangle\\
+&= H\cdot \langle M,N\rangle^{S_n}.
+\end{align*}
+Letting \(n\to\infty\) and using \(S_n\uparrow\infty\), this gives
+\(\langle H\cdot M, N\rangle = H\cdot \langle M,N\rangle\).
+
+The fact that this equality, written for every continuous local martingale
+\(N\), characterizes \(H\cdot M\) among continuous local martingales with
+initial value \(0\) is derived from Proposition \ref{thm:quad_var_propt}
+in the proof of Theorem \ref{thm:stochastic_integral_H2}. The property
+\eqref{eq:extension_formula_T_loc} is obtained by the same arguments as
+for property \eqref{eq:extension_formula_T} in Theorem
+\ref{thm:stochastic_integral_H2} (these arguments only depend on the
+characteristic property \eqref{eq:extension_formula} which we have just
+extended in \eqref{eq:extension_formula_loc}). Similarly, the proof of the
+associativity assertion is analogous to the proof of Proposition \ref{prop:associativity_stochastic_integrals}.
+Finally, if \(M\in\HH^2\) and \(H\in L^2(M)\), the equality
+\(\langle H\cdot M, H\cdot M\rangle = H^2\cdot \langle M,M\rangle\) follows
+from \eqref{eq:extension_formula_loc}, and implies \(H\cdot M\in\HH^2\).
+Then the characteristic property \eqref{eq:extension_formula} shows that
+the definitions of Theorems \ref{thm:stochastic_integral_H2} and
+\ref{thm:stochastic_integral_local_martingale} are consistent.
+}
+
+In the setting of Theorem \ref{thm:stochastic_integral_local_martingale}, we again write
+\[
+(H\cdot M)_t=\int_0^t H_s\,dM_s.
+\]
+It is worth pointing out that formula (\ref{eq:associativity2}) \textbf{remain valid} when $M$ and $N$ are continuous local martingales and $H \in L_{\mathrm{loc}}^2(M)$, $K \in L_{\mathrm{loc}}^2(N)$. Indeed, these formulas immediately follow from (\ref{eq:extension_formula_loc}).
+
+
+Connection with the Wiener integral Suppose that $B$ is an $(\F_t)$-Brownian motion, and $h \in L^2(\RR_+, \B(\RR_+), dt)$ is a deterministic square integrable function. We can then define the Wiener integral $\int_0^t h(s) \, dB_s = G(f \, \1_{[0, t]})$, where $G$ is the Gaussian white noise associated with $B$ (see the end of Section \ref{apen:Brownian_Motion}). It is easy to verify that this integral coincides with the stochastic integral $(h \cdot B)_t$, which makes sense by viewing $h$ as a (deterministic) progressive process. This is immediate when $h$ is a simple function, and the general case follows from a density argument.
+
+Let us now discuss the extension of the moment formulas that we stated above in the setting of Theorem \ref{thm:stochastic_integral_H2}. Let $M$ be a continuous local martingale, $H \in L_{\mathrm{loc}}^2(M)$ and $t \in [0, \infty]$. Then, \textit{under the condition}
+
+\begin{equation} \label{eq:Integral_condition}
+E\left[\int_0^t H_s^2 \, d\langle M, M \rangle_s\right] < \infty, 
+\end{equation}
+
+we can apply Theorem \ref{thm:quad_var_equivalences} to $(H \cdot M)^t$, and get that $(H \cdot M)^t$ is a martingale of $\HH^2$. It follows that properties (\ref{eq:moments_stochastic_integral}) still hold:
+
+$$E\left[\int_0^t H_s \, dM_s\right] = 0, \quad E\left[\left(\int_0^t H_s \, dM_s\right)^2\right] = E\left[\int_0^t H_s^2 \, d\langle M, M \rangle_s\right],$$
+
+and similarly (\ref{eq:martingal_integral}) is valid for $0 \le s \le t$. In particular (case $t = \infty$), if $H \in L^2(M)$, the continuous local martingale $H \cdot M$ is in $\HH^2$ and its terminal value satisfies
+
+
+$$E\left[\left(\int_0^\infty H_s \, dM_s\right)^2\right] = E\left[\int_0^\infty H_s^2 \, d\langle M, M \rangle_s\right].$$
+
+If the condition (\ref{eq:Integral_condition}) does not hold, the previous formulas may fail. However, we always have the bound
+
+\begin{equation} \label{eq:Integral_bound}
+E\left[\left(\int_0^t H_s \, dM_s\right)^2\right] \le E\left[\int_0^t H_s^2 \, d\langle M, M \rangle_s\right]. 
+\end{equation}
+
+Indeed, if the right-hand side is finite, this is an equality by the preceding observations. If the right-hand side is infinite, the bound is trivial.
+
+\subsection{Stochastic Integrals for Semimartingales}
+
+We finally extend the definition of stochastic integrals to continuous
+semimartingales. We say that a progressive process $H$ is \emph{locally
+bounded} if
+$$
+\forall t\ge 0,\qquad \sup_{s\le t}|H_s|<\infty,
+\qquad \text{a.s.}
+$$
+
+In particular, any adapted process with continuous sample paths is a locally bounded progressive process. If $H$ is progressive and locally bounded, then for every finite-variation process $V$, we have
+$$
+\forall t\ge 0,\qquad \int_0^t |H_s|\,d|V|_s<\infty,
+\qquad \text{a.s.}
+$$
+and similarly $H\in L^2_{\mathrm{loc}}(M)$ for every continuous local
+martingale $M$.
+
+\defnr{Stochastic integral wrt a continuous semimartingale}{stochastic_integral_semimartingale}{
+Let $X$ be a continuous semimartingale with canonical decomposition
+$X=M+V$. If $H$ is a locally bounded progressive process, the
+\emph{stochastic integral} $H\cdot X$ is the continuous semimartingale with
+canonical decomposition
+\[
+H\cdot X=H\cdot M+H\cdot V.
+\]
+We write
+\[
+(H\cdot X)_t=\int_0^t H_s\,dX_s.
+\]
+}
+It has the following properties:
+\begin{enumerate}
+    \item The mapping $(H,X)\mapsto H\cdot X$ is bilinear.
+    \item If $H$ and $K$ are progressive and locally bounded, then
+    \[
+    H\cdot(K\cdot X)=(HK)\cdot X.
+    \]
+    \item For every stopping time $T$,
+    \[
+    (H\cdot X)^T=(H\1_{[0,T]})\cdot X=H\cdot X^T.
+    \]
+    \item If $X$ is a continuous local martingale, respectively a finite
+    variation process, then $H\cdot X$ has the same property.
+    \item If
+    \[
+    H_s(\omega)=\sum_{i=0}^{p-1}H_{(i)}(\omega)
+    \1_{(t_i,t_{i+1}]}(s),
+    \]
+    where $0=t_0<t_1<\cdots<t_p$ and each $H_{(i)}$ is
+    $\F_{t_i}$-measurable, then
+    \[
+    (H\cdot X)_t=\sum_{i=0}^{p-1}H_{(i)}
+    \bigl(X_{t_{i+1}\wedge t}-X_{t_i\wedge t}\bigr).
+    \]
+\end{enumerate}
+We can restate the \textit{associativity} property (ii) by saying that, if $Y_t = \int_0^t K_s \, dX_s$ then $$\int_0^t H_s \, dY_s = \int_0^t H_s K_s \, dX_s.$$
+Properties (i)–(iv) easily follow from the results obtained when $X$ is a continuous local martingale, resp. a finite variation process. As for property (v), we first note that it is enough to consider the case where $X = M$ is a continuous local martingale with $M_0 = 0$, and by stopping $M$ at suitable stopping times (and using (\ref{extension_formula_T_loc})), we can even assume that $M$ is in $\HH^2$. There is a minor difficulty coming from the fact that the variables $H_{(i)}$ are not assumed to be bounded (and therefore we cannot directly use the construction of the integral of elementary processes). To circumvent this difficulty, we set, for every $n \ge 1$,
+
+$$T_n = \inf\{t \ge 0 : \vert{}H_t\vert{} \ge n\} = \inf\{t_i : \vert{}H_{(i)}\vert{} \ge n\} \quad (\text{where } \inf \varnothing = \infty).$$
+
+It is easy to verify that $T_n$ is a stopping time, and we have $T_n \uparrow \infty$ as $n \to \infty$. Furthermore, we have for every $n$,
+
+$$H_s \, \1_{[0, T_n]}(s) = \sum_{i=0}^{p-1} H_{(i)}^n \, \1_{(t_i, t_{i+1}]}(s)$$
+
+where the random variables $H_{(i)}^n = H_{(i)} \1_{\{T_n > t_i\}}$ satisfy the same properties as the $H_{(i)}$'s and additionally are bounded by $n$. Hence $H \, \1_{[0, T_n]}$ is an elementary process, and by the very definition of the stochastic integral with respect to a martingale of $\HH^2$, we have
+
+$$(H \cdot M)_{t \land T_n} = (H \, \1_{[0, T_n]} \cdot M)_t = \sum_{i=0}^{p-1} H_{(i)}^n (M_{t_{i+1} \land t} - M_{t_i \land t}).$$
+
+The desired result now follows by letting $n$ tend to infinity.
+
+\subsection{Convergence of Stochastic Integrals}
+We start by giving a ``dominated convergence theorem'' for stochastic integrals.
+
+\proppr{conv_stochastic_integral}{
+Let \(X=M+V\) be the canonical decomposition of a continuous
+semimartingale \(X\), and let \(t>0\). Let \((H^n)_{n\geq 1}\) and \(H\) be
+locally bounded progressive processes, and let \(K\) be a nonnegative
+progressive process. Assume that the following properties hold a.s.:
+\begin{enumerate}
+    \item \(H_s^n \longrightarrow H_s\) as \(n\to\infty\), for every
+    \(s\in[0,t]\);
+    \item \(\lvert H_s^n\rvert\leq K_s\), for every \(n\geq1\) and
+    \(s\in[0,t]\);
+    \item \(\displaystyle \int_0^t (K_s)^2\,d\langle M,M\rangle_s
+    <\infty\) and \(\displaystyle \int_0^t K_s\,\lvert dV_s\rvert<\infty\).
+\end{enumerate}
+Then,
+\[
+    \int_0^t H_s^n\,dX_s
+    \xrightarrow[n\to\infty]{}
+    \int_0^t H_s\,dX_s
+\]
+in probability.
+}{
+    The a.s.\ convergence
+    \[
+    \int_0^t H_s^n\,dV_s \longrightarrow \int_0^t H_s\,dV_s
+    \]
+    follows from the usual dominated convergence theorem. We just have to verify that $\int_0^t H_s^n\,dM_s$ converges in probability to $\int_0^t H_s\,dM_s$. For every integer $p\ge1$, consider the stopping time
+    \[
+    T_p:=\inf\{r\in[0,t]:\int_0^r (K_s)^2\,d\langle M,M\rangle_s \ge p\}\wedge t,
+    \]
+    and observe that $T_p=t$ for all large enough $p$, a.s., by assumption (3). Then, the bound \eqref{eq:Integral_bound} gives
+    \[
+    \EE\!\left[\Big(\int_0^{T_p} H_s^n\,dM_s - \int_0^{T_p} H_s\,dM_s\Big)^2\right]
+    \le
+    \EE\!\left[\int_0^{T_p} (H_s^n-H_s)^2\,d\langle M,M\rangle_s\right],
+    \]
+    which tends to $0$ as $n\to\infty$ by dominated convergence, using (1)-(2) and the fact that $\int_0^{T_p} (K_s)^2\,d\langle M,M\rangle_s\le p$. Since $P(T_p=t)\to1$ as $p\to\infty$, the desired result follows.
+}
+\textbf{Remarks}
+
+\begin{enumerate}
+    \item Assertion (3) holds automatically if \(K\) is locally bounded.
+    \item Instead of assuming that (1) and (2) hold for every
+    \(s\in[0,t]\) (a.s.), it is enough to assume that these conditions hold
+    for \(d\langle M,M\rangle_s\)-a.e. \(s\in[0,t]\) and for
+    \(\lvert dV_s\rvert\)-a.e. \(s\in[0,t]\), a.s. This will be clear from
+    the proof.
+\end{enumerate}
+We apply the preceding proposition to an approximation result in the case of continuous integrands, which will be useful in the next section.
+
+\proppr{integral_approximation}{
+Let \(X\) be a continuous semimartingale, and let \(H\) be an adapted
+process with continuous sample paths. Then, for every \(t>0\), for every
+sequence $0=t_0^n<\cdots<t_{p_n}^n=t$ of subdivisions of \([0,t]\) whose mesh tends to \(0\), we have
+\[
+    \lim_{n\to\infty}
+    \sum_{i=0}^{p_n-1}
+    H_{t_i^n}\bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr)
+    =
+    \int_0^t H_s\,dX_s,
+\]
+in probability.}{
+For every $n\ge 1$ define the process $H^n$ by
+\[
+H^n_s=
+\begin{cases}
+H_{t_i^n}, & \text{if } t_i^n<s\le t_{i+1}^n,\quad i\in\{0,1,\dots,p_n-1\},\\[4pt]
+H_0, & \text{if } s=0,\\[4pt]
+0, & \text{if } s>t.
+\end{cases}
+\]
+Note that $H^n$ is progressive. Set
+\[
+K_s=\max_{0\le r\le s}|H_r|,
+\]
+which is a locally bounded progressive process. Hence all assumptions of Proposition \ref{prop:conv_stochastic_integral} hold with this choice of $K$, and we conclude that
+\[
+\int_0^t H^n_s\,dX_s \xrightarrow[n\to\infty]{} \int_0^t H_s\,dX_s
+\]
+in probability. By property (v) following Definition \ref{defn:stochastic_integral_semimartingale} we have, for every $n$,
+\[
+\int_0^t H^n_s\,dX_s=\sum_{i=0}^{p_n-1} H_{t_i^n}\bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr),
+\]
+and the proof is complete.
+}
+
+\textbf{Remark}
+The preceding proposition can be viewed as a generalization of
+Lemma \ref{lem:finite_variation_integral_proxy} to stochastic integrals. However, in contrast with that lemma, it is
+essential in Proposition \ref{prop:conv_stochastic_integral} to evaluate \(H\) at the left end of the interval
+\((t_i^n,t_{i+1}^n]\): The result will fail if we replace \(H_{t_i^n}\) by
+\(H_{t_{i+1}^n}\). Let us give a simple counterexample. We take \(H_t=X_t\)
+and we assume that the sequence of subdivisions
+\((t_i^n)_{0\leq i\leq p_n}\) is increasing. By the proposition, we have
+\[
+    \lim_{n\to\infty}
+    \sum_{i=0}^{p_n-1}
+    X_{t_i^n}\bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr)
+    =
+    \int_0^t X_s\,dX_s,
+\]
+in probability. On the other hand, writing
+\[
+    \sum_{i=0}^{p_n-1}
+    X_{t_{i+1}^n}\bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr)
+    =
+    \sum_{i=0}^{p_n-1}
+    X_{t_i^n}\bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr)
+    +
+    \sum_{i=0}^{p_n-1}
+    \bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr)^2,
+\]
+and using Proposition \ref{prop:prop_bracket_limit}, we get
+\[
+    \lim_{n\to\infty}
+    \sum_{i=0}^{p_n-1}
+    X_{t_{i+1}^n}\bigl(X_{t_{i+1}^n}-X_{t_i^n}\bigr)
+    =
+    \int_0^t X_s\,dX_s+\langle X,X\rangle_t,
+\]
+in probability. The resulting limit is different from
+\(\int_0^t X_s\,dX_s\) unless the martingale part of \(X\) is degenerate.
+Note that, if we add the previous two convergences, we arrive at the formula
+\[
+    (X_t)^2-(X_0)^2
+    =
+    2\int_0^t X_s\,dX_s+\langle X,X\rangle_t,
+\]
+which is a special case of Itô's formula of the next section.
+
+
+
+\section{Itô's Formula}  
+Itô's formula is the cornerstone of stochastic calculus. It shows that, if we
+apply a twice continuously differentiable function to a \(p\)-tuple of
+continuous semimartingales, the resulting process is still a continuous
+semimartingale, and there is an explicit formula for the canonical
+decomposition of this semimartingale.
+
+\medskip
+
+\thmr{Itô's formula}{ito_formula}{
+Let \(X^1,\ldots,X^p\) be \(p\) continuous semimartingales, and let
+\(F\) be a twice continuously differentiable real function on \(\RR^p\).
+Then, for every \(t\geq 0\),
+\[
+\begin{aligned}
+F(X_t^1,\ldots,X_t^p)
+={}&F(X_0^1,\ldots,X_0^p)
++\sum_{i=1}^p\int_0^t
+\frac{\partial F}{\partial x^i}(X_s^1,\ldots,X_s^p)\,dX_s^i \\
+&+\frac{1}{2}\sum_{i,j=1}^p\int_0^t
+\frac{\partial^2 F}{\partial x^i\partial x^j}(X_s^1,\ldots,X_s^p)
+\,d\langle X^i,X^j\rangle_s.
+\end{aligned}
+\]
+}
+
+An important special case of Itô's formula is the formula of integration by
+parts, which is obtained by taking \(p=2\) and \(F(x,y)=xy\): if \(X\) and
+\(Y\) are two continuous semimartingales, we have
+\[ X_tY_t = X_0Y_0+\int_0^t X_s\,dY_s+\int_0^t Y_s\,dX_s+\langle X,Y\rangle_t. \]
+
+In particular, if \(Y=X\),
+\[ X_t^2 = X_0^2+2\int_0^t X_s\,dX_s+\langle X,X\rangle_t.
+\]
+
+When \(X=M\) is a continuous local martingale, we know from the definition of
+the quadratic variation that \(M^2-\langle M,M\rangle\) is a continuous local
+martingale. The previous formula shows that this continuous local martingale is
+\[ M_0^2+2\int_0^t M_s\,dM_s. \]
+
+We could have seen this directly from the construction of \(\langle M,M\rangle\)
+in Theorem \ref{thm:quad_var_existence} (this construction involved approximations of the stochastic
+integral \(\int_0^t M_s\,dM_s\)).
+
+Let \(B\) be an \((\F_t)\)-real Brownian motion (recall from Definition that this means that \(B\) is a Brownian motion, which is adapted to the filtration \((\F_t)\) and such that, for every \(0\leq s<t\), the variable \(B_t-B_s\) is independent of the \(\sigma\)-field \(\F_s\)). An \((\F_t)\)-Brownian motion is a continuous local martingale (a martingale if \(B_0\in L^1\)) and we already noticed that its quadratic variation is \(\langle B,B\rangle_t=t\).
+
+In this particular case, Itô's formula reads
+\[ F(B_t) = F(B_0)+\int_0^t F'(B_s)\,dB_s+\frac{1}{2}\int_0^t F''(B_s)\,ds. \]
+
+Taking \(X_t^1=t\), \(X_t^2=B_t\), we also get for every twice continuously
+differentiable function \(F(t,x)\) on \(\RR_+\times\RR\),
+\[ F(t,B_t) = F(0,B_0) +\int_0^t\frac{\partial F}{\partial x}(s,B_s)\,dB_s +\int_0^t \left( \frac{\partial F}{\partial t} +\frac{1}{2}\frac{\partial^2F}{\partial x^2} \right)(s,B_s)\,ds. \]
+
+Let \(B_t=(B_t^1,\ldots,B_t^d)\) be a \(d\)-dimensional \((\F_t)\)-Brownian motion. Note that the components \(B^i\) are \((\F_t)\)-Brownian motions. By Proposition {\color{red}4.16}, \(\langle B^i,B^j\rangle=0\) when \(i\neq j\) (by subtracting the initial value, which does not change the bracket \(\langle B^i,B^j\rangle\), we are reduced to the case where \(B_0^1,\ldots,B_0^d\) are independent). Itô's formula then shows that, for every twice continuously differentiable function \(F\) on \(\RR^d\),
+\[
+\begin{aligned}
+F(B_t^1,\ldots,B_t^d)
+={}&F(B_0^1,\ldots,B_0^d)
++\sum_{i=1}^d\int_0^t
+\frac{\partial F}{\partial x^i}(B_s^1,\ldots,B_s^d)\,dB_s^i \\
+&+\frac{1}{2}\int_0^t\Delta F(B_s^1,\ldots,B_s^d)\,ds.
+\end{aligned}
+\]
+
+The latter formula is often written in the shorter form
+\[ F(B_t) = F(B_0)+\int_0^t\nabla F(B_s)\cdot dB_s +\frac{1}{2}\int_0^t\Delta F(B_s)\,ds, \]
+where \(\nabla F\) stands for the vector of first partial derivatives of \(F\). There is again an analogous formula for \(F(t,B_t)\).
+
+
+\textbf{Important remark} It frequently occurs that one needs to apply Itô's formula to a function \(F\) which is only defined (and twice continuously differentiable) on an open subset \(U\) of \(\RR^p\). In that case, we can argue in the following way. Suppose that there exists another open set \(V\), such that \((X_t^1,\ldots,X_t^p)\in V\) a.s. and \(V\subset U\) (here \(\overline{V}\) denotes the closure of \(V\)). Typically \(V\) will be the set of all points whose distance from \(U^c\) is strictly greater than \(\varepsilon\), for some \(\varepsilon>0\). Set
+\[ T_V:=\inf\{t\geq 0:(X_t^1,\ldots,X_t^p)\notin V\}, \]
+which is a stopping time by Proposition \ref{prop:hitting_time}. Simple analytic arguments allow
+us to find a function \(G\) which is twice continuously differentiable on
+\(\RR^p\) and coincides with \(F\) on \(\overline{V}\). We can now apply
+Itô's formula to obtain the canonical decomposition of the semimartingale
+\[ G(X_{t\wedge T_V}^1,\ldots,X_{t\wedge T_V}^p) = F(X_{t\wedge T_V}^1,\ldots,X_{t\wedge T_V}^p),
+\]
+and this decomposition only involves the first and second derivatives of \(F\)
+on \(V\). If in addition we know that the process
+\((X_t^1,\ldots,X_t^p)\) a.s.\ does not exit \(U\), we can let the open set
+\(V\) increase to \(U\), and we get that Itô's formula for
+\(F(X_t^1,\ldots,X_t^p)\) remains valid exactly in the same form as in
+Theorem \ref{thm:ito_formula}. These considerations can be applied, for instance, to the
+function \(F(x)=\log x\) and to a semimartingale \(X\) taking strictly positive values: see the proof of Proposition  \ref{prop:driving_local_martingale} below.
+
+We now use Itô's formula to exhibit a remarkable class of (local) martingales, which extends the exponential martingales associated with processes with independent increments. A random process with values in the complex plane \(\CC\) is called a complex continuous local martingale if both its real part and its imaginary part are continuous local martingales.
+
+\proppr{exponential_martingale}{Let \(M\) be a continuous local martingale and, for every
+\(\lambda\in\CC\), let
+\[ \E(\lambda M)_t = \exp\left(\lambda M_t-\frac{\lambda^2}{2}\langle M,M\rangle_t\right). \]
+
+The process \(\E(\lambda M)\) is a complex continuous local martingale, which can be written
+\[ \E(\lambda M)_t = e^{\lambda M_0} +\lambda\int_0^t\E(\lambda M)_s\,dM_s. \]
+}{
+    If \(F(r,x)\) is twice continuously differentiable on \(\RR^2\), Itô's formula gives
+    \[
+    \begin{aligned}
+    F\bigl(\langle M,M\rangle_t, M_t\bigr)
+    ={}&F(0,M_0)
+    +\int_0^t \frac{\partial F}{\partial x}\bigl(\langle M,M\rangle_s, M_s\bigr)\,dM_s\\
+    &+\int_0^t\Bigg(\frac{\partial F}{\partial r}
+    +\tfrac{1}{2}\frac{\partial^2 F}{\partial x^2}\Bigg)\!\bigl(\langle M,M\rangle_s, M_s\bigr)\,d\langle M,M\rangle_s.
+    \end{aligned}
+    \]
+    Hence \(F(\langle M,M\rangle_t,M_t)\) is a continuous local martingale as soon as \(F\) satisfies the PDE
+    \[
+    \frac{\partial F}{\partial r}+\tfrac{1}{2}\frac{\partial^2 F}{\partial x^2}=0.
+    \]
+    This equation holds for
+    \(F(r,x)=\exp\!\bigl(\lambda x-\tfrac{\lambda^2}{2}r\bigr)\) (for both the real and imaginary parts), and for this choice of \(F\) we have \(\partial F/\partial x=\lambda F\). Therefore
+    \[
+    \E(\lambda M)_t=\exp\!\Bigl(\lambda M_t-\tfrac{\lambda^2}{2}\langle M,M\rangle_t\Bigr)
+    \]
+    is a continuous local martingale and, differentiating the exponential, one obtains
+    \[
+    \E(\lambda M)_t=\E(\lambda M)_0+\lambda\int_0^t \E(\lambda M)_s\,dM_s,
+    \]
+    which is the stated formula.
+}
+
+\noindent\textbf{Remark}
+The stochastic integral in the right-hand side of the last display is defined by dealing separately with the real and the imaginary part.
+
+\section{The Representation of Martingales as Stochastic Integrals} 
+In the special setting where the filtration on $\Omega$ is the completed canonical filtration of a Brownian motion, we will now show that all martingales can be represented as stochastic integrals with respect to that Brownian motion. For the sake of simplicity, we first consider a one-dimensional Brownian motion, but we will discuss the extension to Brownian motion in higher dimensions at the end of this section.
+
+\textit{Note: The following lemma is stated before the theorem and is used exclusively to prove this theorem.}
+\lempr{Useful density Lemma}{useful_density_lemma}{
+    Under the assumptions of the theorem below, the vector space generated by the random variables
+\[
+\exp\left( \mathrm{i} \sum_{j=1}^n \lambda_j (B_{t_j} - B_{t_{j-1}}) \right),
+\]
+for any choice of $0 = t_0 < t_1 < \cdots < t_n$ and $\lambda_1, \ldots, \lambda_n \in \RR$, is dense in the space $L^2_{\CC}(\Omega, \F_\infty, \PP)$ of all square-integrable complex-valued $\F_\infty$-measurable random variables.
+}{
+It is enough to prove that, if $Z \in L^2_{\CC}(\Omega, \F_\infty, \PP)$ is such that
+\[
+E\left[ Z \exp\left( \mathrm{i} \sum_{j=1}^n \lambda_j (B_{t_j} - B_{t_{j-1}}) \right) \right] = 0
+\]
+for any choice of $0 = t_0 < t_1 < \cdots < t_n$ and $\lambda_1, \ldots, \lambda_n \in \RR$, then $Z = 0$.
+
+Fix $0 = t_0 < t_1 < \cdots < t_n$, and consider the complex measure $\mu$ on $\RR^n$ defined by
+\[
+\mu(F) = E\left[ Z \1_F(B_{t_1}, B_{t_2} - B_{t_1}, \ldots, B_{t_n} - B_{t_{n-1}}) \right]
+\]
+for any Borel subset $F$ of $\RR^n$. Then the equation above exactly shows that the Fourier transform of $\mu$ is identically zero. By the injectivity of the Fourier transform on complex measures on $\RR^d$, it follows that $\mu = 0$. We have thus $E[Z \1_A] = 0$ for every $A \in \sigma(B_{t_1}, \ldots, B_{t_n})$.
+
+A monotone class argument then shows that the identity $E[Z \1_A] = 0$ remains valid for any $A \in \sigma(B_t, t \ge 0)$, and then by completion for any $A \in \F_\infty$. It follows that $Z = 0$.
+}
+
+\thmpr{Martingal Representation Theorem}{martingale_representation}{
+Assume that the filtration $(\F_t)$ on $\Omega$ is the completed canonical filtration of a real Brownian motion $B$ started from $0$. Then, for every random variable $Z \in L^2(\Omega, \F_\infty, \PP)$, there exists a unique progressive process $h \in L^2(B)$ (i.e., $E[\int_0^\infty h_s^2 \, \mathrm{d}s] < \infty$) such that
+\[
+Z = E[Z] + \int_0^\infty h_s \, \mathrm{d}B_s.
+\]
+}{
+Uniqueness is immediate: if
+\(\displaystyle Z=E[Z]+\int_0^\infty h_s\,dB_s=E[Z]+\int_0^\infty h'_s\,dB_s\)
+with \(h,h'\in L^2(B)\), then
+\[
+E\!\left[\int_0^\infty (h_s-h'_s)^2\,ds\right]
+=E\!\left[\Big(\int_0^\infty (h_s-h'_s)\,dB_s\Big)^2\right]=0,
+\]
+hence \(h=h'\) in \(L^2(B)\).
+
+For existence let \(\mathcal H\) be the vector space of all
+\(Z\in L^2(\Omega,\F_\infty,P)\) admitting a representation
+\(Z=E[Z]+\int_0^\infty h_s\,dB_s\) with \(h\in L^2(B)\). If
+\(Z\in\mathcal H\) with associated \(h\), then
+\[
+E[Z^2]=(E[Z])^2+E\!\left[\int_0^\infty h_s^2\,ds\right],
+\]
+so \(\mathcal H\) is closed in \(L^2(\Omega,\F_\infty,P)\). Indeed,
+if \(Z^{(n)}\to Z\) in \(L^2\) and \(h^{(n)}\) are the associated
+processes in \(L^2(B)\), then by the above identity the sequence
+\(h^{(n)}\) is Cauchy in \(L^2(B)\) and converges to some
+\(h\in L^2(B)\); passing to the limit yields the representation for
+\(Z\).
+
+It remains to show that \(\mathcal H\) is dense in \(L^2(\Omega,\F_\infty,P)\).
+Fix \(0=t_0< t_1<\cdots<t_n\) and \(\lambda_1,\dots,\lambda_n\in\RR\),
+and set \(f(s)=\sum_{j=1}^n \lambda_j \1_{(t_{j-1},t_j]}(s)\).
+Write \(\E^f\) for the exponential martingale \(\E(f)=\E\bigl(\mathrm{i}\int_0^\cdot f(s)\,dB_s\bigr)\).
+By Proposition \ref{prop:exponential_martingale} we have
+\[
+\exp\Big(\mathrm{i}\sum_{j=1}^n \lambda_j(B_{t_j}-B_{t_{j-1}})+\tfrac12\sum_{j=1}^n\lambda_j^2(t_j-t_{j-1})\Big)
+=\E^f_\infty
+=1+\mathrm{i}\int_0^\infty \E^f_s f(s)\,dB_s.
+\]
+Thus both the real and imaginary parts of
+\(\exp\big(\mathrm{i}\sum_{j=1}^n \lambda_j(B_{t_j}-B_{t_{j-1}})\big)\)
+belong to \(\mathcal H\). By Lemma \ref{lem:useful_density_lemma} the
+linear span of such variables is dense in \(L^2(\Omega,\F_\infty,P)\),
+hence \(\mathcal H=L^2(\Omega,\F_\infty,P)\). This proves the first
+assertion of the theorem.
+
+For the second assertion, let \(M\) be a (real) martingale bounded in
+\(L^2\). Then \(M_\infty\in L^2(\Omega,\F_\infty,P)\) and so
+\(M_\infty=E[M_\infty]+\int_0^\infty h_s\,dB_s\) for some \(h\in L^2(B)\).
+Using \eqref{eq:martingal_integral} we get, for every \(t\),
+\[
+M_t=E[M_\infty\mid\F_t]=E[M_\infty]+ \int_0^t h_s\,dB_s,
+\]
+and uniqueness of \(h\) follows from the first part.
+
+Finally, if \(M\) is a continuous local martingale, set
+\(T_n:=\inf\{t\ge0:|M_t|\ge n\}\). Each stopped martingale \(M^{T_n}\)
+is bounded in \(L^2\), so there exists \(h^{(n)}\in L^2(B)\) with
+\(M^{T_n}_t=M^{T_n}_0+\int_0^t h^{(n)}_s\,dB_s\). By uniqueness the
+processes \(h^{(n)}\) are consistent on increasing time intervals, hence
+they patch together to define \(h\in L^2_{\mathrm{loc}}(B)\) with
+\(M_t=M_0+\int_0^t h_s\,dB_s\). Uniqueness of \(h\) is immediate from
+the uniqueness in the bounded case.
+}
+
+Consequently, for every martingale $M$ that is bounded in $L^2$ (respectively, for every continuous local martingale $M$), there exists a unique process $h \in L^2(B)$ (resp. $h \in L^2_{\text{loc}}(B)$) and a constant $C \in \RR$ such that
+\[ M_t = C + \int_0^t h_s \, \mathrm{d}B_s. \]
+
+\textbf{Remark:} 
+As the proof will show, the second part of the statement applies to a martingale $M$ that is bounded in $L^2$, \textbf{without any assumption} on the continuity of sample paths of $M$. This observation will be useful later when we discuss consequences of the representation theorem. Note that continuous local martingales have continuous sample paths by definition.
+
+\section{Girsanov's Theorem and its applications} %about 5 pages
+Throughout this section, we assume that the filtration $(\F_t)$ is both complete and right-continuous. Our goal is to study how the notions of a martingale and of a semimartingale are affected when the underlying probability measure $P$ is replaced by another probability measure $Q$. Most of the time we will assume that $P$ and $Q$ are mutually absolutely continuous, and then the fact that the filtration $(\F_t)$ is complete with respect to $P$ implies that it is complete with respect to $Q$. When there is a risk of confusion, we will write $E_P$ for the expectation under the probability measure $P$, and similarly $E_Q$ for the expectation under $Q$. Unless otherwise specified, the notions of a (local) martingale or of a semimartingale refer to the underlying probability measure $P$ (when we consider these notions under $Q$ we will say so explicitly). Note that, in contrast with the notion of a martingale, the notion of a finite variation process does not depend on the underlying probability measure.
+\proppr{Density_process}{Assume that $Q$ is a probability measure on $(\Omega, \F)$, which is absolutely continuous with respect to $P$ on the $\sigma$-field $\F_\infty$. For every $t \in [0, \infty]$, let
+$$
+D_t = \left.\frac{\mathrm{d}Q}{\mathrm{d}P}\right|_{\F_t}
+$$
+be the Radon--Nikodym derivative of $Q$ with respect to $P$ on the $\sigma$-field $\F_t$. The process $(D_t)_{t \ge 0}$ is a uniformly integrable martingale. Consequently $(D_t)_{t \ge 0}$ has a càdlàg modification. Keeping the same notation $(D_t)_{t \ge 0}$ for this modification, we have, for every stopping time $T$,
+$$
+D_T = \left.\frac{\mathrm{d}Q}{\mathrm{d}P}\right|_{\F_T}.
+$$
+Finally, if we assume furthermore that $P$ and $Q$ are mutually absolutely continuous on $\F_\infty$, we have
+$$
+\inf_{t \ge 0} D_t > 0 \quad P\text{-a.s.}
+$$}{
+If \(A\in\F_t\), we have
+\[
+Q(A)=E_Q[\,\1_A\,]
+=E_P[\,\1_A D_\infty\,]
+=E_P\!\left[\1_A E_P[D_\infty\mid\F_t]\right],
+\]
+and by the uniqueness of the Radon--Nikodym derivative on \(\F_t\), it
+follows that
+\[
+D_t = E_P[D_\infty\mid\F_t],\qquad \text{a.s.}
+\]
+Hence \(D\) is a uniformly integrable martingale, which is closed by
+\(D_\infty\). Theorem \ref{thm:cadlag_modif_existence} (using the fact
+that \((\F_t)\) is both complete and right-continuous) then allows us to
+find a càdlàg modification of \((D_t)_{t\ge0}\), which we consider from
+now on.
+
+Then, if \(T\) is a stopping time, the optional stopping theorem
+(Theorem \ref{thm:optional_stopping_martingale}) gives for every
+\(A\in\F_T\),
+\[
+Q(A)=E_Q[\,\1_A\,]
+=E_P[\,\1_A D_\infty\,]
+=E_P\!\left[\1_A E_P[D_\infty\mid\F_T]\right]
+=E_P[\,\1_A D_T\,],
+\]
+and, since \(D_T\) is \(\F_T\)-measurable, it follows that
+\[
+D_T = \left.\frac{dQ}{dP}\right|_{\F_T}.
+\]
+
+Let us prove the last assertion. For every \(\varepsilon>0\), set
+\[
+T_\varepsilon = \inf\{t\ge0 : D_t < \varepsilon\}.
+\]
+Then \(T_\varepsilon\) is a stopping time as the first hitting time of an
+open set by a càdlàg process (recall Definition \ref{defn:hitting_time}
+and the fact that the filtration is right-continuous). Note that
+\(\{T_\varepsilon<\infty\}\) is \(\F_{T_\varepsilon}\)-measurable, and
+hence
+\[
+Q(T_\varepsilon<\infty)
+=E_P[\1_{\{T_\varepsilon<\infty\}} D_{T_\varepsilon}]
+\le \varepsilon,
+\]
+since \(D_{T_\varepsilon}\le\varepsilon\) on
+\(\{T_\varepsilon<\infty\}\) by right-continuity of the sample paths.
+It immediately follows that
+\[
+Q\!\left(\bigcap_{n=1}^\infty \{T_{1/n}<\infty\}\right)=0,
+\]
+and since \(P\) is absolutely continuous with respect to \(Q\) we also
+have
+\[
+P\!\left(\bigcap_{n=1}^\infty \{T_{1/n}<\infty\}\right)=0.
+\]
+But this exactly means that, \(P\)-a.s., there exists an integer
+\(n\ge1\) such that \(T_{1/n}=\infty\), which gives the last assertion of
+the proposition.
+}
+
+\proppr{driving_local_martingale}{Let $D$ be a continuous local martingale taking (strictly) positive values. There exists a unique continuous local martingale $L$ such that
+$$
+D_t = \exp\left(L_t - \frac{1}{2}\langle L, L \rangle_t\right) = \E(L)_t.
+$$
+Moreover, $L$ is given by the formula
+$$
+L_t = \log D_0 + \int_0^t D_s^{-1} \, \mathrm{d}D_s.
+$$}{
+Uniqueness is an easy consequence of Theorem \ref{thm:tot_var_local_martingal}. Then, since $D$ takes positive values, we can apply It\^o's formula to $\log D_t$ (see the remark before Proposition \ref{prop:exponential_martingale}), and we get
+$$ \log D_t = \log D_0 + \int_0^t \frac{\mathrm{d}D_s}{D_s} - \frac{1}{2} \int_0^t \frac{\mathrm{d}\langle D, D \rangle_s}{D_s^2} = L_t - \frac{1}{2} \langle L, L \rangle_t, $$
+where $L$ is as in the statement.
+}
+
+\thmpr{Girsanov Theorem}{girsanov}{Assume that the probability measures $P$ and $Q$ are mutually absolutely continuous on $\F_\infty$. Let $(D_t)_{t \ge 0}$ be the martingale with càdlàg sample paths such that, for every $t \ge 0$,
+$$
+D_t = \left.\frac{\mathrm{d}Q}{\mathrm{d}P}\right|_{\F_t}.
+$$
+Assume that $D$ has continuous sample paths, and let $L$ be the unique continuous local martingale such that $D_t = \E(L)_t$. Then, if $M$ is a continuous local martingale under $P$, the process
+$$
+\tilde{M} = M - \langle M, L \rangle
+$$
+is a continuous local martingale under $Q$.}{
+The fact that \(D_t\) can be written in the form
+\(D_t=\E(L)_t\) follows from Proposition \ref{prop:driving_local_martingale}
+(we are assuming that \(D\) has continuous sample paths, and we also know
+from Proposition \ref{prop:Density_process} that \(D\) takes positive values).
+Then, let \(T\) be a stopping time and let \(X\) be an adapted process
+with continuous sample paths. We claim that, if \((XD)^T\) is a martingale
+under \(P\), then \(X^T\) is a martingale under \(Q\).
+
+By Proposition \ref{prop:Density_process}, \(D_{T\land t}=\left.\frac{dQ}{dP}\right|_{\F_{T\land t}}\)
+and \(D_{T\land s}=\left.\frac{dQ}{dP}\right|_{\F_{T\land s}}\), and thus,
+since \(A\cap\{T>s\}\in\F_{T\land s}\subset\F_{T\land t}\), it follows that
+\[
+E_Q\!\left[\1_{A\cap\{T>s\}}X_{T\land t}\right]
+=E_P\!\left[\1_{A\cap\{T>s\}}X_{T\land t}D_{T\land t}\right]
+=E_P\!\left[\1_{A\cap\{T>s\}}X_{T\land s}D_{T\land s}\right].
+\]
+On the other hand, it is immediate that
+\[
+E_Q\!\left[\1_{A\cap\{T\le s\}}X_{T\land t}\right]
+=E_Q\!\left[\1_{A\cap\{T\le s\}}X_{T\land s}\right].
+\]
+Combining the two displays, we obtain
+\[
+E_Q\!\left[\1_A X_{T\land t}\right]
+=E_Q\!\left[\1_A X_{T\land s}\right],
+\]
+which proves the claim. As a consequence, if \(XD\) is a continuous local
+martingale under \(P\), then \(X\) is a continuous local martingale under \(Q\).
+
+Next let \(M\) be a continuous local martingale under \(P\), and let
+\(\tilde M\) be as in the statement of the theorem. We apply the
+preceding observation to \(X=\tilde M\). By Itô's formula,
+\[
+\tilde M_t D_t
+= M_0D_0 + \int_0^t \tilde M_s\,dD_s
++ \int_0^t D_s\,dM_s
+- \int_0^t D_s\,d(M,L)_s + (M,D)_t.
+\]
+Since \(d(M,L)_s = D_s^{-1}\,d(M,D)_s\) by Proposition
+\ref{prop:driving_local_martingale}, the last two terms cancel, and we get
+\[
+\tilde M_t D_t
+= M_0D_0 + \int_0^t \tilde M_s\,dD_s
++ \int_0^t D_s\,dM_s.
+\]
+Therefore \(\tilde M D\) is a continuous local martingale under \(P\), and
+the preceding claim yields that \(\tilde M\) is a continuous local
+martingale under \(Q\).
+}
+
+\textbf{Remark} By consequences of the martingale representation theorem explained at the end of the previous section, the continuity assumption for the sample paths of $D$ always holds when $(\F_t)$ is the (completed) canonical filtration of a Brownian motion. In applications of Theorem \ref{thm:girsanov}, one often starts from the martingale $(D_t)$ to define the probability measure $Q$, so that the continuity assumption is satisfied by construction (see the examples in the next section).
+
+\subsection*{Consequences}
+\begin{enumerate}
+\item A process $M$ which is a continuous local martingale under $P$ remains a semimartingale under $Q$, and its canonical decomposition under $Q$ is $M = \tilde{M} + \langle M, L \rangle$ (recall that the notion of a finite variation process does not depend on the underlying probability measure). It follows that the class of semimartingales under $P$ is contained in the class of semimartingales under $Q$.
+
+In fact these two classes are equal. Indeed, under the assumptions of Theorem \ref{thm:girsanov}, $P$ and $Q$ play symmetric roles, since the Radon--Nikodym derivative of $P$ with respect to $Q$ on the $\sigma$-field $\F_t$ is $D_t^{-1}$, which has continuous sample paths if $D$ does.
+
+We may furthermore notice that
+$$
+D_t^{-1} = \exp\left(-L_t + \langle L, L \rangle_t - \frac{1}{2}\langle L, L \rangle_t\right) = \exp\left(-\tilde{L}_t - \frac{1}{2}\langle \tilde{L}, \tilde{L} \rangle_t\right) = \E(-\tilde{L})_t,
+$$
+where $\tilde{L} = L - \langle L, L \rangle$ is a continuous local martingale under $Q$, and $\langle \tilde{L}, \tilde{L} \rangle = \langle L, L \rangle$. So, under the assumptions of Theorem \ref{thm:girsanov}, the roles of $P$ and $Q$ can be interchanged provided $D$ is replaced by $D^{-1}$ and $L$ is replaced by $-\tilde{L}$.
+
+\item Let $X$ and $Y$ be two semimartingales (under $P$ or under $Q$). The bracket $\langle X, Y \rangle$ is the same under $P$ and under $Q$. In fact this bracket is given in both cases by the approximation of Proposition \ref{prop:prop_bracket_limit} (this observation was used implicitly in (a) above).
+
+Similarly, if $H$ is a locally bounded progressive process, the stochastic integral $H \cdot X$ is the same under $P$ and under $Q$. To see this it is enough to consider the case when $X = M$ is a continuous local martingale (under $P$). Write $(H \cdot M)_P$ for the stochastic integral under $P$ and $(H \cdot M)_Q$ for the one under $Q$. By linearity,
+$$
+(H \cdot \tilde{M})_P = (H \cdot M)_P - H \cdot \langle M, L \rangle = (H \cdot M)_P - \langle (H \cdot M)_P, L \rangle,
+$$
+and Theorem \ref{thm:girsanov} shows that $(H \cdot \tilde{M})_P$ is a continuous local martingale under $Q$. Furthermore the bracket of this continuous local martingale with any continuous local martingale $N$ under $Q$ is equal to $H \cdot \langle M, N \rangle = H \cdot \langle \tilde{M}, N \rangle$, and it follows from Theorem \ref{thm:stochastic_integral_local_martingale} that $(H \cdot \tilde{M})_P = (H \cdot \tilde{M})_Q$ hence also $(H \cdot M)_P = (H \cdot M)_Q$.
+
+With the notation of Theorem \ref{thm:girsanov}, set $\tilde{M} = \G_Q^P(M)$. Then $\G_Q^P$ maps the set of all $P$-continuous local martingales onto the set of all $Q$-continuous local martingales. One easily verifies, using the remarks in (a) above, that $\G_P^Q \circ \G_Q^P = \mathrm{Id}$. Furthermore, the mapping $\G_Q^P$ commutes with the stochastic integral: if $H$ is a locally bounded progressive process, $H \cdot \G_Q^P(M) = \G_Q^P(H \cdot M)$.
+
+\item Suppose that $M = B$ is an $(\F_t)$-Brownian motion under $P$, then $\tilde{B} = B - \langle B, L \rangle$ is a continuous local martingale under $Q$, with quadratic variation $\langle \tilde{B}, \tilde{B} \rangle_t = \langle B, B \rangle_t = t$. By Theorem {\color{red} 5.12}, it follows that $\tilde{B}$ is an $(\F_t)$-Brownian motion under $Q$.
+\end{enumerate}
+
+In most applications of Girsanov's theorem, one constructs the probability measure $Q$ in the following way. Start from a continuous local martingale $L$ such that $L_0 = 0$ and $\langle L, L \rangle_\infty < \infty$ a.s. The latter condition implies that the limit $L_\infty := \lim_{t \to \infty} L_t$ exists a.s. . Then $\E(L)_t$ is a nonnegative continuous local martingale hence a supermartingale (Proposition \ref{prop:other_properties_local_martingale}), which converges a.s. to $\E(L)_\infty = \exp(L_\infty - \frac{1}{2}\langle L, L \rangle_\infty)$, and $E[\E(L)_\infty] \le 1$ by Fatou's lemma. If the property
+$$
+E[\E(L)_\infty] = 1 \eqno 1
+$$
+holds, then $\E(L)$ is a uniformly integrable martingale (by Fatou's lemma again, one has $\E(L)_t \ge E[\E(L)_\infty \mid \F_t]$, but (1) implies that $E[\E(L)_\infty] = E[\E(L)_0] = E[\E(L)_t]$ for every $t \ge 0$). If we let $Q$ be the probability measure with density $\E(L)_\infty$ with respect to $P$, we are in the setting of Theorem \ref{thm:girsanov}, with $D_t = \E(L)_t$. It is therefore very important to give conditions that ensure that (1) holds.
+
+\thmpr{Novikov-Kazamaki criterions}{Novikov-Kazamaki-criterion}{Let $L$ be a continuous local martingale such that $L_0 = 0$. Consider the following properties:
+\begin{enumerate}
+\item $E[\exp \frac{1}{2}\langle L, L \rangle_\infty] < \infty$ (Novikov's criterion);
+\
+\item  $L$ is a uniformly integrable martingale, and $E[\exp \frac{1}{2}L_\infty] < \infty$ (Kazamaki's criterion);
+\item $\E(L)$ is a uniformly integrable martingale.
+\end{enumerate}
+Then, (1) $\implies$ (2) $\implies$ (3).}{
+(i) \(\Rightarrow\) (ii) Property (i) implies that
+\(E[(L,L)_\infty]<\infty\), hence also that \(L\) is a continuous
+martingale bounded in \(L^2\) (Theorem \ref{thm:quad_var_equivalences}).
+Then,
+\[
+\exp\!\left(\frac12 L_\infty\right)
+= (\E(L)_\infty)^{1/2}
+  \exp\!\left(\frac12 (L,L)_\infty\right)^{1/2},
+\]
+so that, by the Cauchy–Schwarz inequality,
+\[
+E\!\left[\exp\!\left(\frac12 L_\infty\right)\right]
+\le
+E[\E(L)_\infty]^{1/2}
+  \,E\!\left[\exp\!\left(\frac12 (L,L)_\infty\right)\right]^{1/2}
+\le
+E\!\left[\exp\!\left(\frac12 (L,L)_\infty\right)\right]^{1/2}
+<\infty.
+\]
+
+(ii) \(\Rightarrow\) (iii) Since \(L\) is a uniformly integrable
+martingale, Theorem \ref{thm:optional_stopping_martingale} shows that,
+for any stopping time \(T\), we have \(L_T=E[L_\infty\mid\F_T]\).
+Jensen's inequality then gives
+\[
+\exp\!\left(\frac12 L_T\right)
+\le
+E\!\left[\exp\!\left(\frac12 L_\infty\right)
+      \Bigm|\F_T\right].
+\]
+By assumption \(E[\exp(\tfrac12 L_\infty)]<\infty\), which implies that
+the collection of all variables of the form
+\(E[\exp(\tfrac12 L_\infty)\mid\F_T]\), for any stopping time \(T\),
+is uniformly integrable. The preceding bound then shows that the
+collection of all variables \(\exp(\tfrac12 L_T)\), for any stopping
+time \(T\), is also uniformly integrable.
+
+For \(0<a<1\), set
+\[
+Z^{(a)}_t=\exp\!\left(\frac{a}{1+a}L_t\right).
+\]
+Then one easily verifies that
+\[
+\E(aL)_t=(\E(L)_t)^a (Z^{(a)}_t)^{\,1-a}.
+\]
+If \(\Gamma\in\F\) and \(T\) is a stopping time, Hölder's inequality
+gives
+\[
+E\!\left[\1_\Gamma \E(aL)_T\right]
+\le
+E[\E(L)_T]^a
+  E\!\left[\1_\Gamma Z^{(a)}_T\right]^{\,1-a}
+\le
+E\!\left[\1_\Gamma \exp\!\left(\frac12 L_T\right)\right]^{\,2a(1-a)}.
+\]
+In the second inequality we used the property \(E[\E(L)_T]\le1\), which
+holds by Theorem \ref{thm:optional_stopping_supermartingale} because
+\(\E(L)\) is a nonnegative supermartingale and \(\E(L)_0=1\). In the
+third inequality we used Jensen's inequality, noting that
+\(\frac{1+a}{2a}>1\). Since the collection of all variables of the form
+\(\exp(\tfrac12 L_T)\), for any stopping time \(T\), is uniformly
+integrable, the preceding bound shows that so is the collection of all
+variables \(\E(aL)_T\) for any stopping time \(T\).
+
+By the definition of a continuous local martingale, there is an
+increasing sequence \(T_n\uparrow\infty\) of stopping times such that,
+for every \(n\), \(\E(aL)_{\cdot\wedge T_n}\) is a martingale. If
+\(0\le s\le t\), we can use uniform integrability to pass to the limit
+\(n\to\infty\) in the equality
+\(E[\E(aL)_{t\wedge T_n}\mid\F_s]=\E(aL)_{s\wedge T_n}\), and we get
+that \(\E(aL)\) is a uniformly integrable martingale. It follows that
+\[
+1 = E[\E(aL)_\infty]
+  \le
+  E[\E(aL)_\infty]^a
+  \,E[Z^{(a)}_\infty]^{\,1-a}
+  \le
+  E[\E(L)_\infty]^a
+  \,E\!\left[\exp\!\left(\frac12 L_\infty\right)\right]^{\,2a(1-a)},
+\]
+using again Jensen's inequality as above. When \(a\to1\), this gives
+\(E[\E(L)_\infty]\ge1\), hence \(E[\E(L)_\infty]=1\).
+}
+
+\end{document}

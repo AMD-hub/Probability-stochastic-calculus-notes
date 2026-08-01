@@ -1,0 +1,51 @@
+{
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoBuild.interval": 1500,
+
+  "latex-workshop.latex.clean.enabled": true,
+  "latex-workshop.latex.clean.onFailBuild": true,
+
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-pdf",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-synctex=1",
+        "%DOC%"
+      ]
+    }
+  ],
+
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": ["latexmk"]
+    }
+  ],
+
+  "[latex]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false
+  },
+
+  "files.exclude": {
+    "**/*.aux": true,
+    "**/*.gz": true,
+    "**/*.bbl": true,
+    "**/*.blg": true,
+    "**/*.ptc": true,
+    "**/*.fls": true,
+    "**/*.bcf": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.log": true,
+    "**/*.out": true,
+    "**/*.toc": true,
+    "**/*.run.xml": true
+  }
+}

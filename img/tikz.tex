@@ -1,0 +1,26 @@
+\[
+\begin{tikzcd}[column sep=huge, row sep=large]
+|[draw, rounded corners, inner sep=3pt]| {X_n \xrightarrow{L^q} X}
+  \arrow[r, "q \ge p \ge 1"', Rightarrow]
+&
+|[draw, rounded corners, inner sep=3pt]| {X_n \xrightarrow{L^p} X}
+  \arrow[r, Rightarrow]
+&
+|[draw, rounded corners, inner sep=3pt]| {X_n \xrightarrow{L^1} X}
+  \arrow[d, Rightarrow]
+\\
+&&
+|[draw, rounded corners, inner sep=3pt]| {X_n \xrightarrow{\PP} X}
+  \arrow[r, Rightarrow]
+  \arrow[lu, "{L^r-Bounded \quad r>p}", dashed, bend left=35]
+  \arrow[u, "{\text{Expectation convergence}}"', dashed, bend right=45]
+  \arrow[u, swap, "{\substack{\text{Uniform conv.}\\ \text{or domination}}}"', dashed, bend left=45]
+  \arrow[d, "{\text{along a subsequence}}", dashed, bend left=60]
+&
+|[draw, rounded corners, inner sep=3pt]| {X_n \xrightarrow{\mathcal D} X}
+\\
+&&
+|[draw, rounded corners, inner sep=3pt]| {X_n \xrightarrow{\text{a.s.}} X}
+  \arrow[u, Rightarrow]
+\end{tikzcd}
+\]

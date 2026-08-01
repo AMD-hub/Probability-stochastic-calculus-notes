@@ -1,0 +1,1458 @@
+\documentclass[../Main.tex]{subfiles}
+
+
+\begin{document}
+
+\chapter{General Introduction}
+
+\intro{
+This chapter aims to revisit fundamental concepts in probability theory, statistics, Stochastic Process analysis, and financial theory, serving as a comprehensive refresher for readers. It will summarize key principles and results essential for understanding quantitative methods in various fields. By consolidating these topics, the chapter aims to equip readers with a clear, concise overview, reinforcing their understanding of foundational concepts before delving into more advanced discussions.
+}
+
+ \section{Probability Theory}
+
+In this section, we will cover the foundational elements of probability theory, starting with the definition of a probability measure and building up to more complex concepts like moment generating functions and characteristic functions.
+
+\subsection{Probability Measure}
+
+To begin, we need to understand the framework in which probability operates. This involves defining a probabilistic space and the measures within it.
+
+\subsubsection{Probabilistic Space}
+
+A probabilistic space is the basic structure on which probability theory is built. It consists of three main components: the sample space, the $\sigma$-algebra, and the probability measure.
+
+\defn{Probabilistic space}{
+A \textbf{probabilistic space} is a triple $(\Omega, \F, \PP)$, where:
+\begin{itemize}
+    \item $\Omega$ is a non-empty set called the sample space,
+    \item $\F$ is a $\sigma$-algebra of subsets of $\Omega$, and
+    \item $\PP: \F \to [0,1]$ is a probability measure.
+\end{itemize}
+}
+
+\subsubsection{Measure of Probability}
+
+Once we have a probabilistic space, we need to define how probabilities are assigned to events within this space. This is where the probability measure comes into play.
+
+\defn{Probability measure}{
+A \textbf{probability measure} $\PP$ on a $\sigma$-algebra $\F$ of a set $\Omega$ is a function $\PP: \F \to [0,1]$ satisfying:
+\begin{itemize}
+    \item $\PP(\Omega) = 1$
+    \item For any countable sequence of disjoint sets $A_1, A_2, \ldots \in \F$,
+    \[
+    \PP\left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \PP(A_i)
+    \]
+\end{itemize}
+}
+
+\subsubsection{Random Variable}
+
+Next, we introduce the concept of random variables, which are functions that assign numerical values to the outcomes in our sample space.
+
+\defn{Random variable}{
+A measurable function from $\Omega$ to $\RR^n$ is called a random variable, meaning an application $\bX$ such that:
+\[
+\bX^{-1}(B) \in \F, \text{ for each set } B \in \mathcal{B}(\RR^n)
+\]
+where $\mathcal{B}(\RR^n)$ denotes the Borel $\sigma$-algebra.
+}
+
+Based on this definition, we can define a probability measure in the probabilistic space $(\RR^n, \mathcal{B}(\RR^n), \PP_\bX)$, where the probability measure (also called the distribution of $\bX$) $\PP_\bX$ is defined as follows:
+\[
+\PP_\bX(B) = \PP(\bX^{-1}(B)) = \PP(\{ \bX \in B \}), \text{ for each set } B \in \mathcal{B}(\RR^n)
+\]
+
+To further characterize the distribution of a random variable, we use cumulative distribution functions and probability density functions.
+
+\defn{Cumulative distribution function}{
+Let $\bX$ be a random variable with value space $\RR^n$. For each $\bx \in \RR^n$, we define the \textbf{cumulative distribution function} as follows:
+\[
+F_\bX(\bx) = \PP(\bX \leq \bx) =   \PP(X_1 \leq x_1, \cdots, X_n \leq x_n) 
+\]
+}
+
+\defn{Probability density function}{
+Let $\bX$ be a random variable with value space $\RR^n$. For each $\bx \in \RR^n$, we define the \textbf{probability density function} as follows:
+\[
+f_\bX(\bx) = \frac{\partial^n}{\partial \bx} F_\bX(\bx) = \frac{\partial^n}{\partial x_1 \cdots \partial x_n} F_\bX(\bx)
+\]
+if it exists on a non-negligible set of $\RR^n$. This function is a density for the measure $\PP_\bX$ such that:
+\[
+\PP_\bX(B) = \int_B d\PP_\bX =  \int_B f_\bX(\bx) d\lambda(\bx) 
+\]
+Where $\lambda$ is the lesbegue measure in $\B(\RR^n)$
+}
+
+
+\subsubsection{A two useful lemma}
+These two lemma would help us to prove many properties in the following sub-section in the probability theory : 
+
+\lemp{}{ \label{lem:XlimXn}
+Let \( X \) be a non-negative random variable with values in $\RR$. Then there is a sequence \(\langle \varphi_n \rangle\) of simple random variables with \(\varphi_{n+1} \geq \varphi_n\) such that \( X = \lim \varphi_n \) at each point of \( \Omega \).
+Where a simple random variable is a random variable having the form : 
+\[
+    X = \sum_{i=1}^m {c}_i \1_{E_i}
+\]
+For some integer $m$ and real positive values $c_i$. 
+}{
+The proof is left exercise for reader with the hint to use : 
+\[
+E_{n,k} = \{ x : k2^{-n} \leq X(\omega) < (k + 1)2^{-n} \}, \text{ and the sequence } \varphi_n = 2^{-n} \sum_{k=0}^{2^{2n}} k \1_{E_{n,k}}.
+\]
+}
+
+
+\lemp{}{ \label{lem:YXmes}
+If \( \bY\) with values in $\RR^m$ is \( \sigma(\bX) \)-measurable where $\bX$ is a random variable with values in $\RR^n$, there is a measurable function \( f : \RR^n \to \RR^m \) such that \( \bY= f( \bX) \).
+}{
+We'll proof the theorem for real valued random variables (with values in $\RR$). 
+\begin{enumerate}
+
+\item \textbf{ Step 1: Indicator Functions} 
+
+First, consider the case where \( Y = \1_A \) for some \( A \in \sigma(X) \). 
+
+Since \( A \in \sigma(X) \), by definition, there exists a Borel set \( B \in \mathcal{B}(\mathbb{R}) \) such that \( A = X^{-1}(B) \).
+
+Define the function \( f : \mathbb{R} \to \mathbb{R} \) by
+\[ f(x) = \1_B(x). \]
+
+Then, for any \( \omega \in \Omega \),
+\[ Y(\omega) = \1_A(\omega) = \1_{\bX^{-1}(B)}(\omega) = \1_B(X(\omega)) = f(X(\omega)). \]
+
+Hence, \( Y = f(X) \) for this case.
+
+\item \textbf{ Step 2: Simple Functions}
+
+Now, consider \( Y \) as a simple function, i.e., \( Y = \sum_{i=1}^n c_i \1_{A_i} \) where \( c_i \in \mathbb{R} \) and \( A_i \in \sigma(X) \).
+
+For each \( A_i \in \sigma(X) \), there exists a Borel set \( B_i \in \mathcal{B}(\mathbb{R}) \) such that \( A_i = X^{-1}(B_i) \).
+
+Define \( f : \mathbb{R} \to \mathbb{R} \) by
+\[ f(x) = \sum_{i=1}^n c_i \1_{B_i}(x). \]
+
+Then, for any \( \omega \in \Omega \),
+\[ Y(\omega) = \sum_{i=1}^n c_i \1_{A_i}(\omega) = \sum_{i=1}^n c_i \1_{\bX^{-1}(B_i)}(\omega) = \sum_{i=1}^n c_i \1_{B_i}(X(\omega)) = f(X(\omega)). \]
+
+Thus, \( Y = f(X) \) for this case.
+
+\item \textbf{ Step 3: Positive Measurable Functions}
+
+Consider \( Y \) as a positive \( \sigma(X) \)-measurable function. There exists a sequence of simple functions \( Y_n \) such that \( Y_n \nearrow Y \). (use of the lemma \ref{lem:XlimXn})
+
+From Step 2, for each \( n \), there exists a Borel-measurable function \( f_n : \mathbb{R} \to \mathbb{R} \) such that
+\[ Y_n = f_n(X). \]
+
+Since \( Y_n \nearrow Y \), we have \( f_n(X) \to Y \) pointwise almost everywhere. 
+
+Define \( f(x) = \lim_{n \to \infty} f_n(x) \). Since each \( f_n \) is Borel-measurable, and the pointwise limit of Borel-measurable functions is Borel-measurable, \( f \) is Borel-measurable.
+
+Therefore, \( Y = f(X) \).
+
+\item \textbf{ Step 4: General Measurable Functions}
+
+Finally, consider \( Y \) as an arbitrary \( \sigma(X) \)-measurable function. We can decompose \( Y \) into its positive and negative parts:
+\[ Y = Y^+ - Y^-, \]
+where \( Y^+ = \max(Y, 0) \) and \( Y^- = -\min(Y, 0) \).
+
+Both \( Y^+ \) and \( Y^- \) are positive \( \sigma(X) \)-measurable functions. By Step 3, there exist Borel-measurable functions \( f^+ \) and \( f^- \) such that
+\[ Y^+ = f^+(X) \quad \text{and} \quad Y^- = f^-(X). \]
+
+Define \( f : \mathbb{R} \to \mathbb{R} \) by
+\[ f(x) = f^+(x) - f^-(x). \]
+
+Then,
+\[ Y = Y^+ - Y^- = f^+(X) - f^-(X) = f(X). \]
+
+Thus, \( Y = f(X) \) for some Borel-measurable function \( f \).
+\end{enumerate}
+
+}
+
+
+\subsection{Expectations and Variance}
+
+With a solid understanding of probability measures and random variables, we can now explore expectations and variance, which are essential in summarizing the behavior of random variables.
+
+\subsubsection{Definition of Expectation}
+
+The expectation, or expected value, is a fundamental concept that provides the average value of a random variable.
+
+\defn{Expectation}{
+Let $\bX$ be a random variable with value space $\RR^n$. The \textbf{expectation} or \textbf{expected value} of a random variable $\bX$ with respect to a probability measure $\PP$ is defined as
+\[
+\EE[\bX] = \int_\Omega \bX \, d\PP =  \int_{\RR^n} \bx \, d\PP_\bX = \int_{\RR^n} \bx f_\bX(\bx) d\bx
+\]
+if the integral exists, and if the density exists for the last equality.
+}
+We recall some properties of expectations as follow :
+Let \( X \) and \( Y \) be random variables, and let \( a \) and \( b \) be constants. The main properties of expectations are:
+
+\begin{enumerate}
+    \item \textbf{Linearity:}
+    \begin{equation*}
+    \EE[a\bX+ b\bY] = a\EE[\bX] + b\EE[\bY]
+    \end{equation*}
+
+    \item \textbf{Expectation of a Constant:}
+    \begin{equation*}
+    \EE[a] = a
+    \end{equation*}
+
+    \item \textbf{Non-negativity:}
+    If \( \bX\geq 0 \) almost surely, then
+    \begin{equation*}
+    \EE[\bX] \geq 0
+    \end{equation*}
+
+    \item \textbf{Law of the Unconscious Statistician:}
+    If \( g \) is a measurable function and \( \bX\) is a random variable, then
+    \begin{equation*}
+    \EE[g(\bX)] = \int g(\bX)d\PP 
+    \end{equation*}
+
+    \item \textbf{Dominated Convergence Theorem:}
+    If \( \{\bX_n\} \) is a sequence of random variables that converges to \( \bX\) almost surely and is dominated by an integrable random variable \( Y \) (i.e., \( |X_n| \leq Y \) almost surely for all \( n \)), then
+    \begin{equation*}
+    \EE[\lim_{n \to \infty} X_n] = \lim_{n \to \infty} \EE[X_n]
+    \end{equation*}
+\end{enumerate}
+
+% 
+\subsubsection{Definition of Variance}
+
+Variance measures the spread of a random variable's values around its mean, providing insight into its variability.
+
+\defn{Variance}{
+Let $\bX$ be a random variable with value space $\RR^n$. The \textbf{variance} of a random variable $\bX$ is defined as
+\[
+\mathrm{Var}(\bX) = \EE[(\bX - \EE[\bX]) (\bX - \EE[\bX])^T] \in \mathcal{M}_n(\RR)
+\]
+In the special case $n=1$, the variance is a scalar (not a matrix):
+\[
+\mathrm{Var}(X) = \EE[(X - \EE[X])^2]
+\]
+}
+
+\subsection{Moment Generating Function}
+
+Moment generating functions (MGFs) provide a powerful tool for characterizing the distribution of a random variable and generating its moments.
+
+\defn{Moment generating function}{
+Let $\bX$ be a random variable with value space $\RR^n$. The \textbf{moment generating function} (MGF) $M_\bX(\mathbf{t})$ of $\bX$ is defined as
+\[
+M_\bX(\mathbf{t}) = \EE[\exp(\mathbf{t}^T \bX)] = \int_{\RR^n} \exp(\mathbf{t}^T \bx) f_\bX(\bx) d\bx
+\]
+for $\mathbf{t} \in \RR^n$, where the integral exists.
+}
+
+\propp{
+Let $X$ be a random variable with value space $\RR$. If the MGF $M_\bX(t)$ exists in an open interval around $t=0$, then the $n$-th moment of $X$ is given by
+\[
+\EE[X^n] = M_\bX^{(n)}(0)
+\]
+where $M_\bX^{(n)}(0)$ denotes the $n$-th derivative of $M_\bX(t)$ evaluated at $t=0$.
+}{
+Using the Power Series Expansion for Exponential Function in a neighbour of $0$ : $[-r,+r]$.
+\begin{align*}
+M_\bX^{(n)}(t) &= \frac{d^n}{dt^n} \EE(e^{tX}) \\ 
+&= \frac{d^n}{dt^n} \EE\left( \sum_{m=0}^\infty \frac{t^m X^m}{m!} \right)  \\
+&= \frac{d^n}{dt^n} \sum_{m=0}^\infty \EE\left( \frac{t^m X^m}{m!} \right) \\
+&= \sum_{m=0}^\infty \frac{d^n}{dt^n} \left( \frac{t^m}{m!} \right) \EE(X^m)  \\
+&= \sum_{m=n}^\infty \frac{m^n t^{m-n}}{m!} \EE(X^m)  \\
+&= \sum_{m=n}^\infty \frac{m! t^{m-n}}{m! (m-n)!} \EE(X^m)  \\
+&= \frac{t^{n-n}}{(n-n)!} \EE(X^n) + \sum_{m=n+1}^\infty \frac{t^{m-n}}{(m-n)!} \EE(X^m) \\
+&= \EE(X^n) + \sum_{m=n+1}^\infty \frac{t^{m-n}}{(m-n)!} \EE(X^m)
+\end{align*}
+Setting \( t = 0 \) yields the result.
+The interchange of limit and sum come from the dominance theorem since for $t<r/2$ : 
+\begin{align*}
+\frac{d^n}{dt^n} \left( \frac{t^m}{m!} \right) \EE(X^m) &= \frac{ t^{m-n}}{ (m-n)!} \EE(X^m) \1_{m\geq n} \\
+&= \left(\frac{t}{r}\right)^{m-n} \frac{ r^{m-n}}{ (m-n)!} \EE(X^m) \1_{m\geq n} \\
+&\leq M_0 \times \left(\frac{t}{r}\right)^{m-n} \\
+&\leq (1/2)^n M_0
+\end{align*}
+
+
+}
+\subsection{Fourier Transform}
+
+Finally, we explore the characteristic function, which is the Fourier transform of the probability density function and plays a crucial role in probability theory.
+
+\defn{Characteristic function}{
+Let $\bX$ be a random variable with value space $\RR^n$. The \textbf{characteristic function} (Fourier transform) $\phi_\bX(\mathbf{t})$ of $\bX$ is defined as
+\[
+\phi_\bX(\mathbf{t}) = \EE[\exp(i \mathbf{t}^T \bX)] = \int_{\RR^n} \exp(i \mathbf{t}^T \bx) f_\bX(\bx) d\bx
+\]
+for $\mathbf{t} \in \RR^n$, where $i$ is the imaginary unit.
+}
+
+The characteristic function $\phi_\bX(\mathbf{t})$ is essentially the Fourier transform of the probability density function $f_\bX(\bx)$. Thus, we can recover the probability density function from the characteristic function using the inverse Fourier transform.
+
+\thmp{}{
+The probability density function can be recovered from the characteristic function using the inverse Fourier transform
+\[
+f_\bX(\bx) = \F^{-1}[\phi_\bX](\bx) = \frac{1}{(2\pi)^n} \int_{\RR^n} \exp(-i \mathbf{t}^T \bx) \phi_\bX(\mathbf{t}) d\mathbf{t}
+\]
+}{
+The proof rely on the \href{https://yannisparissis.wordpress.com/2011/03/10/dmat0101-notes-3-the-fourier-transform-on-l1/}{Fourier Inversion theorem } and it's left exercise for reader.
+}
+
+
+\subsection{Independence } 
+In the realm of probability theory, the concept of independence is a cornerstone that underpins many of the fundamental principles and results. Independence describes a situation where the occurrence of one event does not affect the likelihood of another event. This notion is crucial in both theoretical and applied contexts, as it simplifies the analysis of complex systems by allowing for the decomposition of joint probabilities into the product of individual probabilities.
+\\ 
+Understanding independence is essential for correctly modeling and interpreting various random phenomena. For instance, in a game of rolling two dice, the outcome of one die is independent of the outcome of the other. This independence allows us to calculate the probability of obtaining any specific combination of numbers by simply multiplying the probabilities of each individual number appearing. 
+
+\defn{Types of independence}{
+We the following sort of independence :
+\begin{enumerate}
+
+    \item \textbf{Independence between events:}
+    
+    Two events \(A, B \in \F\)  are said to be independent if
+    \[
+    P(A \cap B) = P(A) P(B).
+    \]
+
+    \item \textbf{Independence between two \(\sigma\)-algebras:}
+     Two \(\sigma\)-algebras \(\mathcal{A}\) and \(\mathcal{B}\) are independent if for every \(A \in \mathcal{A}\) and \(B \in \mathcal{B}\),
+    \[
+    P(A \cap B) = P(A) P(B).
+    \]
+
+
+
+    \item \textbf{Independence between a \(\sigma\)-algebra and a random variable:}
+    
+    Let  \(\mathcal{A}\) be a \(\sigma\)-algebra, and \(\bX\) be a random variable with values in $\RR^n$. The random variable \(\bX\) is independent of the \(\sigma\)-algebra \(\mathcal{A}\) if the \(\sigma\)-algebra generated by \(\bX\), denoted \(\sigma(\bX)\), is independent of \(\mathcal{A}\). 
+    \[
+    \sigma(\bX) = \left\{\bX^{-1}(A) \mid A \in \mathcal{B}(\mathbb{R^n})\right\}
+    \]
+    
+    \item \textbf{Independence between two random variables:}
+    
+    Two random variables \(\bX\) and \(\bY\) defined on the same probability space \((\Omega, \F, P)\) are independent if the \(\sigma\)-algebras generated by them, \(\sigma(\bX)\) and \(\sigma(\bY)\), are independent. 
+\end{enumerate}
+}
+By definition we have $\PP_{(X,Y)} = \PP_{\bX} \times \PP_{\bY}$, and hence, for $A\times B \in \B(\RR^n\times\RR^m)$ :
+\[
+    \int_{\RR^n\times\RR^m} \1_{A\times B} d \PP_{\bX,\bY} = \int_{\RR^m}  \left( \int_{\RR^n} \1_{A} d\PP_\bX  \right) \1_{B}  d\PP_\bY  
+\]
+
+
+
+\subsection{Conditional Expectation}
+
+In many situations, we are interested in the expected value of a random variable given some additional information. This leads us to the concept of conditional expectation.
+
+\subsubsection{Conditional Expectations and Variance}
+
+Conditional expectation provides the expected value of a random variable given a certain condition or set of conditions.
+
+\defn{Conditional expectation}{
+Let $\bX$ be a random variable with value space $\RR^n$ and let $\G \subseteq \F$ be a sub-$\sigma$-algebra. The \textbf{conditional expectation} of a random variable $\bX$ given $\G$, denoted by $\EE[\bX|\G]$, is the $\G$-measurable random variable that satisfies
+\[
+\int_A \EE[\bX|\G] d\PP = \int_A \bX d\PP \quad \text{for all } A \in \G.
+\]
+}
+Note that a random variable satisfying the conditions stated in the definition is said to be a version of \(\EE[\bX|\G]\). The first thing to be settled is that the conditional expectation exists and is unique almost surely. We propose here a proof for the case \(n=1\); however, the generalization of the proof is simple since the expectation of a vector is just the expectation of each component.
+\pf{
+To prove that, suppose \( Y, Y' \) both satisfy the criteria to be a conditional expectation function for a random variable \( X \) given a \(\sigma\)-algebra \(\G\). Then if \( A_\epsilon := \{\omega \mid Y - Y' \geq \epsilon\} \), clearly \( A_\epsilon \in \mathcal{A} \) (since $Y - Y'$ is $\G$ measurable), and so by the criteria we have for conditional expectation, we have: 
+\[
+0 = \int_{A_\epsilon} (Y - Y') \, dP \geq \epsilon P(A_\epsilon) \geq 0
+\]
+and this shows that \( P(A_\epsilon) = 0 \) for all \(\epsilon > 0\).
+
+Then we note that
+\[
+0 \leq P(\{\omega \mid Y - Y' > 0\}) = P\left( \bigcup_{n=1}^\infty A_{\frac{1}{n}} \right) \leq \sum_{n=1}^\infty P(A_{\frac{1}{n}}) = \sum_{n=1}^\infty 0 = 0.
+\]
+Thus, \( P(\{\omega \mid Y - Y' \leq 0\}) = 1 \), so \( Y \leq Y' \) almost surely.
+
+We can repeat the same proof switching \( Y \) and \( Y' \) to get \( Y' \leq Y \) almost surely, thus they are equal almost surely.
+}
+
+
+\subsubsection{Other forms of conditional expectations} 
+
+\begin{enumerate}
+
+\item \textbf{Conditional expectation given a random variable}
+ Let  \(\G\) be a \(\sigma\)-algebra, and \(\bX, \bY\) be two random variables. The conditional expectation of $\bY$ given \(\bX\)   is the conditional expectation of $\bY$ give the \(\sigma\)-algebra generated by \(\bX\) :  
+    \[
+\EE[\bY\mid  \bX]
+ := \EE[\bY\mid  \sigma(\bX)]
+    \]
+\item \textbf{Conditional expectation given $\bX=x$}
+Furthermore, since $\EE[\bY\mid  \bX]$ is $\sigma(\bX)$-measurable then, there exist a measurable function $f$ such :  $\EE[\bY\mid  \bX] = f \circ \bX = f(\bX)$. This function allow us to define conditional expectation give $\bX=\bx$ as follow :
+\[
+    \EE(\bY \mid \bX =\bx)  = f(\bx)
+\]
+
+\item \textbf{Conditional expectation given an event}
+ Let  \(H\in\F\) be a measurable event with non zero probability, and \(\bX\) be a random variable. The conditional expectation of $\bX$ given \(H\)  is the (non random) value :  
+ \[
+    \EE(\bX\mid H) = \frac{1}{\PP(H)} \EE( \bX \1_H ) 
+ \]
+
+Denote the $\sigma$-algebra $\F_H = \{\emptyset, H , H^c , \Omega \}$, we can also see that :
+
+
+\[
+\EE(\bX\mid \F_H) = \EE(\bX\mid H)\1_H + \EE(\bX\mid H^c)\1_{H^c}
+\]
+That could be shown, verifying that $\EE(\bX\mid H)\1_H + \EE(\bX\mid H^c)\1_{H^c}$ satisfy criteria for a conditional expectation of $\bX$ given $\F_H$. We can also deduce that (use the next proposition) : 
+\[
+\EE(\bX) =  \EE(\bX\mid H) \PP(H) + \EE(\bX\mid H^c)\PP(H^c)
+\]
+It's also important to show the consistency of the notation $\EE[Y\mid X=x]$ if it's understood as \textit{the conditional expectation given the set } $\{X=x\}$ (if it's a non-zero probability set) or if it's understood \textit{the conditional expectation given } $X=x$ which it $f(x)$ if $\EE[Y\mid X] = f(X)$. to show that we need to prove [which is left exercise for reader] that : 
+\[
+f(x) = \EE[Y\mid X=x] = \frac{1}{\PP(X=x)}\EE(Y\1_{\bX=x})
+\]
+\end{enumerate}
+
+And we can deduce the following properties : 
+\propp{
+Let $\bX$ and $\bY$ be a random variables with value space $\RR^n$ and $\RR^m$ respectively and let $\mathcal{H} \subseteq \G \subseteq \F$ be a sub-$\sigma$-algebras. The we have  : 
+\begin{enumerate}
+    \item If $\bX$ is \(\G\)-measurable, \(\EE(\bX|\G) = \bX\).
+    \item If \(\bY\) is \(\G\)-measurable, \(\EE(\bX^T \bY|\G) = \EE(\bX|\G)^T \bY \).
+    \item If \(\bX\) is independent of \(\G\), \(\EE(\bX|\G) = \EE(\bX)\).
+    \item If \( \mathcal{H} \subset \G\), then
+    \[
+    \EE(\bX|\mathcal{H}) = \EE(\EE(\bX|\mathcal{H})|\G) = \EE(\EE(\bX|\G)|\mathcal{H}).
+    \]
+    This is often denoted as
+    \[
+    \EE(\EE(\bX|\mathcal{H})|\G) = \EE(\bX|\mathcal{H}|\G).
+    \]
+    \item If $\bX$ is  independent of $\G$, $\bY$ is $\G$ measurable and \(\phi\) is a bounded Borel function,
+    \[
+    \EE(\phi(\bX,\bY)|\G) = \EE(\phi(x,\bY))\big\vert^{x=\bX}.
+    \]
+\end{enumerate}
+Where the equality should be understood as \textit{Almost sure equal to}. 
+}{
+We will provide proof for (1), (4) and (5), and the rest is left exercise for the reader.
+\\
+\noindent\textbf{Proof for (1) :} Come from the uniqueness of the definition of the conditional expectation. Since $\bX$ verify the criteria for conditional expectation, then (almost surely) : 
+\[
+    \EE(\bX|\G) = \bX
+\]
+
+\noindent\textbf{Proof for (4) : } 
+We first have $\EE(\bX|\mathcal{H})$ is $\mathcal{H}$-measurable, hence it's $\G$-measurable. Which prove using (1) that : 
+\[
+\EE(\EE(\bX|\mathcal{H})|\G) = \EE(\bX|\mathcal{H})
+\]
+
+Secondly, we have $\forall A \in \mathcal{H}, A\in \G$, therefore for an $A\in \mathcal{H}$  : 
+
+\[
+\int_A \EE(\bX\mid \mathcal{H})d\PP  = \int_A \bX d\PP \\   = \int_A \EE(\bX\mid \G) d\PP = \int_A \EE(\EE(\bX|\G)|\mathcal{H}) d\PP
+\]
+Which prove (by the $\mathcal{H}$-measurability of $\EE(\EE(\bX|\G)|\mathcal{H})$: 
+\[
+\EE(\EE(\bX|\G)|\mathcal{H}) = \EE(\bX|\mathcal{H})
+\]
+
+\noindent\textbf{Proof for (5) : } 
+Let $\psi(x) = \EE[\phi(x, \bY)]$. Further let $B = \bX^{-1}(A)\in \G$ for some suitable $A\in \mathcal \B(\RR^n)$. We want to show that
+$$ \int_B \psi(\bX) d\PP = \int_B  \phi(\bX, \bY)d\PP. $$
+Then, we have :
+\begin{align} 
+\int_B \psi(\bX(\omega)) \;d\PP(\omega) 
+&= \int_\Omega \1_A(\bX(\omega)) \psi(\bX(\omega)) \;d\PP(\omega) \\
+&= \int_{\RR^n} \1_A(s) \psi(s) \;d(\PP\circ \bX^{-1})(s) \\
+&= \int_{\RR^n} \1_A(s) \int_{\RR^m} \phi(s, t) \;d(\PP\circ Y^{-1})(t) \;d(\PP\circ \bX^{-1})(s) \\
+&= \int_{\RR^n \times \RR^m} \1_A(s) \phi(s, t) \;d(\PP \circ (\bX, \bY)^{-1})(t, s) \\
+&= \int_\Omega \1_A(\bX(\omega)) \phi(\bX(\omega), \bY(\omega)) \;d\PP(\omega) \\
+&= \int_B \phi(\bX(\omega), \bY(\omega)) \;d\PP(\omega). \\
+\end{align}
+The 4th equation uses the fact that $\bY$ is independent of $\G$, and hence independent of $\bX$. \\
+
+Now, after showning the formula, we then have : 
+$$ \int_B \EE[\psi(\bX)|\G] d\PP  = \int_B \psi(\bX) d\PP = \int_B  \phi(\bX, \bY)d\PP = \int_B  \EE[\phi(\bX, \bY)\mid \G]d\PP.  $$
+And hence : 
+\[
+\EE[\psi(\bX)|\G] = \psi(\bX) = \EE(\phi(x,\bY))\big\vert^{x=\bX} = \EE[\phi(\bX, \bY)\mid \G]
+\]
+}
+
+This concept of conditional expectation extends naturally to variance, leading to the definition of conditional variance.
+
+\defn{Conditional variance}{
+Let $(\Omega, \F, \PP)$ be a probability space and $\G \subseteq \F$ be a sub-$\sigma$-algebra. The \textbf{conditional variance} of a random variable $\bX$ given $\G$, denoted by $\mathrm{Var}(\bX|\G)$, is defined as
+\[
+\mathrm{Var}(\bX|\G) = \EE[(\bX - \EE[\bX|\G])(\bX - \EE[\bX|\G])^T|\G].
+\]
+}
+
+\subsubsection{Total expectation/variance theorem} 
+If the calculation of conditional expectation/variance is easier, we can conclude the total expectations/variance via the theorem : 
+
+\thmp{Total expectation/variance theorem}{
+Let $\bX$ be a random variable with value space $\RR^n$ and let $\G \subseteq \F$ be a sub-$\sigma$-algebra. 
+
+The total expectation formula is : 
+\begin{equation}
+    \EE[\bX] = \EE[ \EE[\bX | \G ] ]
+\end{equation}
+
+The total variance formula is : 
+
+\begin{equation}
+    \mathrm{Var}[\bX] = \mathrm{Var}[\EE[\bX|\G]] + \EE[ \mathrm{Var}[\bX|\G] ]
+\end{equation}
+}{
+For the first equality it suffice to see that $\Omega\in \G$ and therefore : 
+\[ 
+     \EE[\bX] =\int_\Omega \bX d\PP =  \int_\Omega \EE[\bX|\G] d\PP =  \EE[ \EE[\bX | \G ] ]
+\]
+For the second equality, we can rewrite the variance as follows:
+\begin{align*}
+    \mathrm{Var}(\bY) &= \EE(\bX \bX^T) - \EE(\bX)\EE(\bX)^T.
+\end{align*}
+
+Arranging and applying total expectation formula:
+\begin{align*}
+    \EE(\bX \bX^T)
+&= \mathrm{Var}(\bX) + \EE(\bX) \EE(\bX)^T\\
+ &= \EE \left[ \mathrm{Var}(\bX \mid \G) + \EE(\bX \mid \G) \EE(\bX \mid \G)^T \right].
+\end{align*}
+
+Now subtract the second term from the equation and applying the total expectation formula again:
+\begin{align*}
+    \EE(\bX \bX^T) - \EE(\bX) \EE(\bX)^T 
+&= \EE \left[ \mathrm{Var}(\bX \mid \G) + \EE(\bX \mid \G)\EE(\bX \mid \G)^T  \right] - \EE(\bX) \EE(\bX)^T\\
+ &= \EE \left[ \mathrm{Var}(\bX \mid \G) + \EE(\bX \mid \G)\EE(\bX \mid \G)^T  \right] - \EE[\EE(\bX \mid \G)]\EE[\EE(\bX \mid \G)]^T.
+\\
+ &= \EE \left[ \mathrm{Var}(\bX \mid \G) \right] + \left( \EE[\EE(\bX \mid \G)\EE(\bX \mid \G)^T] - \EE[\EE(\bX \mid \G)]\EE[\EE(\bX \mid \G)]^T \right).
+\end{align*}
+
+We finally have:
+\begin{align*}
+    \mathrm{Var}(\bX) &= \EE[\mathrm{Var}(\bX \mid \G)] + \mathrm{Var}[\EE(\bX \mid \G)].
+\end{align*}
+
+}
+\subsubsection{Conditional Probability Measure}
+
+In addition to conditional expectation, the notion of conditional probability measures is essential for understanding how probabilities change with new information.
+
+\defn{Conditional probability measure}{
+Let $(\Omega, \F, \PP)$ be a probability space and $\G \subseteq \F$ be a sub-$\sigma$-algebra. The \textbf{conditional probability measure} $\PP(\cdot|\G)$ (could also be denotd $\PP_{\mid \G}$ is a function such that for any $A \in \F$,
+\[
+\PP(A|\G) = \EE[\1_A|\G],
+\]
+where $\1_A$ is the indicator function of the set $A$.\\
+We can easily extend the definition to other forms of conditionality (given event, random variable).
+}
+We note that : 
+\[
+    \EE_\PP[ \bX \mid \G ] =  \EE_{\PP\mid \G} [ \bX ]
+\]
+That could be proved for simple random variables that are in the form : 
+\[
+    \bX = \sum_{i=1}^m \mathbf{c}_i \1_{E_i}
+\]
+For the generalisation, the reader can  use the lemma \ref{lem:XlimXn} to generalize for positive real-valued random variables, and then for any random variable. \\
+A natural result for the representation of $\EE_\PP[.\mid \G]$ as $\EE_{\PP\mid \G}[.]$ is that all properties for the standard expectations are inherited by the conditional expectation.
+
+\subsubsection{Conditional expectation as orthogonal projection} 
+First recall what do we mean by othogonal projection.  \\
+
+Let \(\mathcal{H}\) be a Hilbert space with inner product \(\langle \cdot, \cdot \rangle\) and norm \(\|\cdot\|\). For a closed subspace \(\mathcal{K} \subseteq \mathcal{H}\), the orthogonal projection of an element \(x \in \mathcal{H}\) onto \(\mathcal{K}\) is an element \(P_{\mathcal{K}}(x) \in \mathcal{K}\) such that (one of these equivalent properties are verified):
+\begin{enumerate}
+\item  \(P_{\mathcal{K}}(x)\) is the closest point in \(\mathcal{K}\) to \(x\), i.e.,
+   \[
+   \|x - P_{\mathcal{K}}(x)\| = \min_{\bY \in \mathcal{K}} \|x - y\|
+   \]
+\item  The error \(x - P_{\mathcal{K}}(x)\) is orthogonal to every element of \(\mathcal{K}\), i.e.,
+   \[
+   \langle x - P_{\mathcal{K}}(x), y \rangle = 0 \quad \forall y \in \mathcal{K}
+   \]
+\end{enumerate}
+
+Back now to the conditional expectaiton, first consider a probability space \((\Omega, \F, \PP)\) and the Hilbert space \(L^2(\Omega, \F, \PP)\) of square-integrable random variables with the inner product:
+\[
+\langle \bX, \bY\rangle = \EE[\bX^T\bY]
+\]
+
+Let \(\G\) be a sub-\(\sigma\)-algebra of \(\F\). The subspace \(L^2(\Omega, \G, \PP) \subseteq L^2(\Omega, \F, \PP)\) consists of \(\G\)-measurable square-integrable random variables. The Conditional Expectation verify the following assertions : 
+\begin{enumerate}
+    \item  For any \(Y \in L^2(\Omega, \G, \PP)\),
+   \[
+   \EE\left[\left(X - \EE[\bX\mid \G]\right)^T \bY\right] = 0
+   \]
+   This means that the error \(\bX- \EE[\bX\mid \G]\) is orthogonal to every \(\G\)-measurable random variable \( \bY\). Hence, the orthogonality condition is satisfied.
+\item 
+   \(\EE[\bX\mid \G]\) minimizes the mean squared error:
+   \[
+   \EE\left[\left|\left|\bX- \EE[ \bX\mid \G]\right|\right|_2^2\right] = \min_{\bY\in L^2(\Omega, \G, \PP)} \EE\left[||\bX- \bY||_2^2\right]
+   \]
+\end{enumerate}
+
+Therefore, the conditional expectation \(\EE[\bX\mid \G]\) acts as the orthogonal projection of \(\bX\) onto the closed subspace \(L^2(\Omega, \G, \PP)\) in the Hilbert space \(L^2(\Omega, \F, \PP)\). \\
+We can prove easily :
+   \[
+   \EE\left[\left(\bX- \EE[\bX\mid \G]\right)^T \bY\right] = 0
+   \]
+For simple random variables and for  generalisation, the reader can  use the lemma \ref{lem:XlimXn} to generalize for positive real-valued random variables, and then for any random variable. \\
+And then we should also prove that : 
+\[
+\langle \bX, \bY\rangle = \EE[\bX^T \bY]
+\]
+
+Is an inner product, which is left exercise for reader. And finally we can conclude the last properties since we're working with an inner product. 
+
+
+\subsubsection{Bayes' Formula for conditional expectations}
+This formula relate conditional probabilities given two different $\sigma$-algebra (resp. random variable, sets)
+\thmp{Bayes' Formula}{
+Let $\mathcal H,\G$ be two sub-$\sigma$-algebras of $\F$, and let $H\in \mathcal H$ and $H\in \G$, then :  
+\[
+    \int_G \PP(H\mid \G) d\PP = \PP(H \cap G) = \int_H \PP(G\mid \mathcal H) d\PP 
+\]
+And if $\PP(H)\times\PP(G)\neq 0$ then : 
+\[
+    \PP(G) \PP(H\mid G)  = \PP(H \cap G) =\PP(H) \PP(G\mid H)
+\]
+Moreover, if $\bX,\bY$ two random variables with values in $\RR^n$ and $\RR^m$ respectively, and $(A,B)\in \B(\RR^n\times\RR^m)$ then : 
+\[
+    \int_A \PP_\bY(B\mid \bX=\bx) d\PP_\bX = \PP_{(X,Y)}(A\times B) = \int_B \PP_\bX(A\mid \bY=\by) d\PP_\bY
+\]
+Furthermore, if $\PP_{(X,Y)}$ admits a density \footnote{This means that $\PP_{(X,Y)}(A \times B) = \int_{A \times B} f(x,y) \, d\lambda(x,y)$}, denoted by \( f \), then both \(\PP_\bX\) and \(\PP_\bY\) admit densities, denoted \( f_\bX \) and \( f_\bY \), respectively. Additionally, the conditional densities \( f_{\bX \mid Y=\by} \) and \( f_{\bY \mid X=\bx} \) exist. The relationship between these densities is given by:
+\[
+    f_\bY(\by) f_{\bX \mid Y=\by}(\bx) = f(\bx, \by) = f_\bX(\bx) f_{\bY \mid X=\bx}(\by)
+\]
+
+}{
+
+% \begin{enumerate}
+%     \item \textbf{First formula : } Let $\mathcal H,\G$ be two sub-$\sigma$-algebras of $\F$, and let $H\in \mathcal H$ and $H\in \G$ then : 
+%     \begin{align*}
+%         \PP(H\cap G) 
+%         &= \EE[\1_H \times \1_G] \\ 
+%         &= \EE[\EE[\1_H \times \1_G\mid \G]] \\ 
+%         &= \EE[\EE[\1_H \mid \G]\times \1_G] \\ 
+%         &= \EE[\PP[H \mid \G]\times \1_G] \\ 
+%         \PP(H\cap G) &= \int_G \PP[H \mid \G)]d\PP 
+%     \end{align*}
+% Which prove the left side of the formula, the right side  could be shown similarly, and then we deduce our first formula. 
+%     \item \textbf{Second formula : } Let suppose that $\PP(H)\times\PP(G)\neq 0$ then if we take $\mathcal H = \sigma(\{H\})$ and $\G = \sigma(\{G\})$ we would have : 
+%         \begin{align*}
+%         \PP(H\cap G)  
+%         &= \int_G \PP[H \mid \G]d\PP \\ 
+%         &= \int_G \PP[H \mid G]\1_G + \PP[H \mid G^c]\1_{G^c} d\PP \\ 
+%         &= \int_G \PP[H \mid G] d\PP \\ 
+%          \PP(H\cap G)  &= \PP[H \mid G] \PP(G) 
+%     \end{align*}
+% Which prove the left side of the formula, the right side  could be shown similarly, and then we deduce our second formula. 
+
+%     \item \textbf{Third formula : } Let $\bX,\bY$ two random variables with values in $\RR^n$ and $\RR^m$ respectively, and $(A,B)\in \B(\RR^n\times\RR^m)$ then, 
+%     \begin{align*}
+%         \PP_{(X,Y)}(A\times B) 
+%     & = \PP(X\in A \cap Y\in B) \\ 
+%     & = \int_{\bX\in A} \PP(Y\in B\mid \sigma(X)) d\PP \\ 
+%     & = \int_{\bX\in A} \PP_\bY(B\mid X) d\PP \\ 
+%     & = \int_{A} \PP_{\bY}(B|X=x) d\PP_\bX 
+%     \end{align*}
+%     Where the last step uses the fact the law of the unconscious statistician on $\PP_\bY(B\mid X)$ seen as function of $X$. Obviously, it  could be shown similarly, and then we deduce our third formula. 
+    
+%     \item \textbf{Fourth formula :} If $\PP_{(X,Y)}$ admit density $f$, at first suppose the probabilities  \(\PP_\bX\), \(\PP_\bY\), \( \PP_{\bX \mid Y=\by} \) and \( \PP_{\bY \mid X=\bx} \)   admit densities \( f_\bX \), \( f_\bY \),  \( f_{\bX \mid Y=\by} \) and \( f_{\bY \mid X=\bx} \) respectively. Then : 
+%     \begin{align*}
+%     \PP_{(X,Y)}(A\times B) &= \int_{A} \PP_{\bY}(B|X=x) d\PP_\bX  \\ 
+%     \int_{A\times B} d\PP_{(X,Y)} &= \int_{A} \int_B d\PP_{\bY|X=x} d\PP_\bX  \\ 
+%     \int_{A\times B} f_{(X,Y)}(x,y)d\lambda(x,y) &= \int_{A\times B} f_{\bY|X=x}(y) f_\bX(x) d\lambda(x,y)  \\ 
+%     \end{align*}
+%     Which prove the formula (the right could be shown similarly) :  
+%                     \[   f_{(\bX,\bY)}(\bx,\by) = f_{\bY|X=\bx}(\by) f_\bX(\bx)   \]
+%     Remains to show that \(\PP_\bX\) and \( \PP_{\bY \mid X=\bx} \) admit densities. 
+%     \begin{itemize}
+%         \item \textbf{Existence of marginal density : } Let $A\in \RR^n$, it's easy to show that :
+%         \begin{align*}
+%             \PP_\bX(A) 
+%             &= \PP_{(X,Y)}(A\times \RR^m) \\
+%             &= \int_{A\times \RR^m} f(\bx,\by) d\lambda(\bx,\by) \\ 
+%             &= \int_{A}  \left(\int_{\RR^m} f(\bx,\by)d\lambda(\by)\right) d\lambda(\bx) \\ 
+%              \PP_\bX(A) &= \int_{A}  \phi(\bx) d\lambda(\bx)          
+%         \end{align*}
+%         Where $\phi(\bx) = \int_{\RR^m} f(\bx,\by)d\lambda(\by)$, which represents the density of $\PP_\bX$
+%         \item \textbf{Existence of conditional density : } Let $B\in \B(\RR^m)$
+%         \begin{align*}
+%             \PP_{\bY|X=x}(B) 
+%             & = \frac{\partial}{\partial \bx} \left( \int_{]-\infty,\bx]} \PP_{\bY|\bX=\bu}(B) \frac{f_\bX(\bu)}{f_\bX(\bx)}d\lambda(\bu) \right)\\    
+%             & = \frac{\partial}{\partial \bx} \left(  \PP_{(\bX,\bY)}(]-\infty,\bx]\times B)\frac{1}{f_\bX(x)}\right)\\    
+%             & = \frac{\partial}{\partial x} \left(  \int_{]-\infty,x]\times B} f(u,v)\frac{1}{f_\bX(x)}d\lambda(u,v)\right) \\
+%            \PP_{\bY|X=x}(B) & =  \int_{B} f(x,v)\frac{1}{f_\bX(x)}d\lambda(v)
+%         \end{align*}
+%         Which show that $\PP_{\bY|X=x}$ admit a density.  
+%     \end{itemize}
+%     \end{enumerate}
+
+\begin{enumerate}
+    \item \textbf{First formula : } Let $\mathcal{H}, \mathcal{G}$ be two sub-$\sigma$-algebras of $\mathcal{F}$, and let $H \in \mathcal{H}$ and $G \in \mathcal{G}$, then: 
+    \begin{align*}
+        \PP(H \cap G) 
+        &= \EE[\1_H \times \1_G] \\ 
+        &= \EE[\EE[\1_H \times \1_G \mid \mathcal{G}]] \\ 
+        &= \EE[\EE[\1_H \mid \mathcal{G}] \times \1_G] \\ 
+        &= \EE[\PP[H \mid \mathcal{G}] \times \1_G] \\ 
+        &= \int_G \PP[H \mid \mathcal{G}] \, d\PP 
+    \end{align*}
+    This proves the left side of the formula. The right side could be shown similarly, and then we deduce our first formula. 
+    \item \textbf{Second formula : } Suppose that $\PP(H) \times \PP(G) \neq 0$. Then if we take $\mathcal{H} = \sigma(\{H\})$ and $\mathcal{G} = \sigma(\{G\})$, we have: 
+    \begin{align*}
+        \PP(H \cap G)  
+        &= \int_G \PP[H \mid \mathcal{G}] \, d\PP \\ 
+        &= \int_G \PP[H \mid G] \1_G + \PP[H \mid G^c] \1_{G^c} \, d\PP \\ 
+        &= \int_G \PP[H \mid G] \, d\PP \\ 
+        &= \PP[H \mid G] \PP(G) 
+    \end{align*}
+    This proves the left side of the formula. The right side could be shown similarly, and then we deduce our second formula. 
+    \item \textbf{Third formula : } Let $\bX, \bY$ be two random variables with values in $\RR^n$ and $\RR^m$ respectively, and let $(A, B) \in \mathcal{B}(\RR^n \times \RR^m)$, then:
+    \begin{align*}
+        \PP_{(\bX, \bY)}(A \times B) 
+        &= \PP(\bX \in A, \bY \in B) \\ 
+        &= \int_{\bX \in A} \PP(\bY \in B \mid \sigma(\bX)) \, d\PP \\ 
+        &= \int_{\bX \in A} \PP_\bY(B \mid \bX) \, d\PP \\ 
+        &= \int_A \PP_\bY(B \mid \bX = \bx) \, d\PP_\bX 
+    \end{align*}
+    The last step uses the law of the unconscious statistician on $\PP_\bY(B \mid \bX)$, seen as a function of $\bX$. It could be shown similarly, and then we deduce our third formula. 
+    \item \textbf{Fourth formula :} If $\PP_{(\bX, \bY)}$ admits a density $f$, suppose that the probabilities \(\PP_\bX\), \(\PP_\bY\), \( \PP_{\bX \mid \bY=\by} \), and \( \PP_{\bY \mid \bX=\bx} \) admit densities \( f_\bX \), \( f_\bY \), \( f_{\bX \mid \bY=\by} \), and \( f_{\bY \mid \bX=\bx} \) respectively. Then: 
+    \begin{align*}
+        \PP_{(\bX, \bY)}(A \times B) &= \int_A \PP_\bY(B \mid \bX = \bx) \, d\PP_\bX \\ 
+        \int_{A \times B} \, d\PP_{(\bX, \bY)} &= \int_A \int_B \, d\PP_{\bY \mid \bX = \bx} \, d\PP_\bX \\ 
+        \int_{A \times B} f_{(\bX, \bY)}(\bx, \by) \, d\lambda(\bx, \by) &= \int_{A \times B} f_{\bY \mid \bX = \bx}(\by) f_\bX(\bx) \, d\lambda(\bx, \by)  
+    \end{align*}
+    Which proves the formula (the right side could be shown similarly):  
+    \[ f_{(\bX, \bY)}(\bx, \by) = f_{\bY \mid \bX = \bx}(\by) f_\bX(\bx) \]
+    Remains to show that \(\PP_\bX\) and \( \PP_{\bY \mid \bX = \bx} \) admit densities. 
+    \begin{itemize}
+        \item \textbf{Existence of marginal density: } Let $A \subseteq \RR^n$. It's easy to show that:
+        \begin{align*}
+            \PP_\bX(A) 
+            &= \PP_{(\bX, \bY)}(A \times \RR^m) \\
+            &= \int_{A \times \RR^m} f(\bx, \by) \, d\lambda(\bx, \by) \\ 
+            &= \int_A \left( \int_{\RR^m} f(\bx, \by) \, d\lambda(\by) \right) d\lambda(\bx) \\ 
+            \PP_\bX(A) &= \int_A \phi(\bx) \, d\lambda(\bx)          
+        \end{align*}
+        where $\phi(\bx) = \int_{\RR^m} f(\bx, \by) \, d\lambda(\by)$, which represents the density of $\PP_\bX$.
+        \item \textbf{Existence of conditional density: } Let $B \in \mathcal{B}(\RR^m)$.
+        \begin{align*}
+            \PP_{\bY \mid \bX = \bx}(B) 
+            &= \frac{\partial}{\partial \bx} \left( \int_{]-\infty, \bx]} \PP_{\bY \mid \bX = \bu}(B) \frac{f_\bX(\bu)}{f_\bX(\bx)} \, d\lambda(\bu) \right) \\    
+            &= \frac{\partial}{\partial \bx} \left( \PP_{(\bX, \bY)}(]-\infty, \bx] \times B) \frac{1}{f_\bX(\bx)} \right) \\    
+            &= \frac{\partial}{\partial \bx} \left( \int_{]-\infty, \bx] \times B} f(\bu, \bv) \frac{1}{f_\bX(\bx)} \, d\lambda(\bu, \bv) \right) \\
+            \PP_{\bY \mid \bX = \bx}(B) &= \int_B f(\bx, \bv) \frac{1}{f_\bX(\bx)} \, d\lambda(\bv)
+        \end{align*}
+        This shows that $\PP_{\bY \mid \bX = \bx}$ admits a density.  
+    \end{itemize}
+\end{enumerate}
+
+}
+
+We can also state the famous formulation of Bayes' Formula as follow : 
+
+\thmp{Bayes' Formula}{
+Let  $H,G\in \F$, such that $\PP(H)\times\PP(G)\neq 0$ then :  
+\[
+     \PP(H\mid G) = \PP(G\mid H) \frac{\PP(H)}{\PP(G)}
+\]
+
+Moreover, if $\bX,\bY$ two random variables with values in $\RR^n$ and $\RR^m$ respectively such that : $\PP_{(X,Y)}$ admits a density, denoted by \( f \), then both \(\PP_\bX\) and \(\PP_\bY\) admit densities, denoted \( f_\bX \) and \( f_\bY \), respectively. Additionally, the conditional densities \( f_{\bX \mid Y=\by} \) and \( f_{\bY \mid X=\bx} \) exist. The relationship between these densities is given by:
+\[
+     f_{\bX \mid Y=\by}(\bx) = f_{\bY \mid X=\bx}(\by)\frac{f_\bX(\bx)}{f_\bY(\by)}
+\]
+
+}{
+Proof is left exercise for reader. 
+}
+
+\subsection{Change of probability measure}
+
+In many applications, particularly in finance and statistics, we need to transform one probability measure into another. This is often done to simplify the problem, to work under a more convenient measure, or to apply certain mathematical tools. 
+
+\subsubsection{Definition}
+Before delving into the details, we need to define what we mean by changing a probability measure. This involves the concept of absolutely continuous measures and the Radon-Nikodym derivative.
+
+\defn{Equivalente probabilities }{
+Let $\PP$ and $\QQ$ be two probability measures on a measurable space $(\Omega, \F)$. We say that $\QQ$ and $\PP$ are equivalentes, denoted $\QQ \sim \PP$, if for every event $A \in \F$, $$\PP(A) = 0 \Longleftrightarrow \QQ(A) = 0$$
+}
+
+
+\subsubsection{Theorem of Radon-Nikodym}
+The Radon-Nikodym theorem provides the conditions under which one probability measure can be expressed in terms of another.
+
+\thmp{Radon-Nikodym Derivative}{
+\label{thm:Radon_Derivative}
+Let $\PP$ and $\QQ$ be probabilities measures on a measurable space $(\Omega, \F)$. If $\QQ \sim \PP$ , then there exists a unique random variable $L$ (denoted $ L := \frac{d\QQ}{d\PP}$) such that for all $A \in \F$,
+\[
+\QQ(A) = \int_A L d\PP= \int_A \frac{d\QQ}{d\PP} \, d\PP.
+\]
+}{
+Proof can be found in the work of  \cite{royden2010real} [p.240]
+}
+
+\subsubsection{Bayes' Formula for conditional expectations}
+Provide relationship between conditional expectations of two equivalent measures. 
+
+\thmp{Bayes' Formula}{
+Let $\PP$ and $\QQ$ be probabilities measures on a measurable space $(\Omega, \F)$ and $\G$ a sub-$\sigma$-algebra (hold also if it's a measurable event). If $\QQ \sim \PP$, Then : 
+\[
+    \EE_\QQ[\bX|\G] = \left(\frac{1}{ \EE_\PP\left[\frac{d\QQ}{d\PP}|\G\right]} \right) \EE_\PP\left[\frac{d\QQ}{d\PP}\bX|\G\right]
+\]
+If we denote : $L := \frac{d\QQ}{d\PP} $ then : 
+\[
+    \EE_\QQ[\bX|\G] = \frac{\EE_\PP\left[L\bX|\G\right]}{ \EE_\PP\left[L|\G\right]}
+\]
+}{
+We start by proving that
+\[
+\EE^\QQ[\bX \mid \G] \cdot \EE^\PP[L \mid \G] = \EE^\PP[L \cdot \bX \mid \G], \quad \PP\text{ - a.s.} 
+\]
+We show this by proving that for an arbitrary \( G \in \G \) the \( \PP \)-integral of both sides coincide. The left-hand side becomes
+\[
+\begin{aligned}
+\int_G \EE^\QQ[\bX \mid \G] \cdot \EE^\PP[L \mid \G] \, d\PP &= \int_G \EE^\PP[L \cdot \EE^\QQ[\bX \mid \G] \mid \G] \, d\PP \\
+&= \int_G L \cdot \EE^\QQ[\bX \mid \G] \, d\PP \\
+&= \int_G \EE^\QQ[\bX \mid \G] \, d\QQ = \int_G \bX \, d\QQ.
+\end{aligned}
+\]
+Integrating the right-hand side we obtain
+\[
+\int_G \EE^\PP[L \cdot \bX \mid \G] \, d\PP = \int_G L \cdot \bX \, d\PP = \int_G \bX \, d\QQ.
+\]
+
+Where, we use the fact that :
+\[
+    \int \frac{d\QQ}{d\PP} \cdot \bX \, d\PP = \int \bX \, d\QQ
+\]
+That could be proved for simple random variables that are in the form : 
+\[
+    \bX = \sum_{i=1}^m \mathbf{c}_i \1_{E_i}
+\]
+For certain real vectors $\mathbf{c}_i$ and measurable sets $E_i$. In fact :
+
+\begin{align*}
+    \int \frac{d\QQ}{d\PP} \cdot \bX \, d\PP  
+    & =  \int \frac{d\QQ}{d\PP} \cdot \sum_{i=1}^m \mathbf{c}_i \1_{E_i} \, d\PP \\
+    & =  \sum_{i=1}^m \mathbf{c}_i  \int_{E_i} \frac{d\QQ}{d\PP}   d\PP \\ 
+    & =  \sum_{i=1}^m \mathbf{c}_i  \int_{E_i}    d\QQ \\ 
+    & =  \int \sum_{i=1}^m \mathbf{c}_i \1_{E_i} \, d\QQ\\  
+        & = \int \bX \, d\QQ
+\end{align*}
+
+For the generalisation, the reader can  use the lemma \ref{lem:XlimXn} to generalize for positive real-valued random variables, and then for any random variable. 
+}
+
+
+
+\newpage \section{Statistical Inference}
+
+\subsection{Sample and Descriptive Statistics}
+
+In statistical inference, we often deal with random samples drawn from a population. Descriptive statistics provide a way to summarize and describe these samples.
+
+\defn{Random Sample}{
+Let $(\Omega, \F, \PP)$ be a probability space and $\bX$ be a random variable with value space $\RR^n$. A \textbf{random sample} of size $m$ is a sequence of independent and identically distributed (i.i.d.) random variables $\{\bX_i\}_{i=1}^m$ such that $\PP_{\bX_i} = \PP_\bX$ (almost surely) for all $i = 1, \ldots, m$.
+}
+
+
+\subsubsection{Empirical Mean}
+
+The empirical mean provides an estimate of the population mean based on the sample.
+
+\defn{Empirical Mean}{
+Given a random sample $\{\bX_i\}_{i=1}^m$, the \textbf{empirical mean} $\barr{\bX}$ is defined as:
+\[
+\barr{\bX} = \frac{1}{m} \sum_{i=1}^m \bX_i.
+\]
+}
+
+\subsubsection{Empirical Variance}
+
+The empirical variance estimates the population variance based on the sample.
+
+\defn{Empirical Variance}{
+Given a random sample $\{\bX_i\}_{i=1}^m$ and the empirical mean $\barr{\bX}$, the \textbf{empirical variance} $\mathbf{S}_\bX$ is defined as:
+\[
+\mathbf{S}_\bX= \frac{1}{m} \sum_{i=1}^m (\bX_i - \barr{\bX})(\bX_i - \barr{\bX})^T.
+\]
+The special case $n=1$, the formula is reduced to :
+
+\[
+S_\bX= \frac{1}{m} \sum_{i=1}^m (X_i - \barr{X})^2.
+\]
+}
+
+\subsection{Fundamental Theorems of Statistics}
+
+Two fundamental theorems in statistics provide the theoretical foundation for many inferential procedures: the Law of Large Numbers and the Central Limit Theorem.
+
+\subsubsection{Law of Large Numbers}
+
+The Law of Large Numbers (LLN) states that the empirical mean of a large number of i.i.d. random variables converges to the expected value.
+
+\thmp{Law of Large Numbers}{
+ Let $\bX_1, \bX_2, \ldots$ be iid random variables with $\EE[\bX_i] = \mu$ and $\mathrm{Var}[\bX_i]  < \infty$. Define $\barr{\bX}_m = \frac{1}{m} \sum_{i=1}^m \bX_i$. then $\bar{\bX}_m$ converges almost surely to $\mu$. 
+ \[
+ \bar{\bX}_m \xrightarrow[m\rightarrow +\infty]{a.s.} \mu
+ \]
+}{
+You can find the proof of the weakest form in the work of \cite{StatisticalInference} [p.233] and in the work of \cite{gut2013probability}.
+}
+
+\subsubsection{Central Limit Theorem}
+
+The Central Limit Theorem (CLT) states that the distribution of the standardized sum of a large number of i.i.d. random variables approaches the standard normal distribution.
+
+\thmp{Central Limit Theorem}{
+ Let $\bX_1, \bX_2, \ldots$ be iid random variables with $\EE[\bX_i] = \mu$ and $\mathrm{Var}[\bX_i]  < \infty$. Define $\barr{\bX}_m = \frac{1}{m} \sum_{i=1}^m \bX_i$.  Then:
+\[
+\sqrt{n} (\barr{\bX}_m - \mu)  \xrightarrow{\mathcal{D}} \mathcal{N}_n(0,\Sigma) \quad \text{as} \quad n \to \infty,
+\]
+where $\xrightarrow{\mathcal{D}}$ denotes convergence in distribution and $\mathcal{N}_n(0,\Sigma)$ is the multivariate Gaussian distribution [See \ref{Gauss}].
+}{
+You can find the proof in the case $n=1$ in the work of \cite{StatisticalInference} [p.238] and in the work of \cite{gut2013probability}.
+}
+A consequence of the central limit theorem is that for \textit{enough large $n$} we can approximate the distribution of $\barr{\bX}_m$ by a Gaussian distribution with mean $\mu$ and variance $\frac{1}{m} \Sigma$. 
+
+\subsubsection{Law of iterated logarithm}
+
+\thmp{Law of iterated logarithm}{Suppose that $X_1, X_2, \ldots$ are independent, identically distributed random variables with values in $\RR$ and mean $0$ and finite variance $\sigma^2$, and set $S_n=\sum_{k=1}^n X_k, n \geq 1$. Then
+\begin{equation}\label{thm:LIL}
+    \limsup _{n \rightarrow \infty}\left(\liminf _{n \rightarrow \infty}\right) \frac{S_n}{\sqrt{2 \sigma^2 n \log \log n}}=+1(-1) \quad \text { a.s. }
+\end{equation}
+
+
+Conversely, if
+$$
+\PP\left(\limsup _{n \rightarrow \infty} \frac{\left|S_n\right|}{\sqrt{n \log \log n}}<\infty\right)>0,
+$$
+then $\EE[X^2]<\infty, \EE[X]=0$, and \ref{thm:LIL} holds.
+}{
+You can find the proof in the work of \cite{gut2013probability}.
+}
+
+
+\subsection{Parametric models}
+There is two main approach for statistical analysis : 
+\textit{Classical inference and decision theory.} The observations are postulated to be the values taken on by random variables which are assumed to follow a  probability distribution, $\PP$ \footnote{Here we mean by $\bX$ follow $\PP$ distribution (where $\PP$ is a probability measure) that $\PP_\bX = \PP$ and this is denoted : $\bX \sim \PP$}, belonging to some known class $\P$. Frequently, the distributions are indexed by a parameter, say $\theta$ (not necessarily real-valued), taking values in a set, $\Theta$ (but we can suppose that this set is in bijection with $\RR^p$ for some $p\in \NN$. That allow us to differentiate with respect to $\theta$) so that
+\begin{equation}
+\P = \{ P_{\theta}, \theta \in \Theta \}.
+\end{equation}
+The aim of the analysis is then to specify a plausible value for $\theta$ (this is the problem of point estimation), or at least to determine a subset of $\Theta$ of which we can plausibly assert that it does, or does not, contain $\theta$ (estimation by confidence sets or hypothesis testing). Such a statement about $\theta$ can be viewed as a summary of the information provided by the data and may be used as a guide to action.
+
+\textit{Bayesian analysis.} In this approach, it is assumed in addition that $\theta$ is itself a random variable (though un-observable) with a \textit{known} distribution. This prior distribution (specified according to the problem) is modified in light of the data to determine a posterior distribution (the conditional distribution of $\theta$ given the data), which summarizes what can be said about $\theta$ on the basis of the assumptions made \textit{and} the data.
+\\
+The main tool used in parametric statistics is the likelihood functions that evaluate the probability to observe the sample data, and it's defined as follow : 
+
+\defn{Likelihood Function}{
+Let $\{\bX_i\}_{i=1}^m$ be a random sample from parametric probabilities family $\P = \{ P_{\theta}, \theta \in \Theta \}$ that admit
+density functions (pdf) $\bx \longmapsto f(\bx; \theta)$, where $\theta$ is an unknown parameter. The \textbf{likelihood function} $\mathcal{L}(\theta)$ is defined as:
+\[
+\mathcal{L}(\theta) = \prod_{i=1}^m f_\bX(\bX_i; \theta).
+\]
+}
+Ofc, the definition here state that $\mathcal{L}(\theta)$ is a random variable, however in reality we observe the values of  the sample $\{\bX_i\}_{i=1}^m$, meaning we're in an eventuality $\omega$ such we have $\{\bX_i(\omega)\}_{i=1}^m$ known data. And hence we have a known function $\mathcal{L}(\theta)(\omega)$ we however for simplification do not distinguish between the notation $\mathcal{L}(\theta)(\omega)$ and the notation $\mathcal{L}(\theta)$.  \\
+Another fundamental concept in statistics is the \textbf{Fisher information}, that  quantifies the amount of information that an observable random variable carries about an unknown parameter upon which the probability of the random variable depends. This measure plays a crucial role in parameter estimation, guiding us in understanding the precision of estimators and the efficiency of statistical models.
+
+\defn{Fisher Information}{
+The \textbf{Fisher information} $I(\theta)$ is defined as:
+\[
+I(\theta) = \mathrm{Var} \left[  \frac{\partial}{\partial \theta} \log \mathcal{L}(\theta) \right] =  \EE \left[  \left(\frac{\partial}{\partial \theta} \log \mathcal{L}(\theta)\right) \left(\frac{\partial}{\partial \theta} \log \mathcal{L}(\theta)\right)^T \right] 
+\]
+If, in addition, the second derivative with respect to $\theta$ exists for all $\bx$ and $\theta$ and the interchange of expectation's integral and second derivative is allowed, then we have also : 
+\[
+    I(\theta) = \EE \left[  \frac{\partial^2}{\partial \theta^2} \log \mathcal{L}(\theta) \right] 
+\]
+}
+Here the operators : $\frac{\partial}{\partial \theta}$ and $\frac{\partial^2}{\partial \theta^2}$ should be understood as the gradient and the hessian matrix respectively. 
+
+% 
+\subsection{Maximum Likelihood and Its Properties}
+
+The maximum likelihood estimator (MLE) is a fundamental concept in statistical inference, widely used for estimating the parameters of a statistical model. At its core, the MLE seeks to find the values of model parameters that make the observed data most probable, under the assumption of a specific probabilistic model. Intuitively, this method selects parameters that maximize the likelihood of observing the data that we actually observe.
+\subsubsection{Definition of MLE}
+
+\defn{Maximum Likelihood Estimator}{
+Given a random sample $\{\bX_i\}_{i=1}^m$ and a likelihood function $\mathcal{L}(\theta)$, the \textbf{maximum likelihood estimator} (MLE) $\hatt{\theta}_\textit{MLE}$ is defined as:
+\[
+\hatt{\theta}_\textit{MLE} = \arg \max_{\theta} \mathcal{L}(\theta).
+\]
+}
+
+
+\subsubsection{Properties of MLE}
+
+\thmp{Asymptotic Normality of MLE}{ \label{thm:asymptMLE}
+Let $\hatt{\theta}_\textit{MLE}$ be the MLE of a parameter $\theta$ based on a sample of size $m$. Under \textbf{regularity conditions}, we have the following asymptotic properties :
+\begin{itemize}
+    \item \textbf{Consistency : } 
+    \[
+    \hatt{\theta}_\textit{MLE} \xrightarrow[m\rightarrow +\infty]{\PP} \theta 
+    \]
+    \item \textbf{Efficiency and normality : }
+\[
+\sqrt{m} (\hatt{\theta}_\textit{MLE} - \theta) \xrightarrow{\D} \mathcal{N}(0, I(\theta)^{-1}) \quad \text{as} \quad m \to \infty,
+\]
+\end{itemize}
+}{
+Proof for these asymptotic properties could be found in the work of \cite{StatisticalInference} [p.467-p.470]
+}
+This show us that the MLE estimator is normally distributed for \textit{enough large} $m$, and hence we would be able to handle deeper statistical analysis on it [See \ref{Gauss}]. In fact this could be written as : 
+\[
+\hatt{\theta}_\textit{MLE} \sim \mathcal{N}\left(\theta, \frac{1}{n}I(\theta)^{-1}\right) 
+\]
+
+% \rmkb{
+
+The phrase \textbf{under suitable regularity conditions} is a somewhat abused phrase, as with enough assumptions we can probably prove whatever we want. However, \textbf{regularity conditions} are typically very technical, rather boring, and usually satisfied in most reasonable problems. But they are a necessary evil, so we should deal with them. To be complete, we present a set of regularity conditions that suffice to rigorously establish Theorem \ref{thm:asymptMLE}. These are not the most general conditions but are sufficiently general for many applications (with a notable exception being if the MLE is on the boundary of the parameter space). Be forewarned, the following is not for the fainthearted and can be skipped without sacrificing much in the way of understanding.
+\\
+These conditions mainly relate to differentiability of the density and the ability to interchange differentiation and integration. For more details and generality, The following four assumptions are sufficient to prove  asymptotics properties of MLEs in theorem \ref{thm:asymptMLE} : 
+\begin{itemize}
+    \item[(A1)] We observe \(\bX_1, \ldots, \bX_n\), where \(\bX_i \sim f(.|\theta)\) are iid.
+    
+    \item[(A2)] The parameter is \emph{identifiable}; that is, if \(\theta \neq \theta'\), then \(f(\bx|\theta) \neq f(\bx|\theta')\).
+    
+    \item[(A3)] The densities \(f(\bx|\theta)\) have common support, and \(f(\bx|\theta)\) is differentiable with respect to \(\theta\).
+    
+    \item[(A4)] The parameter space \(\Theta\) is a convex open of $\RR^p$ (for some $p\in \NN$)  which the true parameter value \(\theta_0\) is an interior point.
+
+    \item[(A5)] There exist a function $K(\bx)$ such $\EE[K(\bX)] \leq +\infty$ and each component of $\frac{\partial }{\partial \theta} \log f(\bx,\theta)$ is bounded in absolute value by $K(\bx)$ uniformly in some neighborhood of $\theta_0$
+    
+    \item[(A5)] $\frac{\partial }{\partial \theta} \log f(\bx,\theta)$ is a positive definite matrix, at $\theta_0$
+\end{itemize}
+
+
+\subsection{Ordinary Least Squares Estimator  and Its Properties}
+
+
+\subsubsection{Definition of OLSE }
+
+\defn{Ordinary Least Squares Estimator}{
+Let $\{\bX_i\}_{i=1}^m$ be a random sample from parametric probabilities family $\P = \{ P_{\theta}, \theta \in \Theta \}$ that admit
+density functions (pdf) $\bx \longmapsto f(\bx; \theta)$, where $\theta$ is an unknown parameter.\\
+Suppose also that :
+\begin{itemize}
+    \item $\theta$ could be decomposed as : $\theta=(\theta_0,\Sigma)$, where $\theta_0\in \Theta_0$ and $\Sigma\in \M_p(\RR)$
+    \item The expectation of $\bX$ could be expressed as function of the parameter $\theta_0$: 
+    \[
+        \exists f \quad \textit{ such : } \EE(\bX) = f(\theta_0)
+    \]
+    \item The variance of $\bX$ is the remaining part of the decomposition : 
+    \[  
+        \mathrm{Var}(\bX) = \Sigma
+    \]
+\end{itemize}
+
+Then we can define the OLS estimator as the parameters that minimize the sum of squared difference between the observed $\bX$ and the predicted $\hatt{\bX}$ such : 
+
+\[
+\hatt{\theta} = \hatt{(\theta_0,\Sigma)} = \left( \arg \min_{\theta_0} \text{SSE}(\theta_0), \text{RE} \right)
+\]
+Where : 
+\begin{align*}
+    \text{SSE}(\theta_0) 
+    &= \sum_{i=1}^m || \bX - \EE(\bX) ||^2_2 
+     = \sum_{i=1}^m || \bX - f(\theta_0) ||^2_2 \\
+    \text{RE} 
+    & = \frac{1}{m-1} \sum_{i=1}^m (\bX - \EE(\bX)) (\bX - \EE(\bX))^T  \bigg\vert_{\theta_0= \hatt{\theta_0}} \\
+    &= \frac{1}{m-1} \sum_{i=1}^m (\bX - f(\hatt{\theta_0})) (\bX - f(\hatt{\theta_0}))^T  
+\end{align*}
+}
+
+
+\subsubsection{Properties of OLSE}
+
+\color{red}\lipsum[1]
+\color{black}
+
+
+
+\subsection{Moments Method Estimator  and Its Properties}
+
+The method of moments is a general statistical technique for estimating the parameters of a probability distribution by matching sample moments to theoretical moments. Let \(X_1, X_2, \ldots, X_n\) be a random sample from a distribution with unknown parameters \(\theta_1, \theta_2, \ldots, \theta_k\). The \(j\)-th theoretical moment of the distribution is defined as \( \mu_j' = \EE[X^j] \), and the \(j\)-th sample moment is defined as:
+
+\[ m_j' = \frac{1}{n} \sum_{i=1}^n X_i^j \]
+
+To estimate the parameters \(\theta_1, \theta_2, \ldots, \theta_k\), the method of moments involves setting the first \(k\) sample moments equal to the first \(k\) theoretical moments:
+
+\[ m_1' = \mu_1'(\theta_1, \theta_2, \ldots, \theta_k) \]
+\[ m_2' = \mu_2'(\theta_1, \theta_2, \ldots, \theta_k) \]
+\[ \vdots \]
+\[ m_k' = \mu_k'(\theta_1, \theta_2, \ldots, \theta_k) \]
+
+Solving these equations simultaneously provides the method of moments estimators for the parameters \(\theta_1, \theta_2, \ldots, \theta_k\).
+
+In general, the \(j\)-th moment \( \mu_j' \) of a random variable \(X\) is given by:
+
+\[ \mu_j' = \EE[X^j] \]
+
+The \(j\)-th sample moment \( m_j' \) is:
+
+\[ m_j' = \frac{1}{n} \sum_{i=1}^n X_i^j \]
+
+The method of moments estimators \(\hat{\theta}_1, \hat{\theta}_2, \ldots, \hat{\theta}_k\) are obtained by solving the system of equations:
+
+\[ \frac{1}{n} \sum_{i=1}^n X_i^1 = \mu_1'(\theta_1, \theta_2, \ldots, \theta_k) \]
+\[ \frac{1}{n} \sum_{i=1}^n X_i^2 = \mu_2'(\theta_1, \theta_2, \ldots, \theta_k) \]
+\[ \vdots \]
+\[ \frac{1}{n} \sum_{i=1}^n X_i^k = \mu_k'(\theta_1, \theta_2, \ldots, \theta_k) \]
+
+This system of equations ties the empirical data to the theoretical framework, providing a set of estimates for the unknown parameters based on the observed sample. The method is widely used due to its simplicity and intuitive appeal, though its efficiency and precision can depend on the nature of the distribution and the sample size. \\ 
+However to define the method in a general case, we will use the Moment Generating function. In fact using Taylor expansion :
+\[
+M_\bX(t,\theta) = \sum_{k=1}^{+\infty} \frac{t^k}{k!} \EE[X^k]  =\sum_{k=1}^{+\infty} \frac{t^k}{k!} \mu_k(\theta)
+\]
+And the empirical MGF,
+\[
+  \hatt{M_\bX}(t) = \sum_{k=1}^{+\infty} \frac{t^k}{k!} \barr{X^k}  
+\]
+Choosing $\theta$ that equalise all moments with their empirical moments is equivalent to determine $\theta$ that makes the empirical MGF equal to the MGF, or more precisely : $||   \hatt{M_\bX}(.,\hatt{\theta})-  \hatt{M_\bX}(.)||$. And hence our objective is to choose the $\theta$ that minimize the distance between $\hatt{M_\bX}(.,\hatt{\theta})$ and $\hatt{M_\bX}(.)$. 
+
+\subsubsection{Definition of MME }
+
+\defn{Moments Method Estimator}{
+Let $\{\bX_i\}_{i=1}^m$ be a random sample from parametric probabilities family $\P = \{ P_{\theta}, \theta \in \Theta \}$ that admit
+density functions (pdf) $\bx \longmapsto f(\bx; \theta)$, where $\theta$ is an unknown parameter.\\
+Suppose also that for each value $\theta\in \Theta$ the distribution $\PP_\theta$ admit a MGF $M(t,\theta)$. Then we define the Moment Method estimator as : 
+\[
+\hatt{\theta}_\textit{MM} = \arg\min_\theta || M(.,\theta) - \hatt{M} || 
+\]
+Where the empirical MGF is defined as follow :
+\[
+\hatt{M}(t) = \frac{1}{m} \sum_{i=1}^m e^{\bX_i^T t }
+\]
+And $||.||$ is a norm for functions. 
+}
+
+
+
+\subsubsection{Properties of MME}
+
+
+\color{red}\lipsum[1]
+\color{black}
+
+\subsection{Introduction to statistical testing}
+In this section, we turn our attention to a crucial inference method: hypothesis testing. We begin with defining what a statistical hypothesis is. \textbf{It's a statement concerning a population parameter}.
+
+
+This definition is broad, but the key aspect is that a hypothesis pertains to the population. The objective of hypothesis testing is to determine, based on a sample from the population, which of two complementary hypotheses is true. The two complementary hypotheses in a hypothesis testing problem are termed the null hypothesis and the alternative hypothesis, denoted as \( H_0 \) and \( H_1 \) respectively. 
+
+If \(\theta\) represents a population parameter, the null and alternative hypotheses are generally formatted as \( H_0: \theta \in \Theta_0 \) and \( H_1: \theta \in \Theta_1 \), where \(\Theta_0\) is a subset of the parameter space, and \(\Theta_1\) is its complement. For example, if \(\theta\) denotes the average change in a patient’s blood pressure after taking a drug, an experimenter might test \( H_0: \theta = 0 \) versus \( H_1: \theta \neq 0 \). Here, the null hypothesis suggests that the drug has no effect on blood pressure, while the alternative hypothesis suggests some effect. This scenario, where \( H_0 \) posits no effect, is common and explains the term "null" hypothesis. 
+
+As another instance, consider a consumer evaluating the proportion of defective items from a supplier. If \(\theta\) denotes this proportion, the consumer might test \( H_0: \theta \geq \theta_0 \) versus \( H_1: \theta < \theta_0 \), where \(\theta_0\) represents the maximum acceptable proportion of defective items. Here, \( H_0 \) asserts that the defect rate is unacceptably high.
+
+In a hypothesis testing problem, after observing the sample, the experimenter must decide whether to accept \(H_0\) as true or to reject \(H_0\) and accept \(H_1\) as true, to decide we require a \textbf{hypothesis testing procedure} that is is a rule that specifies:
+\begin{itemize}
+    \item For which sample values the decision is made to accept \(H_0\) as true.
+    \item For which sample values \(H_0\) is rejected and \(H_1\) is accepted as true.
+\end{itemize}
+The subset of the sample space for which \(H_0\) will be rejected is called the rejection region or critical region. The complement of the rejection region is called the acceptance region.
+
+Philosophically, some people differentiate between "rejecting \(H_0\)" and "accepting \(H_1\)." In the former, it is only implied that the state defined by \(H_0\) is being rejected, not necessarily that \(H_1\) is accepted. Similarly, there is a distinction between "accepting \(H_0\)" and "not rejecting \(H_0\)." The former suggests the experimenter is willing to assert the state of nature specified by \(H_0\), while the latter implies the experimenter does not have sufficient evidence to reject \(H_0\). However, we will generally not focus on these philosophical distinctions. We view hypothesis testing as deciding between two actions: asserting \(H_0\) or \(H_1\).
+
+Typically, a hypothesis test is defined in terms of a test statistic \(W(X_1, ..., X_n) = W(X)\), a function of the sample. For instance, a test might specify that \(H_0\) is rejected if \( \bar{X} \), the sample mean, is greater than 3. In this case, \(W(X) = \bar{X}\) is the test statistic, and the rejection region is \(\{(X_1, ..., X_n): \bar{X} > 3\}\). 
+
+The reader is referred to the work of  \cite{StatisticalInference} [chapter 8] for more about statistical tests. 
+
+
+\section{Case Study: Gaussian Distribution} \label{Gauss}
+The Gaussian distribution, also known as the normal distribution, is a fundamental concept in probability theory and statistics. It serves as a cornerstone for many statistical methods and has wide-ranging applications in fields such as finance, physics, and social sciences. This section delves into the properties and characteristics of the Gaussian distribution, examining both the standard normal distribution and the more generalized normal distribution in both univariate and multivariate contexts.
+
+\subsection{Standard Normal Distribution}
+The standard normal distribution is a specific instance of the Gaussian distribution characterized by a mean of zero and a variance of one. It is often used as a beginning point to define the normal distribution in its general case. 
+
+\subsubsection{Uni-variate case}
+
+\defn{Standard Normal Distribution}{
+A random variable \( Z \) is said to follow a standard normal distribution, denoted as \( Z \sim \mathcal{N}(0, 1) \), if its probability density function (PDF) is given by:
+\begin{equation*}
+f(z) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{z^2}{2} \right).
+\end{equation*}
+}
+
+\subsubsection{Properties}
+
+\thm{Moments of the Standard Normal Distribution}{
+Let \( Z \sim \mathcal{N}(0, 1) \). Then:
+\begin{enumerate}
+    \item The mean of \( Z \) is \( \EE[Z] = 0 \).
+    \item The variance of \( Z \) is \( \mathrm{Var}(Z) = 1 \).
+    \item The moment generating function \( M_Z(t) \) is given by:
+\begin{equation*}
+M_Z(t) = \exp\left( \frac{t^2}{2} \right).
+\end{equation*}
+\end{enumerate}
+
+}
+
+\subsubsection{Multi-variate case}
+The standard normal distribution can be extended to multiple dimensions, resulting in the multivariate standard normal distribution. This concept is particularly useful when dealing with vectors of random variables that follow a joint Gaussian distribution.
+
+\defn{Standard Normal Distribution}{
+A random vector \( \mathbf{Z} \) with values in \( \mathbb{R}^n \) is said to follow a standard normal distribution, denoted as \( \mathbf{Z} \sim \mathcal{N}_n(\mathbf{0}, \mathbf{I}) \), if each of its components follows a standard normal distribution with no dependence between components, or equivalently, if \( \mathbf{Z} = (Z_1,\cdots, Z_n)^T \) then:
+\[
+    Z_1, \cdots, Z_n \overset{iid}{\sim} \mathcal{N}(0,1)
+\]
+And then, its probability density function (PDF) is given by:
+\begin{equation*}
+f(\bx) = \frac{1}{(2\pi)^{n/2}} \exp\left( -\frac{1}{2} ||\bx||^2 \right).
+\end{equation*}
+}
+
+\subsubsection{Properties}
+The multivariate standard normal distribution also possesses essential properties, which extend the concepts observed in the uni-variate case to higher dimensions.
+
+\thm{Moments of the Standard Normal Distribution}{
+Let \( \mathbf{Z} \sim \mathcal{N}_n(\mathbf{0}, \mathbf{I}) \). Then:
+\begin{enumerate}
+    \item The mean of \( \mathbf{Z} \) is \( \EE[\mathbf{Z}] = \mathbf{0} \).
+    \item The covariance matrix of \( \mathbf{Z} \) is \( \mathrm{Cov}(\mathbf{Z}) = \mathbf{I} \).
+\item The moment generating function \( M_{\mathbf{Z}}(\mathbf{t}) \)  is given by:
+\begin{equation*}
+M_{\mathbf{Z}}(\mathbf{t}) = \exp\left( \frac{1}{2} \|\mathbf{t}\|^2 \right).
+\end{equation*}
+\end{enumerate}
+}
+
+\subsection{Normal Distribution}
+The normal distribution is a generalization of the standard normal distribution, incorporating parameters for mean and variance. In fact we shall see, that it's a linear transformation of the standard normal distribution. 
+
+\subsubsection{Uni-variate Normal Distribution}
+
+\defn{Uni-variate Normal Distribution}{
+A random variable \( X \) is said to follow a normal distribution with mean \( \mu \) and variance \( \sigma^2 > 0 \), denoted as \( X \sim \mathcal{N}(\mu, \sigma^2) \), if there exists a random variable \( Z \sim \mathcal{N}(0,1) \) such that:
+\[
+  X = \mu + \sigma Z  
+\]
+
+And then, its probability density function (PDF) is given by:
+\begin{equation*}
+f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right).
+\end{equation*}
+}
+
+\subsubsection{Properties}
+
+\thm{Moments of the Distribution}{
+Let \( X \sim \mathcal{N}(\mu, \sigma^2) \). Then:
+\begin{enumerate}
+    \item The mean of \( X \) is \( \EE[X] = \mu \).
+    \item The variance of \( X \) is \( \mathrm{Var}(X) = \sigma^2 \).
+\item The moment generating function \( M_\bX(t) \)  is given by:
+\begin{equation*}
+M_\bX(t) = \exp\left( \mu t + \frac{\sigma^2 t^2}{2} \right).
+\end{equation*}
+\end{enumerate}
+}
+
+\subsubsection{Multivariate Normal Distribution}
+
+\defn{Multi-variate Normal Distribution}{
+A random vector \( \bX \) is said to follow a multivariate normal distribution with mean \( \boldsymbol{\mu} \in \mathbb{R}^n \) and covariance matrix \( \mathbf{\Sigma} \in \mathcal{S}_n^{++}(\mathbb{R}) \), denoted as \( \bX \sim \mathcal{N}(\boldsymbol{\mu}, \mathbf{\Sigma}) \), if there exists a random vector \( \mathbf{Z} \sim \mathcal{N}_n(\mathbf{0}, \mathbf{I}) \) such that:
+\[
+  \bX = \boldsymbol{\mu} +  \mathbf{A} \mathbf{Z}  
+\]
+where \( \mathbf{A} \) is a matrix such that \( \mathbf{A}^\top \mathbf{A} = \mathbf{\Sigma} \).
+
+And then, its probability density function (PDF) is given by:
+\begin{equation*}
+f(\bx; \boldsymbol{\mu}, \mathbf{\Sigma}) = \frac{1}{(2\pi)^{n/2} |\mathbf{\Sigma}|^{1/2}} \exp\left( -\frac{1}{2} (\bx - \boldsymbol{\mu})^\top \mathbf{\Sigma}^{-1} (\bx - \boldsymbol{\mu}) \right).
+\end{equation*}
+}
+
+
+\subsubsection{Properties}
+
+\thm{Moments of Distribution}{
+Let \( \bX \sim \mathcal{N}(\boldsymbol{\mu}, \mathbf{\Sigma}) \). Then:
+\begin{enumerate}
+    \item The mean vector of \( \bX \) is \( \EE[\bX] = \boldsymbol{\mu} \).
+    \item The covariance matrix of \( \bX \) is \( \mathrm{Cov}(\bX) = \mathbf{\Sigma} \).
+    \item The moment generating function \( M_{\bX}(\mathbf{t}) \)  is given by:
+\begin{equation*}
+M_{\bX}(\mathbf{t}) = \exp\left( \mathbf{t}^\top \boldsymbol{\mu} + \frac{1}{2} \mathbf{t}^\top \mathbf{\Sigma} \mathbf{t} \right).
+\end{equation*}
+\end{enumerate}
+}
+
+\subsubsection{Marginal and Conditional Distributions}
+In multivariate analysis, understanding the behavior of subsets of variables and their interactions with others is often essential. The concepts of marginal and conditional distributions provide valuable insights into these relationships.
+
+\thm{Marginal Distribution}{
+Let \( \bX = \begin{pmatrix} \bX_1 \\ \bX_2 \end{pmatrix} \sim \mathcal{N}\left( \begin{pmatrix} \boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2 \end{pmatrix}, \begin{pmatrix} \mathbf{\Sigma}_{11} & \mathbf{\Sigma}_{12} \\ \mathbf{\Sigma}_{21} & \mathbf{\Sigma}_{22} \end{pmatrix} \right) \). Then the marginal distributions \( \bX_1 \) and \( \bX_2 \) are:
+\begin{align*}
+\bX_1 &\sim \mathcal{N}(\boldsymbol{\mu}_1, \mathbf{\Sigma}_{11}), \\
+\bX_2 &\sim \mathcal{N}(\boldsymbol{\mu}_2, \mathbf{\Sigma}_{22}).
+\end{align*}
+}
+
+\thm{Conditional Distribution}{
+Under the same conditions as above, the conditional distribution of \( \bX_1 \) given \( \bX_2 = \bx_2 \) is:
+\begin{equation*}
+\bX_1 | \bX_2 = \bx_2 \sim \mathcal{N}\bigg(\boldsymbol{\mu}_1 + \mathbf{\Sigma}_{12} \mathbf{\Sigma}_{22}^{-1} (\bx_2 - \boldsymbol{\mu}_2), \mathbf{\Sigma}_{11} - \mathbf{\Sigma}_{12} \mathbf{\Sigma}_{22}^{-1} \mathbf{\Sigma}_{21}\bigg).
+\end{equation*}
+}
+
+\subsection{Inference}
+Inference in the context of normal distributions involves estimating parameters and testing hypotheses based on observed data. This section explores both univariate and multivariate cases, highlighting estimation techniques and hypothesis testing procedures.
+
+\subsubsection{Univariate Case}
+The univariate case focuses on estimating the mean and variance of a normal distribution and testing hypotheses regarding these parameters. These foundational techniques form the basis for more complex analyses.
+
+\thm{Maximum Likelihood Estimation}{
+Given a sample \( X_1, X_2, \ldots, X_n \) drawn from \( \mathcal{N}(\mu, \sigma^2) \):
+\begin{enumerate}
+    \item The maximum likelihood estimate (MLE) of the mean \( \mu \) is:
+    \begin{equation*}
+    \hatt{\mu} = \frac{1}{n} \sum_{i=1}^n X_i.
+    \end{equation*}
+    \item The MLE of the variance \( \sigma^2 \) is:
+    \begin{equation*}
+    \hatt{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \hatt{\mu})^2.
+    \end{equation*}
+\end{enumerate}
+}
+
+\subsubsection{Multivariate Case}
+The multivariate case extends the principles of maximum likelihood estimation to vector-valued data, capturing the complexity of relationships between multiple variables.
+
+\thm{Maximum Likelihood Estimation}{
+Given a sample \( \bX_1, \bX_2, \ldots, \bX_n \) drawn from \( \mathcal{N}(\boldsymbol{\mu}, \mathbf{\Sigma}) \):
+\begin{enumerate}
+    \item The MLE of the mean vector \( \boldsymbol{\mu} \) is:
+    \begin{equation*}
+    \hatt{\boldsymbol{\mu}} = \frac{1}{n} \sum_{i=1}^n \bX_i.
+    \end{equation*}
+    \item The MLE of the covariance matrix \( \mathbf{\Sigma} \) is:
+    \begin{equation*}
+    \hatt{\mathbf{\Sigma}} = \frac{1}{n} \sum_{i=1}^n (\bX_i - \hatt{\boldsymbol{\mu}})(\bX_i - \hatt{\boldsymbol{\mu}})^\top.
+    \end{equation*}
+\end{enumerate}
+}
+
+\subsubsection{Hypothesis Testing}
+Hypothesis testing is a fundamental aspect of statistical inference, enabling the assessment of claims or conjectures about the parameters of a normal distribution based on sample data.
+
+\thm{Testing the Mean in the Univariate Case}{
+For testing \( H_0: \mu = \mu_0 \) against \( H_1: \mu \neq \mu_0 \) in the univariate case, the test statistic is:
+\begin{equation*}
+Z = \frac{\hatt{\mu} - \mu_0}{\hatt{\sigma} / \sqrt{n}},
+\end{equation*}
+where \( Z \) follows the standard normal distribution.
+}
+
+\thm{Testing the Mean in the Multivariate Case}{
+For testing \( H_0: \boldsymbol{\mu} = \boldsymbol{\mu}_0 \) against \( H_1: \boldsymbol{\mu} \neq \boldsymbol{\mu}_0 \) in the multivariate case, the test statistic is:
+\begin{equation*}
+T^2 = n (\hatt{\boldsymbol{\mu}} - \boldsymbol{\mu}_0)^\top \hatt{\mathbf{\Sigma}}^{-1} (\hatt{\boldsymbol{\mu}} - \boldsymbol{\mu}_0),
+\end{equation*}
+where \( T^2 \) follows a Hotelling's \( T^2 \)-distribution with parameters $(p,n-1)$. \\
+It's important to remember that Hotelling's distribution is related to Fisher ditribution via the formula : 
+\[
+T^{2}\sim T_{p,n-1}^{2}={\frac {p(n-1)}{n-p}}F_{p,n-p}
+\]
+}
+
+
+
+
+% 
+
+\newpage 
+\section{Stochastic Process}
+
+\subsection{Definition}
+
+Stochastic Process analysis involves statistical techniques for analyzing data points collected or recorded at specific time intervals.
+
+\defn{Stochastic Process}{
+A \textbf{Stochastic Process} is a sequence of random variables $\{X_t\}_{t \in \mathcal{T}} $ indexed by time $ t $, where $\mathcal{T}$ is an index set, typically we have two cases : 
+\begin{itemize}
+    \item \textbf{The discrete case} where : $\mathcal{T} = \{t_0, t_1, t_2, \ldots\}$
+    \item \textbf{The continuous case } where : $\T = [0,+\infty[$ 
+\end{itemize}
+A realization [not necessary the whole set $\T$ but only a sub-set of it] of a stochastic process  is called \textbf{time series}, that is the sequence : $\{X_t(\omega)\}_{t \in \U \subset \mathcal{T}} $
+}
+
+\subsection{Finite-Dimensional Distributions
+ }
+
+
+\subsection{Filtration - Adapted Process}
+
+In the context of Stochastic Process and stochastic processes, the concepts of filtration and adapted processes are crucial for modeling the information available up to a certain time point.
+
+\defn{Filtration - Filtered probability space}{
+A \textbf{filtration} $\{\F_t\}_{t \in \mathcal{T}}$ is a family of $\sigma$-algebras such that $\F_s \subseteq \F_t$ for all $s \leq t$. This represents the accumulation of information over time.  \\ 
+A \textbf{filtered probability space} is the space $\left( \Omega, \F, \PP, \{\F_t\}_{t \in \mathcal{T}}\right) $.
+}
+
+\defn{Adapted Process}{
+A stochastic process $\{X_t\}_{t \in \mathcal{T}}$ is \textbf{adapted} to a filtration $\{\F_t\}_{t \in \mathcal{T}}$ if $X_t$ is $\F_t$-measurable for all $t \in \mathcal{T}$. This means that $X_t$ depends only on the information available up to time $t$.
+}
+
+
+\subsection{Markov Property}
+
+The Markov property is a fundamental concept in the study of stochastic processes, particularly in the context of Stochastic Process.
+
+\subsubsection{Definition}
+
+\defn{Markov Property}{
+A stochastic process $\{X_t\}_{t \in \mathbb{T}}$ has the \textbf{Markov property} if, for all $t \in \mathbb{T}$ and all $s \geq t$, the conditional distribution of $X_s$ given the past values $\{X_u\}_{u \leq t}$ depends only on $X_t$. Formally,
+\[
+\PP(X_s \leq x \mid \{X_u = x_u\}_{u \leq t}) = \PP(X_s \leq x \mid X_t = x_t) \quad \text{for all } x \in \RR.
+\]
+}
+
+Processes with the Markov property are called \textbf{Markov processes}.
+
+
+\thm{Chapman-Kolmogorov Equation}{
+The \textbf{Chapman-Kolmogorov equation} relates the transition probabilities over different time steps. For $0 \leq t < u < v$ and $x, y \in \mathcal{X}$,
+\[
+P_{t,v}(x,y) = \int_{\mathcal{X}} P_{t,u}(x,z) P_{u,v}(z,y) \, dz.
+\]
+}
+
+This equation ensures the consistency of transition probabilities over time, which is a crucial property for Markov processes.
+
+
+
+
+
+% Inference 
+
+% \subsubsection{Likelihood and Transition Probability}
+
+% In the context of Markov processes, the transition probability and likelihood function play key roles in understanding the dynamics of the process.
+
+% \defn{Transition Probability}{
+% For a Markov process $\{X_t\}_{t \in \mathbb{T}}$, the \textbf{transition probability} $P_{t,t+h}(x,y)$ is defined as:
+% \[
+% P_{t,t+h}(x,y) = \PP(X_{t+h} \leq y \mid X_t = x).
+% \]
+% }
+
+% \defn{Likelihood Function}{
+% For a discrete-time Markov process $\{X_t\}_{t = 0}^n$ with state space $\mathcal{X}$, the \textbf{likelihood function} is given by:
+% \[
+% \mathcal{L}(\theta) = \PP(X_0 = x_0) \prod_{t=1}^n P_{t-1,t}(X_{t-1}, X_t),
+% \]
+% where $\theta$ denotes the parameters of the transition probability.
+% }
+
+
+
+ 
+% \newpage \section{Financial concepts}
+
+
+\end{document}
