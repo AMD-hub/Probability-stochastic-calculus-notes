@@ -113,6 +113,8 @@ if $\|H-H'\|_{L^2(M)}=0$).
 
 Recall our notation $X^T$ for the process $X$ stopped at the stopping time $T$: $X_t^T = X_{t \land T}$. If $M \in \HH^2$, the fact that $\langle M^T, M^T \rangle_\infty = \langle M, M \rangle_T$ immediately implies that $M^T$ also belongs to $\HH^2$. Furthermore, if $H \in L^2(M)$, the process $\1_{[0, T]} H$ defined by $(\1_{[0, T]} H)_s(\omega) = \1_{\{0 \le s \le T(\omega)\}} H_s(\omega)$ also belongs to $L^2(M)$ (note that $\1_{[0, T]}$ is progressive since it is adapted with left-continuous sample paths).
 
+The quantity $H \cdot \langle M, N \rangle$ in the right-hand side of (\ref{eq:extension_formula} in the Theorem bellow) is an integral with respect to the finite variation process $\langle M, N \rangle$, as defined in Section \ref{sec:finite-variation-processes}. This integral is well defined because $\langle M, N \rangle$ is continuous and of finite variation, and $H$ is progressive. The notation $H \cdot A$ for an integral with respect to a finite variation process $A$, and $H \cdot M$ for an integral with respect to a martingale $M$, creates no ambiguity since these two classes of integrators are essentially disjoint: a nontrivial continuous martingale cannot be a finite variation process, and a nonconstant finite variation process cannot be a martingale.
+
 \thmpr{Stochastic integral wrt a martingale in $\HH^2$}{stochastic_integral_H2}{
 Let $M\in\HH^2$. For every elementary process
 \[ H_s(\omega)=\sum_{i=0}^{p-1}H_{(i)}(\omega)\,\1_{(t_i,t_{i+1}]}(s), \]
@@ -135,11 +137,76 @@ We often use the notation
 and call $H\cdot M$ the \emph{stochastic integral} of $H$ with respect to
 $M$. 
 }{
-To be proven. 
-}
+We divide this proof into 3 steps : 
+\begin{enumerate}
+    \item \textit{Construction and Isometry extension} which is done via four substeps :
+    \begin{itemize}
+        \item We can verify that the mapping $H \mapsto H \cdot M$ does not depend on the decomposition chosen for $H$, which implies that the mapping is linear and is an isometry from $\mathcal{E}$ (viewed as a subspace of $L^2(M)$) into $\mathbb{H}^2$.
+        \item We study each terms $M^i = H_{(i)} \left( M_{t_{i+1} \wedge t} - M_{t_i \wedge t} \right)$ in the sum 
+        $$ H \cdot M = \sum_{i=0}^{p-1} H_{(i)} \left( M_{t_{i+1} \wedge t} - M_{t_i \wedge t} \right) = \sum_{i=0}^{p-1} M^i $$ 
+        It's left to reader to prove that $M^i$ are continuous martingales in $\mathbb{H}^2$ and that $M^i$ are orthogonal and their quadratic variations are given by 
+        $$
+        \langle M^i, M^i \rangle_t = H_{(i)}^2 \left( \langle M, M \rangle_{t_{i+1} \wedge t} - \langle M, M \rangle_{t_i \wedge t} \right)
+        $$
+        \item We conclude that the mapping $H \mapsto H \cdot M$ is an isometry from $\mathcal{E}$ (equipped with the norm of $L^2(M)$) into $\mathbb{H}^2$. For instance by using the approximations of $\langle M, N \rangle$. We conclude that
+        $$
+        \langle H \cdot M, H \cdot M \rangle_t = \sum_{i=0}^{p-1} H_{(i)}^2 \left( \langle M, M \rangle_{t_{i+1} \wedge t} - \langle M, M \rangle_{t_i \wedge t} \right) = \int_0^t H_s^2 \, d\langle M, M \rangle_s.
+        $$
+        Consequently,
+        $$
+        \|H \cdot M\|_{\mathbb{H}^2}^2 = E\left[ \langle H \cdot M, H \cdot M \rangle_\infty \right] = E\left[ \int_0^\infty H_s^2 \, d\langle M, M \rangle_s \right] = \|H\|_{L^2(M)}^2.
+        $$
+        By linearity, this implies that $H \cdot M = H' \cdot M$ if $H'$ is another elementary process that is identified with $H$ in $L^2(M)$. Therefore the mapping $H \mapsto H \cdot M$ makes sense from $\mathcal{E}$ viewed as a subspace of $L^2(M)$ into $\mathbb{H}^2$. The latter mapping is linear, and, since it preserves the norm, it is an isometry from $\mathcal{E}$ (equipped with the norm of $L^2(M)$) into $\mathbb{H}^2$. 
+        \item Finally, since $\mathcal{E}$ is dense in $L^2(M)$ (Proposition \ref{prop:elementary_processes_dense}) and $\mathbb{H}^2$ is a Hilbert space (Proposition \ref{prop:H2_is_Hilbert}), this mapping can be extended in a unique way to an isometry from $L^2(M)$ into $\mathbb{H}^2$.
+    \end{itemize} 
+    \item \textit{The Bracket identity :} We fix $N \in \mathbb{H}^2$. We can prove a simpler formula which is :
+    $$ \langle H \cdot M, N \rangle_\infty = H \cdot \langle M, N \rangle_\infty $$
+    And then replace $N$ by the stopped martingale $N^t$ to get the desired formula. 
+    
+    First note that, if $H \in L^2(M)$, the Kunita--Watanabe inequality (Proposition \ref{thm:kunita_watanabi_inequality}) shows that
+    $$
+    E\left[ \int_0^\infty |H_s| \, |d\langle M, N \rangle_s| \right] \le \|H\|_{L^2(M)} \|N\|_{\mathbb{H}^2} < \infty
+    $$
+    and thus the variable $\int_0^\infty H_s \, d\langle M, N \rangle_s = (H \cdot \langle M, N \rangle)_\infty$ is well defined and in $L^1$.
+    We firstly consider the case of elementary process then generalize:
+    \begin{itemize}
+        \item If $H$ is an elementary process then by simple calculation we have
+        \begin{align*} 
+            \langle H \cdot M, N \rangle_\infty 
+                &= \sum_{i=0}^{p-1} \langle M^i, N \rangle_\infty \\ 
+                &= \sum_{i=0}^{p-1} H_{(i)} \left( \langle M, N \rangle_{t_{i+1} } - \langle M, N \rangle_{t_i } \right) \\ 
+                &= \int_0^\infty H_s \, \mathrm{d}\langle M, N \rangle_s 
+        \end{align*}
+        \item Now we need to generalize for $H \in L^2(M)$. Let $(H^n)_{n \ge 1}$ be a sequence of elementary processes such that $H^n \to H$ in $L^2(M)$. To pass the limit a clever idea is to prove that the linear mapping $X \mapsto \langle X, N \rangle_\infty$ is continuous. Indeed, by the Kunita--Watanabe inequality,
+        $$
+        E\left[ |\langle X, N \rangle_\infty| \right] \le E\left[ \langle X, X \rangle_\infty \right]^{1/2} E\left[ \langle N, N \rangle_\infty \right]^{1/2} = \|N\|_{\mathbb{H}^2} \|X\|_{\mathbb{H}^2}.
+        $$
+        If $(H^n)_{n \ge 1}$ is a sequence in $\mathcal{E}$, such that $H^n \to H$ in $L^2(M)$, we have therefore
+        \begin{align*}
+        \langle H \cdot M, N \rangle_\infty &= \lim_{n \to \infty} \langle H^n \cdot M, N \rangle_\infty \\
+        &= \lim_{n \to \infty} (H^n \cdot \langle M, N \rangle)_\infty \\
+        &= (H \cdot \langle M, N \rangle)_\infty,
+        \end{align*}
+        where the convergences hold in $L^1$, and the last equality again follows from the Kunita--Watanabe inequality by writing
+        $$
+        E\left[ \left| \int_0^\infty (H_s^n - H_s) \, d\langle M, N \rangle_s \right| \right] \le E\left[ \langle N, N \rangle_\infty \right]^{1/2} \|H^n - H\|_{L^2(M)}.
+        $$
+        \item  It is easy to see that (\ref{eq:extension_formula}) characterizes $H \cdot M$ among the martingales of $\mathbb{H}^2$. Indeed, if $X$ is another martingale of $\mathbb{H}^2$ that satisfies the same identity, we get, for every $N \in \mathbb{H}^2$,
+        $$ \langle H \cdot M - X, N \rangle = 0. $$
+        Taking $N = H \cdot M - X$ and using Theorem \ref{thm:tot_var_local_martingal} we obtain that $X = H \cdot M$.
+    \end{itemize}
+    \item \textit{The Bracket identity for stopping time :} It remains to verify (\ref{eq:extension_formula_T}). Using the properties of the bracket of two continuous local martingales, we observe that, if $N \in \mathbb{H}^2$, 
+    $$
+    \langle (H \cdot M)^T, N \rangle_t = \langle H \cdot M, N \rangle_{t \wedge T} = (H \cdot \langle M, N \rangle)_{t \wedge T} = (1_{[0,T]} H \cdot \langle M, N \rangle)_t
+    $$
+    which shows that the stopped martingale $(H \cdot M)^T$ satisfies the characteristic property of the stochastic integral $(1_{[0,T]} H) \cdot M$. The first equality in (\ref{eq:extension_formula_T}) follows. The second one is proved analogously, writing
+    $$
+    \langle H \cdot M^T, N \rangle = H \cdot \langle M^T, N \rangle = H \cdot \langle M, N \rangle^T = 1_{[0,T]} H \cdot \langle M, N \rangle.
+    $$
+    This completes the proof of the theorem.
+\end{enumerate}
 
-\textbf{Remark.}
-The quantity $H \cdot \langle M, N \rangle$ in the right-hand side of (\ref{eq:extension_formula}) is an integral with respect to a finite variation process, as defined in Section \ref{sec:finite-variation-processes} . The fact that we use a similar notation $H \cdot A$ and $H \cdot M$ for the integrals with respect to a finite variation process $A$ and with respect to a martingale $M$ creates no ambiguity since these two classes of processes are essentially disjoint.
+}
 
 \textbf{Remark} We could have used the relation (\ref{eq:extension_formula}) to \textbf{define} the stochastic integral $H \cdot M$, observing that the mapping $N \mapsto \EE[(H \cdot \langle M, N \rangle)_\infty]$ yields a continuous linear form on $\HH^2$, and thus there exists a unique martingale $H \cdot M$ in $\HH^2$ such that
 
@@ -556,15 +623,9 @@ which is a special case of Itô's formula of the next section.
 
 
 \section{Itô's Formula}  
-Itô's formula is the cornerstone of stochastic calculus. It shows that, if we
-apply a twice continuously differentiable function to a \(p\)-tuple of
-continuous semimartingales, the resulting process is still a continuous
-semimartingale, and there is an explicit formula for the canonical
-decomposition of this semimartingale.
+Itô's formula is the cornerstone of stochastic calculus. It provides the explicit canonical decomposition of a twice continuously differentiable function of continuous semimartingales.
 
-\medskip
-
-\thmr{Itô's formula}{ito_formula}{
+\thmpr{Itô's formula}{ito_formula}{
 Let \(X^1,\ldots,X^p\) be \(p\) continuous semimartingales, and let
 \(F\) be a twice continuously differentiable real function on \(\RR^p\).
 Then, for every \(t\geq 0\),
@@ -579,6 +640,40 @@ F(X_t^1,\ldots,X_t^p)
 \,d\langle X^i,X^j\rangle_s.
 \end{aligned}
 \]
+}{
+We first deal with the case $p = 1$ and we write $X = X^1$ for simplicity. Fix $t > 0$ and consider an increasing sequence $0 = t_0^n < \dots < t_{p_n}^n = t$ of subdivisions of $[0, t]$ whose mesh tends to $0$. Then, for every $n$,
+\[
+F(X_t) = F(X_0) + \sum_{i=0}^{p_n-1} (F(X_{t_{i+1}^n}) - F(X_{t_i^n})).
+\]
+For every $i \in \{0, 1, \dots, p_n - 1\}$, we apply the Taylor--Lagrange formula to the function $[0, 1] \ni \theta \mapsto F(X_{t_i^n} + \theta(X_{t_{i+1}^n} - X_{t_i^n}))$, between $\theta = 0$ and $\theta = 1$, and we get that
+\[
+F(X_{t_{i+1}^n}) - F(X_{t_i^n}) = F'(X_{t_i^n})(X_{t_{i+1}^n} - X_{t_i^n}) + \frac{1}{2} f_{n,i} (X_{t_{i+1}^n} - X_{t_i^n})^2,
+\]
+where the quantity $f_{n,i}$ can be written as $F''(X_{t_i^n} + c(X_{t_{i+1}^n} - X_{t_i^n}))$ for some $c \in [0, 1]$. By Proposition \ref{prop:integral_approximation} with $H_s = F'(X_s)$, we have
+\[
+\lim_{n \to \infty} \sum_{i=0}^{p_n-1} F'(X_{t_i^n})(X_{t_{i+1}^n} - X_{t_i^n}) = \int_0^t F'(X_s) \, \mathrm{d}X_s,
+\]
+in probability. To complete the proof of the case $p = 1$ of the theorem, it is therefore enough to verify that
+\begin{equation}\label{eq:ito_formula_proof_1}
+\lim_{n \to \infty} \sum_{i=0}^{p_n-1} f_{n,i}(X_{t_{i+1}^n} - X_{t_i^n})^2 = \int_0^t F''(X_s) \, \mathrm{d}\langle X, X \rangle_s,
+\end{equation}
+in probability. We observe that
+\[
+\sup_{0 \le i \le p_n - 1} |f_{n,i} - F''(X_{t_i^n})| \le \sup_{0 \le i \le p_n - 1} \left( \sup_{x \in [X_{t_i^n} \wedge X_{t_{i+1}^n}, X_{t_i^n} \vee X_{t_{i+1}^n}]} |F''(x) - F''(X_{t_i^n})| \right).
+\]
+The right-hand side of the preceding display tends to $0$ a.s. as $n \to \infty$, as a simple consequence of the uniform continuity of $F''$ (and of the sample paths of $X$) over a compact interval.
+
+Since $\sum_{i=0}^{p_n-1} (X_{t_{i+1}^n} - X_{t_i^n})^2$ converges in probability (Theorem \ref{thm:quad_var_existence}), it follows from the last display that
+\[
+\left| \sum_{i=0}^{p_n-1} f_{n,i}(X_{t_{i+1}^n} - X_{t_i^n})^2 - \sum_{i=0}^{p_n-1} F''(X_{t_i^n})(X_{t_{i+1}^n} - X_{t_i^n})^2 \right| \xrightarrow[n \to \infty]{} 0
+\]
+in probability. So the convergence (\ref{eq:ito_formula_proof_1}) will follow if we can verify that
+$$\lim_{n \to \infty} \sum_{i=0}^{p_n-1} F''(X_{t_i^n})(X_{t_{i+1}^n} - X_{t_i^n})^2 = \int_0^t F''(X_s) \, \mathrm{d}\langle X, X \rangle_s,$$
+in probability. In fact, this can be achieved by Lemma \ref{lem:qv_continuous_integrand} which completes the proof of the case $p = 1$. In the general case, use same arguments as in the case $p = 1$ in the Taylor--Lagrange formula, 
+\begin{align*}
+F(X_{t_{i+1}^n}^1, \dots, X_{t_{i+1}^n}^p) - F(X_{t_i^n}^1, \dots, X_{t_i^n}^p) ={}& \sum_{k=1}^p \frac{\partial F}{\partial x_k}(X_{t_i^n}^1, \dots, X_{t_i^n}^p)(X_{t_{i+1}^n}^k - X_{t_i^n}^k) \\
+& + \sum_{k,l=1}^p \frac{f_{n,i}^{k,l}}{2} (X_{t_{i+1}^n}^k - X_{t_i^n}^k)(X_{t_{i+1}^n}^l - X_{t_i^n}^l)
+\end{align*}
 }
 
 An important special case of Itô's formula is the formula of integration by

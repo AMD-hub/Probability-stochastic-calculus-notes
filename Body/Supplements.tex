@@ -260,6 +260,38 @@ Moreover, for every $x\in H$,
 \]
 }
 
+
+\thmr{Bounded Linear Operators are Continuous}{bounded_linear_operators}{
+Let $X$ and $Y$ be normed vector spaces, and let $T:X\to Y$ be a linear mapping.
+The following assertions are equivalent:
+\begin{enumerate}
+    \item $T$ is continuous.
+    \item $T$ is continuous at $0$.
+    \item There exists $C\geq 0$ such that
+    \[
+    \|T x\|_Y \leq C\|x\|_X, \qquad x\in X.
+    \]
+\end{enumerate}
+In particular, every bounded linear operator is continuous.
+}
+
+\thmr{Extension of an Isometry}{extension_isometry}{
+Let $X$ be a normed vector space, let $Y$ be a Banach space, and let $E\subset X$ be a dense linear subspace.
+Suppose that $T:E\to Y$ is a linear isometry, namely
+\[
+\|T x\|_Y = \|x\|_X, \qquad x\in E.
+\]
+Then there exists a unique linear isometry
+\[
+\widetilde T:X\to Y
+\]
+such that
+\[
+\widetilde T|_E = T.
+\]
+}
+
+
 \chapter{Gaussian Variables and Gaussian Processes}
 Gaussian random processes play an important role both in theoretical probability and in various applied models. This appendix begins by recalling basic facts about Gaussian random variables and Gaussian vectors. We then discuss Gaussian spaces and Gaussian processes, and we establish the fundamental properties concerning independence and conditioning in the Gaussian setting. We ﬁnally introduce the notion of a Gaussian white noise, which will be used to give a simple construction of Brownian motion in the next appendix.\label{sec:gaussian_sec}
 
@@ -473,14 +505,35 @@ Since a Gaussian white noise is not a \emph{real} measure depending on $\omega$,
  
 \section{The Continuity of Sample Paths}
 
+\defnr{Brownnian Motion}{brownian_motion}{
 A process $(B_t)_{t\geq 0}$ is a \emph{Brownian motion} if:
 \begin{enumerate}
 \item[(i)] $(B_t)_{t\geq 0}$ is a pre-Brownian motion.
 \item[(ii)] All sample paths of $B$ are continuous.
-\end{enumerate}
+\end{enumerate}}
+
 This is in fact the definition of a \emph{real} (or \emph{linear}) Brownian motion \emph{started from $0$}. Extensions to arbitrary starting points and to higher dimensions will be discussed later. \\ 
 The existence of Brownian motion in the sense of the preceding definition follows from Theorem~\ref{thm:kolmogorov-lemma}. Indeed, starting from a pre-Brownian motion, this theorem provides a modification with continuous sample paths (and even locally Hôlder continuous with exponent $\frac12-\delta$ for every $\delta\in(0,\tfrac12)$. ), which is still a pre-Brownian motion. In what follows we no longer consider pre-Brownian motion, as we will be interested only in Brownian motion. \\
 It is important to note that the preceding pre-Brownian motion properties hold without change if pre-Brownian motion is replaced everywhere by Brownian motion. \\
+\defnr{$(\mathcal{F}_t)$-Brownian Motion}{F_t_brownian_motion}{
+A real-valued process $B=(B_t)_{t\ge0}$ is called an
+\emph{$(\mathcal{F}_t)$-Brownian motion} if $B$ is a Brownian motion,
+$B$ is adapted to the filtration $(\mathcal{F}_t)_{t\ge0}$, and
+$B$ has independent increments with respect to $(\mathcal{F}_t)$.
+
+Similarly, an $\mathbb{R}^d$-valued process
+$B=(B_t)_{t\ge0}$ is called a
+\emph{$d$-dimensional $(\mathcal{F}_t)$-Brownian motion}
+if $B$ is a $d$-dimensional Brownian motion, $B$ is adapted to
+$(\mathcal{F}_t)_{t\ge0}$, and has independent increments with
+respect to $(\mathcal{F}_t)$.
+
+If $B$ is a (possibly $d$-dimensional) Brownian motion and
+$(\mathcal{F}_t^B)_{t\ge0}$ denotes its (possibly completed)
+canonical filtration, then $B$ is an
+$(\mathcal{F}_t^B)$-Brownian motion.
+}
+
 \textbf{The Wiener measure.} Let $C(\mathbb R_+,\mathbb R)$ be the space of all continuous functions from $\mathbb R_+$ into $\mathbb R$. We equip $C(\mathbb R_+,\mathbb R)$ with the $\sigma$-field $\mathcal C$ defined as the smallest $\sigma$-field on $C(\mathbb R_+,\mathbb R)$ for which the coordinate mappings $w\mapsto w(t)$ are measurable for every $t\geq 0$ (alternatively, one checks that $\mathcal C$ coincides with the Borel $\sigma$-field on $C(\mathbb R_+,\mathbb R)$ associated with the topology of uniform convergence on every compact set). Given a Brownian motion $B$, we can consider the mapping
 \[
 \Omega \longrightarrow C(\mathbb R_+,\mathbb R), \qquad \omega \mapsto (t\mapsto B_t(\omega))
@@ -558,8 +611,28 @@ We start by stating a useful $0$--$1$ law.
 \end{itemize}    
 }
  
+The part (1) is in fact defining and calculating the \emph{quadratic variation} of Brownian motion, this concept is studied in more details in Section \ref{sec:quadratic-variation} and use the notation $\langle B, B \rangle = t$.
 The part (2) shows that it is not possible to define the integral $\int_0^t f(s)\,dB_s$ as a special case of the usual (Stieltjes) integral with respect to functions of finite variation (see Section \ref{sec:finite-variation-processes} for a brief presentation of the integral with respect to functions of finite variation, and also the comments on \textit{Weirner measure} in the previous section).
- 
+
+We recall that the bracket of two brownian motion $B^{(1)}$ and $B^{(2)}$ is defined as process 
+\[
+\langle B^{(1)}, B^{(2)} \rangle_t = \frac{1}{2}\left((B^{(1)}+B^{(2)})_t - \langle B^{(1)}, B^{(1)} \rangle_t - \langle B^{(2)}, B^{(2)} \rangle_t\right).
+\]
+Ând we have the following result.
+\propr{brownian_motion_independence}{
+Let $B=(B_t)_{t\ge0}$ and $B'=(B'_t)_{t\ge0}$ be two $(\mathcal{F}_t)$-Brownian motions. Assume that $B$ and $B'$ are \emph{independent}, that is,
+\[
+\sigma(B_t:t\ge0)
+\quad\text{and}\quad
+\sigma(B'_t:t\ge0)
+\]
+are independent $\sigma$-algebras.
+Then,
+\[
+\langle B,B' \rangle_t = 0,
+\qquad \forall\, t\ge0.
+\]
+}
 \section{The Strong Markov Property of Brownian Motion}
  
 Our goal is to extend the simple Markov property to the case where the deterministic time $s$ is replaced by a stopping time $T$ (see Section \ref{sec:martingale_stoppig_time}).  
@@ -606,4 +679,27 @@ Many of the preceding results can be extended to $d$-dimensional Brownian motion
 
 Furthermore, the symetry property can be extended as follows. If $X$ is a $d$-dimensional Brownian motion and $\Phi$ is an isometry of $\mathbb R^d$, the process $(\Phi(X_t))_{t\geq 0}$ is still a $d$-dimensional Brownian motion.
 
+\section{Levy's Characterisation}
+\thmr{Levy's Characterisation}{levy_characterisation}{
+Let $X=(X^1,\ldots,X^d)$ be an adapted process with continuous sample paths. The following are equivalent:
+\begin{enumerate}
+    \item $X$ is a $d$-dimensional $(\mathcal{F}_t)$-Brownian motion.
+    \item The processes $X^1,\ldots,X^d$ are continuous local martingales, and
+    \[
+    \langle X^i,X^j\rangle_t=\delta_{ij}t,
+    \qquad \forall\, t\ge0,\; i,j\in\{1,\ldots,d\},
+    \]
+    where $\delta_{ij}$ denotes the Kronecker delta.
+\end{enumerate}
+In particular, a continuous local martingale $M$ is an $(\mathcal{F}_t)$-Brownian motion if and only if
+\[
+\langle M,M\rangle_t=t,
+\qquad \forall\, t\ge0,
+\]
+or equivalently, if and only if
+\[
+M_t^2-t
+\]
+is a continuous local martingale.
+}
 \end{document}

@@ -1116,7 +1116,7 @@ We now apply the preceding bound to a sequence $0 = t_0^k < t_1^k < \dots < t_{p
 \[ \lim_{k \to \infty} E\left[\sup_{1 \le i \le p_k} |N_{t_i^k} - N_{t_{i-1}^k}|\right] = 0. \]
 We then conclude that $E[N_t^2] = 0$, hence $M_{t \wedge \tau_n} = 0$ a.s. Letting $n$ tend to $\infty$, we get that $M_t = 0$ a.s. 
 }
-\subsection{The Quadratic Variation of a Continuous Local Martingale}
+\subsection{The Quadratic Variation of a Continuous Local Martingale} \label{sec:quadratic-variation}
 
 \thmpr{Quadratic variation existence}{quad_var_existence}{
 Let $M = (M_t)_{t \geq 0}$ be a continuous local martingale. There exists an increasing process denoted by $(\langle M, M \rangle_t)_{t \geq 0}$, which is unique up to indistinguishability, such that $M_t^2 - \langle M, M \rangle_t$ is a continuous local martingale. Furthermore, for every fixed $t > 0$, if $0 = t_0^n < t_1^n < \dots < t_{p_n}^n = t$ is an increasing sequence of subdivisions of $[0, t]$ with mesh tending to $0$, we have :
@@ -1151,6 +1151,7 @@ Let $M$ be a continuous local martingale and let $T$ be a stopping time.
 \end{enumerate}
 }
 The next theorem shows that properties of a continuous local martingale are closely related to those of its quadratic variation. If $A$ is an increasing process, $A_\infty$ denotes the increasing limit of $A_t$ as $t \to \infty$ (this limit always exists in $[0, \infty]$).
+
 \thmpr{}{quad_var_equivalences}{
 Let $M$ be a continuous local martingale with $M_0 \in L^2$.
 \begin{enumerate}
@@ -1212,8 +1213,112 @@ and is therefore (by Proposition \ref{prop:other_properties_local_martingale} (2
 \end{enumerate}
     
 
+\lempr{Quadratic-variation integral formula for continuous integrands}{qv_continuous_integrand}{
+Let $X = (X_s)_{s \ge 0}$ be a continuous process for which Theorem~\ref{thm:quad_var_existence} holds, so that the quadratic variation $\langle X, X \rangle$ exists as a continuous, nondecreasing, adapted process. Fix $t > 0$ and let $(\pi_n)_{n \ge 1}$,
+$$
+\pi_n : \quad 0 = t_0^n < t_1^n < \cdots < t_{p_n}^n = t,
+$$
+be a sequence of subdivisions of $[0,t]$ whose mesh $|\pi_n| := \max_i (t_{i+1}^n - t_i^n)$
+tends to $0$ as $n \to \infty$.
+Let $H = (H_s)_{0 \le s \le t}$ be a process, jointly measurable in $(s,\omega)$, whose
+sample paths $s \mapsto H_s(\omega)$ are almost surely continuous. Then
+$$
+\sum_{i=0}^{p_n - 1} H_{t_i^n} \left( X_{t_{i+1}^n} - X_{t_i^n} \right)^2
+\;\xrightarrow[n \to \infty]{\mathbb{P}}\;
+\int_0^t H_s \, d\langle X, X \rangle_s .
+$$
+}{
+Since convergence in probability is metrizable, it suffices to show that every
+subsequence of $(n)$ has a further subsequence along which the stated convergence holds almost surely.
+\begin{enumerate}
+\item \textbf{Step 1 (Random measures).}
+For each $n$, define the (a.s. finite, purely atomic, positive) random measure on $[0,t]$
+$$
+\mu_n(dr) \;:=\; \sum_{i=0}^{p_n - 1} \left( X_{t_{i+1}^n} - X_{t_i^n} \right)^2
+\delta_{t_i^n}(dr).
+$$
+By construction,
+$$
+\int_{[0,t]} H_s \, \mu_n(ds) \;=\; \sum_{i=0}^{p_n - 1} H_{t_i^n}
+\left( X_{t_{i+1}^n} - X_{t_i^n} \right)^2. \quad [1]
+$$
+
+\item \textbf{Step 2 (Convergence of cumulative masses via Proposition~\ref{thm:quad_var_existence}).}
+Fix $r \in [0,t]$ and let $k = k_n(r) := \max\{\, i : t_i^n \le r \,\}$. Applying
+Proposition~\ref{thm:quad_var_existence} (with $Y = X$) to the subdivision
+$t_0^n < t_1^n < \cdots < t_k^n < r$ of $[0,r]$ — whose mesh also tends to $0$ — gives
+$$
+\sum_{i=0}^{k-1} \left( X_{t_{i+1}^n} - X_{t_i^n} \right)^2
++ \left( X_r - X_{t_k^n} \right)^2
+\;\xrightarrow[n \to \infty]{\mathbb{P}}\; \langle X, X \rangle_r .
+$$
+On the other hand, directly from the definition of $\mu_n$,
+$$
+\mu_n([0,r]) \;=\; \sum_{i=0}^{k-1} \left( X_{t_{i+1}^n} - X_{t_i^n} \right)^2
++ \left( X_{t_{k+1}^n} - X_{t_k^n} \right)^2 .
+$$
+The two displays differ only in their last term, and
+$$
+\left( X_{t_{k+1}^n} - X_{t_k^n} \right)^2 - \left( X_r - X_{t_k^n} \right)^2
+\;\xrightarrow[n \to \infty]{\text{a.s.}}\; 0,
+$$
+since $t_{k+1}^n - t_k^n \to 0$ and $r - t_k^n \to 0$ as $|\pi_n| \to 0$, and $X$ has
+(a.s. uniformly) continuous paths on $[0,t]$. Hence
+$$
+\mu_n([0,r]) \;\xrightarrow[n \to \infty]{\mathbb{P}}\; \langle X, X \rangle_r
+\qquad \text{for every } r \in [0,t]. \quad [1]
+$$
+
+\item \textbf{Step 3 (Diagonal extraction).}
+Let $D := \bigcup_{n \ge 1} \{ t_0^n, \dots, t_{p_n}^n \}$, a countable dense subset of
+$[0,t]$ containing $t$. Enumerate $D = \{r_1, r_2, \dots\}$. By $(**)$ and a diagonal
+argument, there is a subsequence $(n_k)_{k \ge 1}$ along which
+$$
+\mu_{n_k}([0, r_j]) \;\xrightarrow[k \to \infty]{\text{a.s.}}\; \langle X, X \rangle_{r_j}
+\qquad \text{simultaneously for every } j \ge 1.
+$$
+
+\item \textbf{Step 4 (Weak convergence of $\mu_{n_k}$).}
+Let $\Omega_0$ be the a.s. event on which: (i) the convergence of Step~3 holds at every
+$r \in D$; (ii) $s \mapsto \langle X,X\rangle_s(\omega)$ is continuous and nondecreasing;
+(iii) $s \mapsto H_s(\omega)$ is continuous. Fix $\omega \in \Omega_0$. The nondecreasing
+functions $r \mapsto \mu_{n_k}([0,r])(\omega)$ converge on the dense set $D$ to the
+continuous nondecreasing function $r \mapsto \langle X,X \rangle_r(\omega)$; a standard
+squeeze argument using monotonicity and density then extends this to convergence at
+\emph{every} $r \in [0,t]$, including $r = t$ (total mass). Convergence of these
+"distribution functions" at every point, together with convergence of total mass, implies
+$$
+\mu_{n_k}(\omega) \;\xrightarrow[k \to \infty]{w}\;
+\mathbf{1}_{[0,t]}(r) \, d\langle X, X \rangle_r(\omega)
+$$
+weakly as finite positive measures on $[0,t]$.
+
+\item \textbf{Step 5 (Passing to the limit against $H$).}
+Since $H_\cdot(\omega)$ is continuous, hence bounded, on the compact interval $[0,t]$,
+weak convergence yields
+$$
+\int_{[0,t]} H_s(\omega) \, \mu_{n_k}(ds)(\omega)
+\;\xrightarrow[k \to \infty]{}\;
+\int_0^t H_s(\omega) \, d\langle X, X \rangle_s(\omega),
+\qquad \text{for every } \omega \in \Omega_0.
+$$
+By $(*)$, this is exactly
+$$
+\sum_{i=0}^{p_{n_k}-1} H_{t_i^{n_k}}
+\left( X_{t_{i+1}^{n_k}} - X_{t_i^{n_k}} \right)^2
+\;\xrightarrow[k \to \infty]{\text{a.s.}}\;
+\int_0^t H_s \, d\langle X, X \rangle_s .
+$$
+
+\item \textbf{Step 6 (Conclusion).}
+Every subsequence of $(n)$ admits a further subsequence along which the convergence
+holds almost surely; therefore the original sequence converges in probability, which
+proves the lemma.
+\end{enumerate}
+}
+
 \subsection{The Bracket of Two Continuous Local Martingales}
-\defnr{Bracket of two continuous local martingales}{}{
+\defnr{Bracket of two continuous local martingales}{martingale_bracket}{
 If $M$ and $N$ are two continuous local martingales, the \textit{bracket} $\langle M, N \rangle$ is the finite variation process defined by setting, for every $t \geq 0$,
 \begin{align*}
 \langle M, N \rangle_t = \frac{1}{2} (\langle M + N, M + N \rangle_t - \langle M, M \rangle_t - \langle N, N \rangle_t).
