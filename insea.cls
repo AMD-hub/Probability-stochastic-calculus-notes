@@ -311,7 +311,7 @@
 % items/enums/align 
 \RequirePackage{enumitem}
 \RequirePackage{setspace}
-\RequirePackage{microtype}
+% \RequirePackage{microtype}
 
 \linespread{1.1}
 \setlist[itemize,1]{label=$\bullet$}
